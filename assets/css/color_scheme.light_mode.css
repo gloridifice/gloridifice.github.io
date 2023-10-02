@@ -1,4 +1,4 @@
-:root{
+:root {
     --text-color: #2a2928;
     --emphasized-color: #000;
     --accents-color-1: #70706f;
@@ -6,6 +6,7 @@
     --accents-color-3: #d2d1ce;
     --theme-color: #c54c1c;
     --theme-color-1: #ce7858;
+    --theme-color-2: #f3c9bb;
     --reverse-text-color: #FFF;
     --bg-color: #F1EEEB;
     --navbar-bg-color: rgb(19 20 20/6%);
@@ -15,8 +16,8 @@
     --shadow-color-1: rgb(0 0 0/4%);
     --hlt-color-1: rgb(255 255 255/25%);
 
-    --head-cover-opacity: .75;
-
     --inline-code-color-bg: rgba(218, 180, 163, 0.56);
     --inline-code-color-text: rgb(140, 57, 13);
+
+    --head-cover-filter: opacity(.75);
 }
