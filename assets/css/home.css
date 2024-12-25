@@ -1,6 +1,6 @@
 :root {
   background-color: var(--bg-color);
-  --about-width: 400px;
+  --about-width: 366px;
 }
 
 body {
@@ -17,10 +17,10 @@ body {
   width: var(--about-width);
   height: 100vh;
   background-color: var(--bg-color-1);
-  background-image: url("../resources/text_background.png");
+  background-image: var(--text-tile-bg-image);
   box-sizing: border-box;
   border: 24px var(--bg-color-0) solid;
-  padding: 36px;
+  padding: 30px;
   overflow: auto;
 }
 .about * {
@@ -113,84 +113,6 @@ body {
 .about .introduction .icon svg * {
   fill: var(--text-color-2);
 }
-.about .friends {
-  margin-top: 48px;
-  width: 100%;
-}
-.about .friends .title {
-  display: flex;
-  flex-direction: row;
-  align-items: end;
-  margin-left: 10px;
-}
-.about .friends .title svg {
-  width: 28px;
-  height: 28px;
-}
-.about .friends .title svg * {
-  fill: var(--text-color-2);
-}
-.about .friends .title div {
-  margin-left: 10px;
-  color: var(--text-color-2);
-  font-weight: normal;
-}
-.about .friends .list {
-  width: 100%;
-}
-.about .friends .list .friend_link:hover {
-  border: solid 1px var(--text-color-2);
-}
-.about .friends .list .friend_link {
-  box-sizing: content-box;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin: 8px auto;
-  background-color: var(--bg-color-0);
-  border-radius: 4px;
-  padding: 4px 10px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: border-color 0.2s;
-  border: solid 1px transparent;
-}
-.about .friends .list .friend_link .start {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  height: fit-content;
-  margin: auto 0;
-}
-.about .friends .list .friend_link .start svg {
-  width: 14px;
-  height: 14px;
-  margin-right: 6px;
-}
-.about .friends .list .friend_link .start div {
-  transition: 0.2s color;
-  height: fit-content;
-  margin: auto 0;
-}
-.about .friends .list .friend_link .start .icon {
-  height: 20px;
-  margin: 4px;
-}
-.about .friends .list .friend_link .start .icon svg {
-  fill: var(--text-color-2);
-}
-.about .friends .list .friend_link .start .icon svg * {
-  fill: var(--text-color-2);
-}
-.about .friends .list .friend_link .desc {
-  color: var(--text-color-2);
-  height: fit-content;
-  margin: 0;
-  margin-left: 12px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
 @media only screen and (max-width: 380px) {
   .about .outside_pages {
     flex-direction: column;
@@ -229,7 +151,10 @@ body {
 
 .contents {
   width: 100%;
-  margin: 48px 0 0 4vw;
+  min-height: 100vh;
+  margin: 0;
+  border-left: solid var(--bg-color-1) 1px;
+  border-right: solid var(--bg-color-1) 1px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -256,52 +181,8 @@ body {
   fill: var(--theme-color);
 }
 
-.blog_previews_wrapper {
-  margin: 10px auto;
-}
-
-.type_name_wrapper {
-  display: flex;
-  flex-direction: row;
-}
-
-.type_name {
-  width: fit-content;
-  margin: 0 auto;
-  pointer-events: none;
-  color: var(--accents-color-2);
-  font-weight: 400;
-}
-
-.post_type_buttons {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.post_type_button {
-  width: fit-content;
-  padding: 4px 4px;
-  margin: 0 0.5em;
-  transition: 0.3s all;
-}
-
-.is_selected {
-  cursor: default;
-}
-
-.is_selected h3 {
-  font-weight: 600;
-  color: var(--theme-color);
-}
-
 .hidden {
   display: none;
-}
-
-.post_previews_wrapper {
-  margin-top: 2em;
 }
 
 /*# sourceMappingURL=home.css.map */
