@@ -31,94 +31,11 @@
   <body>
     <script>hljs.highlightAll();</script>
     <div class="post">
-      <div class="catalogue">
-        <div>
-          <ul>
-            <li class="h1"><a href="#heading1_0">
-                <t class="">UE 网络同步系统</t>
-              </a></li>
-            <li class="h2"><a href="#heading2_0">
-                <t class="code">NetDriver</t>
-                <t class="">, </t>
-                <t class="code">NetConnections</t>
-                <t class=""> 和 </t>
-                <t class="code">Channels</t>
-              </a></li>
-            <li class="h2"><a href="#heading2_0">
-                <t class="code">Game Net Drivers</t>
-                <t class="">, </t>
-                <t class="code">Net Connections</t>
-                <t class="">, 和 </t>
-                <t class="code">Channels</t>
-              </a></li>
-            <li class="h2"><a href="#heading2_0">
-                <t class="">初始化连接 / 握手流程（Initiating Connections / Handshaking Flow）</t>
-              </a></li>
-            <li class="h3"><a href="#heading3_0">
-                <t class="">开始设置与握手（Startup and Handshaking）</t>
-              </a></li>
-            <li class="h3"><a href="#heading3_1">
-                <t class="code">UWorld / UPendingNetGame / AGameModeBase Startup and Handshaking</t>
-              </a></li>
-            <li class="h3"><a href="#heading3_2">
-                <t class="">重新建立丢失的连接（Reestablishing Lost Connections）</t>
-              </a></li>
-            <li class="h2"><a href="#heading2_3">
-                <t class="">数据传输（Data Transmission）</t>
-              </a></li>
-            <li class="h3"><a href="#heading3_3">
-                <t class="">可靠性和重新传输（Reliability and Retransmission）</t>
-              </a></li>
-            <li class="h3"><a href="#heading3_4">
-                <t class="">接收侧检测丢包（Detecting Incoming Dropped Packets）</t>
-              </a></li>
-            <li class="h3"><a href="#heading3_5">
-                <t class="">发出侧检测丢包（Detecting Outgoing Dropped Packets）</t>
-              </a></li>
-            <li class="h3"><a href="#heading3_6">
-                <t class="">重新发送丢失数据（Resending Missing Data）</t>
-              </a></li>
-            <li class="h1"><a href="#heading1_1">
-                <t class="">重要概念</t>
-              </a></li>
-            <li class="h1"><a href="#heading1_2">
-                <t class="">源代码梳理 - Tick 阶段</t>
-              </a></li>
-            <li class="h2"><a href="#heading2_7">
-                <t class="code">TickDispatch</t>
-              </a></li>
-            <li class="h2"><a href="#heading2_7">
-                <t class="code">PostTickDispatch</t>
-              </a></li>
-            <li class="h2"><a href="#heading2_7">
-                <t class="code">TickFlush</t>
-              </a></li>
-            <li class="h3"><a href="#heading3_7">
-                <t class="code">ServerReplicateActors()</t>
-              </a></li>
-            <li class="h3"><a href="#heading3_8">
-                <t class="code">UNetConnection::Tick</t>
-              </a></li>
-            <li class="h2"><a href="#heading2_9">
-                <t class="code">PostTickFlush</t>
-              </a></li>
-            <li class="h2"><a href="#heading2_9">
-                <t class="">小结</t>
-              </a></li>
-            <li class="h1"><a href="#heading1_3">
-                <t class="">握手</t>
-              </a></li>
-            <li class="h2"><a href="#heading2_9">
-                <t class="">小结</t>
-              </a></li>
-          </ul>
-        </div>
+      <div class="sidebar_wrapper_left sidebar_wrapper">
+        <div class="navi"><a class="navi_link button" href="/home.html"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" version="1.1" width="21" height="20.999996185302734" viewBox="0 0 21 20.999996185302734"><defs><clipPath id="master_svg0_9_0235"><rect x="0" y="0" width="21" height="20.999996185302734" rx="0"/></clipPath></defs><g clip-path="url(#master_svg0_9_0235)"><g><path d="M9.9628,1.059317C10.27877,0.8135611,10.7212,0.8135611,11.03716,1.059317C11.03716,1.059317,18.9122,7.18432,18.9122,7.18432C19.1253,7.35009,19.25,7.60498,19.25,7.875C19.25,7.875,19.25,17.5,19.25,17.5C19.25,18.1962,18.9734,18.8639,18.4811,19.3561C17.9889,19.8484,17.321199999999997,20.125,16.625,20.125C16.625,20.125,4.375,20.125,4.375,20.125C3.67881,20.125,3.01113,19.8484,2.518845,19.3561C2.026561,18.8639,1.75,18.1962,1.75,17.5C1.75,17.5,1.75,7.875,1.75,7.875C1.75,7.60498,1.874664,7.35009,2.087802,7.18432C2.087802,7.18432,9.9628,1.059317,9.9628,1.059317C9.9628,1.059317,9.9628,1.059317,9.9628,1.059317ZM8.75,18.375C8.75,18.375,12.25,18.375,12.25,18.375C12.25,18.375,12.25,11.375,12.25,11.375C12.25,11.375,8.75,11.375,8.75,11.375C8.75,11.375,8.75,18.375,8.75,18.375C8.75,18.375,8.75,18.375,8.75,18.375ZM14,18.375C14,18.375,14,10.5,14,10.5C14,10.01674,13.6083,9.625,13.125,9.625C13.125,9.625,7.875,9.625,7.875,9.625C7.39176,9.625,7,10.01674,7,10.5C7,10.5,7,18.375,7,18.375C7,18.375,4.375,18.375,4.375,18.375C4.14293,18.375,3.92038,18.2828,3.75628,18.1187C3.59219,17.9547,3.5,17.732,3.5,17.5C3.5,17.5,3.5,8.30295,3.5,8.30295C3.5,8.30295,10.5,2.8585000000000003,10.5,2.8585000000000003C10.5,2.8585000000000003,17.5,8.30295,17.5,8.30295C17.5,8.30295,17.5,17.5,17.5,17.5C17.5,17.732,17.4078,17.9547,17.2437,18.1187C17.0796,18.2828,16.857,18.375,16.625,18.375C16.625,18.375,14,18.375,14,18.375C14,18.375,14,18.375,14,18.375Z" fill-rule="evenodd" fill="#373737" fill-opacity="1"/></g></g></svg></a><a class="navi_link button" href="/blogs.html"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg></a><a class="navi_link button" href="/portfolio.html"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M619-108q-11 11-25.5 17T563-85q-16 0-31-6t-26-17l-56-56q-11-11-16.5-24.5T427-216q-1-14 3.5-28t13.5-26l6-8-326-466 156-156 509 509q11 11 17 25.5t6 30.5q0 16-6 31t-17 26L619-108ZM507-335l113-112-340-340-52 52 279 400Zm56 170 169-169-56-57-170 170 57 56Zm-56-170 113-112-113 112Z"/></svg></a><a class="navi_link button" href="/about.html"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M194-80v-395h80v315h280v-193l105-105q29-29 45-65t16-77q0-40-16.5-76T659-741l-25-26-127 127H347l-43 43-57-56 67-67h160l160-160 82 82q40 40 62 90.5T800-600q0 57-22 107.5T716-402l-82 82v240H194Zm197-187L183-475q-11-11-17-26t-6-31q0-16 6-30.5t17-25.5l84-85 124 123q28 28 43.5 64.5T450-409q0 40-15 76.5T391-267Z"/></svg></a></div>
       </div>
-      <div class="navi"><a class="navi_link" href="/home.html">主页</a><a class="navi_link" href="/blogs.html">博客</a><a class="navi_link" href="/portfolio.html">项目</a><a class="navi_link" href="/about.html">关于</a></div>
-      <div class="sidebar_wrapper_left sidebar_wrapper"></div>
-      <div class="sidebar_wrapper_right sidebar_wrapper"></div>
       <div class="contents">
-        <div class="header"><a class="navi_link" href="/home.html">主页</a><a class="navi_link" href="/blogs.html">博客</a><a class="navi_link" href="/portfolio.html">项目</a><a class="navi_link" href="/about.html">关于</a></div>
+        <div class="header"><a class="navi_link button" href="/home.html"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" version="1.1" width="21" height="20.999996185302734" viewBox="0 0 21 20.999996185302734"><defs><clipPath id="master_svg0_9_0235"><rect x="0" y="0" width="21" height="20.999996185302734" rx="0"/></clipPath></defs><g clip-path="url(#master_svg0_9_0235)"><g><path d="M9.9628,1.059317C10.27877,0.8135611,10.7212,0.8135611,11.03716,1.059317C11.03716,1.059317,18.9122,7.18432,18.9122,7.18432C19.1253,7.35009,19.25,7.60498,19.25,7.875C19.25,7.875,19.25,17.5,19.25,17.5C19.25,18.1962,18.9734,18.8639,18.4811,19.3561C17.9889,19.8484,17.321199999999997,20.125,16.625,20.125C16.625,20.125,4.375,20.125,4.375,20.125C3.67881,20.125,3.01113,19.8484,2.518845,19.3561C2.026561,18.8639,1.75,18.1962,1.75,17.5C1.75,17.5,1.75,7.875,1.75,7.875C1.75,7.60498,1.874664,7.35009,2.087802,7.18432C2.087802,7.18432,9.9628,1.059317,9.9628,1.059317C9.9628,1.059317,9.9628,1.059317,9.9628,1.059317ZM8.75,18.375C8.75,18.375,12.25,18.375,12.25,18.375C12.25,18.375,12.25,11.375,12.25,11.375C12.25,11.375,8.75,11.375,8.75,11.375C8.75,11.375,8.75,18.375,8.75,18.375C8.75,18.375,8.75,18.375,8.75,18.375ZM14,18.375C14,18.375,14,10.5,14,10.5C14,10.01674,13.6083,9.625,13.125,9.625C13.125,9.625,7.875,9.625,7.875,9.625C7.39176,9.625,7,10.01674,7,10.5C7,10.5,7,18.375,7,18.375C7,18.375,4.375,18.375,4.375,18.375C4.14293,18.375,3.92038,18.2828,3.75628,18.1187C3.59219,17.9547,3.5,17.732,3.5,17.5C3.5,17.5,3.5,8.30295,3.5,8.30295C3.5,8.30295,10.5,2.8585000000000003,10.5,2.8585000000000003C10.5,2.8585000000000003,17.5,8.30295,17.5,8.30295C17.5,8.30295,17.5,17.5,17.5,17.5C17.5,17.732,17.4078,17.9547,17.2437,18.1187C17.0796,18.2828,16.857,18.375,16.625,18.375C16.625,18.375,14,18.375,14,18.375C14,18.375,14,18.375,14,18.375Z" fill-rule="evenodd" fill="#373737" fill-opacity="1"/></g></g></svg></a><a class="navi_link button" href="/blogs.html"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg></a><a class="navi_link button" href="/portfolio.html"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M619-108q-11 11-25.5 17T563-85q-16 0-31-6t-26-17l-56-56q-11-11-16.5-24.5T427-216q-1-14 3.5-28t13.5-26l6-8-326-466 156-156 509 509q11 11 17 25.5t6 30.5q0 16-6 31t-17 26L619-108ZM507-335l113-112-340-340-52 52 279 400Zm56 170 169-169-56-57-170 170 57 56Zm-56-170 113-112-113 112Z"/></svg></a><a class="navi_link button" href="/about.html"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M194-80v-395h80v315h280v-193l105-105q29-29 45-65t16-77q0-40-16.5-76T659-741l-25-26-127 127H347l-43 43-57-56 67-67h160l160-160 82 82q40 40 62 90.5T800-600q0 57-22 107.5T716-402l-82 82v240H194Zm197-187L183-475q-11-11-17-26t-6-31q0-16 6-30.5t17-25.5l84-85 124 123q28 28 43.5 64.5T450-409q0 40-15 76.5T391-267Z"/></svg></a></div>
         <div class="page_description">
           <h1 class="title">👯 Unreal 5 多人网络同步源码梳理（基础）</h1>
           <div class="sub_info">
@@ -172,14 +89,10 @@
               <t class="code">Game NetDriver</t>
               <t class="">：负责正常的游戏网络通信</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="code">Demo NetDriver</t>
               <t class="">： 负责记录或回放记录的游戏数据，这也是提供回放功能的地方</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="code">Beacon NetDriver</t>
               <t class="">：负责正常游戏外网络通信</t>
@@ -212,14 +125,10 @@
               <t class="code">Control Channel</t>
               <t class="">：用于发送监控当前连接的数据，比如当前连接是否需要关闭等</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="code">Voice Channel</t>
               <t class="">：用于在客户端和服务端之间发送声音数据</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="code">Unique Actor Channel</t>
               <t class=""> 在每个从服务端复制到客户端的 </t>
@@ -395,8 +304,6 @@
               <t class=""> 发送 </t>
               <t class="code">NMT_Hello</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="">服务器的 </t>
               <t class="code">UWorld::NotifyControlMessage</t>
@@ -405,8 +312,6 @@
               <t class="">，并发送 </t>
               <t class="code">NMT_Challenge</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="">客户端的 </t>
               <t class="code">UPendingNetGame::NotifyControlMessage</t>
@@ -416,8 +321,6 @@
               <t class="code">NMT_Login</t>
               <t class=""> 中发回数据</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="">服务器的 </t>
               <t class="code">UWorld::NotifyControlMessage</t>
@@ -426,8 +329,6 @@
               <t class="">，验证质询数据（challenge data），并调用 </t>
               <t class="code">AGameModeBase::PreLogin</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="">如果 </t>
               <t class="code">PreLogin</t>
@@ -438,8 +339,6 @@
               <t class=""> 并发送含有地图信息的 </t>
               <t class="code">NMT_Welcome</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="">客户端的 </t>
               <t class="code">UPendingNetGame::NotifyControlMessage</t>
@@ -449,8 +348,6 @@
               <t class="code">NMT_NetSpeed</t>
               <t class=""> 信息，这里包含了客户端配置了的网络速度（Net Speed）</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="">服务器的 </t>
               <t class="code">UWorld::NotifyControlMessage</t>
@@ -560,8 +457,6 @@
               <t class="">客户端调用 </t>
               <t class="code">Server_RPC</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="">这个请求将会通过 </t>
               <t class="code">NetDriver</t>
@@ -569,54 +464,38 @@
               <t class="code">NetConnection</t>
               <t class=""> 被转发（forwarded）到对应 Actor 的 Actor Channel</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="">这个 Actor Channel 会序列化 RPC 标识符和参数到一个带有这个 Actor Channel 的 ID 的束中</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="">Actor Channel 向 </t>
               <t class="code">NetConnection</t>
               <t class=""> 请求发送束</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="">接着，</t>
               <t class="code">NetConnection</t>
               <t class=""> 将会组合这些数据到一个包中，被发送到服务器</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="">在服务器中，包会被 </t>
               <t class="code">NetDriver</t>
               <t class=""> 接收</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="code">NetDriver</t>
               <t class=""> 讲话检查包的源地址，并将包交给适当的 </t>
               <t class="code">NetConnection</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="">对应的 </t>
               <t class="code">NetConnection</t>
               <t class=""> 会把包拆称束</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="code">NetConnection</t>
               <t class=""> 会使用束包含的 Actor Channel ID 来把束发送到对应的 Actor Channel、</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="">Actor Channel 会拆开束，查看其包含的 RPC 数据，然后使用 RPC ID 和被序列化的参数去调用 Actor 的函数</t>
             </li>
@@ -732,14 +611,10 @@
               <t class="code">nullptr</t>
               <t class=""> 说明当前运行在服务器上</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="code">ClientConnections</t>
               <t class=""> 与客户端的连接列表</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="code">MappedClientConnections</t>
               <t class=""> IP 到连接的表</t>
@@ -755,38 +630,24 @@
             <li>
               <t class="code">World::Tick</t>
             </li>
-          </ol>
-          <ol>
             <li>
               <t class="code">OnTickDispatch</t>
             </li>
-          </ol>
-          <ol>
             <li>
               <t class="code">PrePhysics</t>
             </li>
-          </ol>
-          <ol>
             <li>
               <t class="code">ActorTick</t>
             </li>
-          </ol>
-          <ol>
             <li>
               <t class="code">OnPostTickDispatch</t>
             </li>
-          </ol>
-          <ol>
             <li>
               <t class="code">OnPreTickFlush</t>
             </li>
-          </ol>
-          <ol>
             <li>
               <t class="code">OnTickFlush</t>
             </li>
-          </ol>
-          <ol>
             <li>
               <t class="code">OnPostTickFlush</t>
             </li>
@@ -798,18 +659,12 @@
             <li>
               <t class="code">OnTickDispatch</t>
             </li>
-          </ol>
-          <ol>
             <li>
               <t class="code">OnPostTickDispatch</t>
             </li>
-          </ol>
-          <ol>
             <li>
               <t class="code">OnTickFlush</t>
             </li>
-          </ol>
-          <ol>
             <li>
               <t class="code">OnPostTickFlush</t>
             </li>
@@ -1431,8 +1286,6 @@ void UNetDriver::TickDispatch( float DeltaTime )
               <t class="code">ServerTickRate</t>
               <t class="">），间隔就是最大 Tick 频率的倒数，用于待同步列表的构建</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="code">ServerReplicateActors_BuildConsiderList</t>
               <t class=""> 构建待同步列表，这会剔除掉睡眠的 Actor</t>
@@ -1537,16 +1390,12 @@ void UNetDriver::TickDispatch( float DeltaTime )
               <t class="code">Actor</t>
               <t class=""> 的物理位置</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="code">Viewer</t>
               <t class="">：本质是一个</t>
               <t class="code">FNetViewer</t>
               <t class="">结构体，它包含了网络连接指针、视角、位置坐标等，用于快速判断一个物体是否在另一个物体的视野范围内，这些数据通常是关联于某个 Actor 的</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="code">new (ConnectionViewers) FNetViewer(Connection, DeltaSeconds);</t>
               <t class=""> 语法在 </t>
@@ -1601,8 +1450,6 @@ void UNetDriver::TickDispatch( float DeltaTime )
               <t class="code">Pop</t>
               <t class=""> 时，会将栈顶设置回开始记录的栈顶，来实现快速“释放”内存的效果。</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="code">OnProcessConsiderListOverride</t>
               <t class=""> 是自定义同步逻辑相关的事件，可以允许开发者自定义 </t>
@@ -1645,8 +1492,6 @@ void UNetDriver::TickDispatch( float DeltaTime )
               <t class="code">ServerReplicateActors_ProcessPrioritizedActorsRange</t>
               <t class=""> 会处理高优先级的 Actors 并返回没有处理完的 Actors 的数量</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="code">ServerReplicateActors_MarkRelevantActors</t>
               <t class=""> 会利用剩下的 Actor 数量，将相关的 Actor 标记为相关，并留到下帧优先处理</t>
@@ -1672,8 +1517,6 @@ void UNetDriver::TickDispatch( float DeltaTime )
               <t class=""> 秒内可见的 </t>
               <t class="code">Actor</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="">使用 </t>
               <t class="code">IsActorRelevantToConnection</t>
@@ -1854,8 +1697,6 @@ void UNetDriver::TickDispatch( float DeltaTime )
               <t class="code">Tick</t>
               <t class=""> 函数会安全地发送其队列里的包</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="code">FlushHandler</t>
               <t class=""> 会强制发送所有缓存的无建立连接的包</t>
@@ -1877,8 +1718,6 @@ void UNetDriver::TickDispatch( float DeltaTime )
               <t class="code">UpdateNetworkStats()</t>
               <t class=""> 主要作用是更新基础统计，如带宽利用率、丢包率等</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="code">GetMetrics()</t>
               <t class=""> 会返回 </t>
@@ -2005,8 +1844,6 @@ if (bReceiveTimedOut || bGracefulCloseTimedOut)
               <t class="code">Timeout</t>
               <t class="">，除了会输出日志外，还会关闭连接和尝试自动重连</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="">优雅关闭超时（</t>
               <t class="code">bGracefulCloseTimedOut</t>
@@ -2203,8 +2040,6 @@ if (ResendPacket &amp;&amp; Driver-&gt;IsNetResourceValid())
               <t class=""> 发送 </t>
               <t class="code">NMT_Hello</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="">服务器的 </t>
               <t class="code">UWorld::NotifyControlMessage</t>
@@ -2213,8 +2048,6 @@ if (ResendPacket &amp;&amp; Driver-&gt;IsNetResourceValid())
               <t class="">，并发送 </t>
               <t class="code">NMT_Challenge</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="">客户端的 </t>
               <t class="code">UPendingNetGame::NotifyControlMessage</t>
@@ -2224,8 +2057,6 @@ if (ResendPacket &amp;&amp; Driver-&gt;IsNetResourceValid())
               <t class="code">NMT_Login</t>
               <t class=""> 中发回数据</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="">服务器的 </t>
               <t class="code">UWorld::NotifyControlMessage</t>
@@ -2234,8 +2065,6 @@ if (ResendPacket &amp;&amp; Driver-&gt;IsNetResourceValid())
               <t class="">，验证质询数据（challenge data），并调用 </t>
               <t class="code">AGameModeBase::PreLogin</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="">如果 </t>
               <t class="code">PreLogin</t>
@@ -2246,8 +2075,6 @@ if (ResendPacket &amp;&amp; Driver-&gt;IsNetResourceValid())
               <t class=""> 并发送含有地图信息的 </t>
               <t class="code">NMT_Welcome</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="">客户端的 </t>
               <t class="code">UPendingNetGame::NotifyControlMessage</t>
@@ -2257,8 +2084,6 @@ if (ResendPacket &amp;&amp; Driver-&gt;IsNetResourceValid())
               <t class="code">NMT_NetSpeed</t>
               <t class=""> 信息，这里包含了客户端配置了的网络速度（Net Speed）</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="">服务器的 </t>
               <t class="code">UWorld::NotifyControlMessage</t>
@@ -2276,8 +2101,6 @@ if (ResendPacket &amp;&amp; Driver-&gt;IsNetResourceValid())
               <t class="code">FURL</t>
               <t class=""> 类型，它携带了网络协议、地图路径等信息</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="">在客户端主动切换关卡时（</t>
               <t class="code">ClientTravel</t>
@@ -2285,8 +2108,6 @@ if (ResendPacket &amp;&amp; Driver-&gt;IsNetResourceValid())
               <t class="code">OpenLevel</t>
               <t class="">），会重新建立连接</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="">在服务器主导的关卡切换时，不需要重新建立连接</t>
             </li>
@@ -2334,8 +2155,6 @@ if (ResendPacket &amp;&amp; Driver-&gt;IsNetResourceValid())
               <t class="">：这个函数会使用游戏默认 URL 进行 </t>
               <t class="code">Browse</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="code">UEngine::TickWorldTravel()</t>
               <t class="">：这个函数会获取传入的世界上下文（</t>
@@ -2344,8 +2163,6 @@ if (ResendPacket &amp;&amp; Driver-&gt;IsNetResourceValid())
               <t class="code">Browse</t>
               <t class="">，如果失败，会尝试使用默认的 URL，也就是下面这条的函数</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="code">UEngine::BrowseToDefaultMap()</t>
               <t class="">：这个函数会在 </t>
@@ -2455,8 +2272,6 @@ if( NetDriver-&gt;InitConnect( this, URL, ConnectionError ) )
               <t class=""> 的 </t>
               <t class="code">TickDispatch</t>
             </li>
-          </ul>
-          <ul>
             <li>
               <t class="code">UWorld::NotifyControlMessage</t>
               <t class=""> 经过层层转发，在顶层也是在 </t>
@@ -2478,6 +2293,89 @@ if( NetDriver-&gt;InitConnect( this, URL, ConnectionError ) )
             <t class="code">UWorld::NotifyControlMessage</t>
             <t class=""> 中，两者通过传递各项控制信息与地图信息，完成连接的建立。</t>
           </p>
+        </div>
+      </div>
+      <div class="sidebar_wrapper_right sidebar_wrapper">
+        <div class="catalogue">
+          <ul>
+            <li class="h1"><a href="#heading1_0">
+                <t class="">UE 网络同步系统</t>
+              </a></li>
+            <li class="h2"><a href="#heading2_0">
+                <t class="code">NetDriver</t>
+                <t class="">, </t>
+                <t class="code">NetConnections</t>
+                <t class=""> 和 </t>
+                <t class="code">Channels</t>
+              </a></li>
+            <li class="h2"><a href="#heading2_0">
+                <t class="code">Game Net Drivers</t>
+                <t class="">, </t>
+                <t class="code">Net Connections</t>
+                <t class="">, 和 </t>
+                <t class="code">Channels</t>
+              </a></li>
+            <li class="h2"><a href="#heading2_0">
+                <t class="">初始化连接 / 握手流程（Initiating Connections / Handshaking Flow）</t>
+              </a></li>
+            <li class="h3"><a href="#heading3_0">
+                <t class="">开始设置与握手（Startup and Handshaking）</t>
+              </a></li>
+            <li class="h3"><a href="#heading3_1">
+                <t class="code">UWorld / UPendingNetGame / AGameModeBase Startup and Handshaking</t>
+              </a></li>
+            <li class="h3"><a href="#heading3_2">
+                <t class="">重新建立丢失的连接（Reestablishing Lost Connections）</t>
+              </a></li>
+            <li class="h2"><a href="#heading2_3">
+                <t class="">数据传输（Data Transmission）</t>
+              </a></li>
+            <li class="h3"><a href="#heading3_3">
+                <t class="">可靠性和重新传输（Reliability and Retransmission）</t>
+              </a></li>
+            <li class="h3"><a href="#heading3_4">
+                <t class="">接收侧检测丢包（Detecting Incoming Dropped Packets）</t>
+              </a></li>
+            <li class="h3"><a href="#heading3_5">
+                <t class="">发出侧检测丢包（Detecting Outgoing Dropped Packets）</t>
+              </a></li>
+            <li class="h3"><a href="#heading3_6">
+                <t class="">重新发送丢失数据（Resending Missing Data）</t>
+              </a></li>
+            <li class="h1"><a href="#heading1_1">
+                <t class="">重要概念</t>
+              </a></li>
+            <li class="h1"><a href="#heading1_2">
+                <t class="">源代码梳理 - Tick 阶段</t>
+              </a></li>
+            <li class="h2"><a href="#heading2_7">
+                <t class="code">TickDispatch</t>
+              </a></li>
+            <li class="h2"><a href="#heading2_7">
+                <t class="code">PostTickDispatch</t>
+              </a></li>
+            <li class="h2"><a href="#heading2_7">
+                <t class="code">TickFlush</t>
+              </a></li>
+            <li class="h3"><a href="#heading3_7">
+                <t class="code">ServerReplicateActors()</t>
+              </a></li>
+            <li class="h3"><a href="#heading3_8">
+                <t class="code">UNetConnection::Tick</t>
+              </a></li>
+            <li class="h2"><a href="#heading2_9">
+                <t class="code">PostTickFlush</t>
+              </a></li>
+            <li class="h2"><a href="#heading2_9">
+                <t class="">小结</t>
+              </a></li>
+            <li class="h1"><a href="#heading1_3">
+                <t class="">握手</t>
+              </a></li>
+            <li class="h2"><a href="#heading2_9">
+                <t class="">小结</t>
+              </a></li>
+          </ul>
         </div>
       </div>
     </div>
