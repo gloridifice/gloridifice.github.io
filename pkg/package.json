@@ -1,0 +1,15 @@
+{
+  "name": "rs-wasm-script",
+  "type": "module",
+  "version": "0.1.0",
+  "files": [
+    "rs_wasm_script_bg.wasm",
+    "rs_wasm_script.js",
+    "rs_wasm_script.d.ts"
+  ],
+  "main": "rs_wasm_script.js",
+  "types": "rs_wasm_script.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
