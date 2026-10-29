@@ -49,7 +49,7 @@ init_all();     </script>
         </div>
         <div class="page_content">
           <p></p>
-          <div class="image_wrapper"><img src="/images/devlogs/延迟渲染管线、微表面 BRDF、法线变换、物体继承树 UI/Jan-29-2025_01-13-05.gif" alt="[Jan-29-2025 01-13-05.gif]"></div>
+          <div class="image_wrapper"><img src="/images/devlogs/延迟渲染管线、微表面 BRDF、法线变换、物体继承树 UI/Jan-29-2025_01-13-05.gif" alt="Jan-29-2025 01-13-05.gif"></div>
           <h1 id="heading1_0" index-text="I">法线变换</h1>
           <p>法线的变换受模型旋转和缩放的影响。但缩放会使法线变换发生错误，不能直接用模型缩放和旋转的合变换来做。Jason L. McKesson 的 <a href="https://www.notion.so/Normal-Mapping-1737e342f5b580499966c8b906b26558?pvs=21" class="link">这篇文章</a> 介绍了法线变换矩阵的原理和计算方法。这里直接卸出结论：</p>
           <p>$$
@@ -207,7 +207,7 @@ fn vs_main(
             </div>
           </div>
           <p></p>
-          <div class="image_wrapper"><img src="/images/devlogs/延迟渲染管线、微表面 BRDF、法线变换、物体继承树 UI/25-1-22.png" alt="[面的前方：左手系逆时针 (CCW) ]"></div>
+          <div class="image_wrapper"><img src="/images/devlogs/延迟渲染管线、微表面 BRDF、法线变换、物体继承树 UI/25-1-22.png" alt="面的前方：左手系逆时针 (CCW) "></div>
           <p>面的前方：左手系逆时针 (CCW) </p>
           <h3 id="heading3_1">Bindings</h3>
           <p>关于 G-Buffer 的部分我传入主 Pass 的参数如右图。因为所有贴图的采样方式都是 No Filter (Nearest)，ClampToEdge. 所以只需要一个采样器就可以了。</p>
@@ -336,7 +336,7 @@ fn perceptual_roughness_to_roughness(perceptual_roughness: f32) -&gt; f32 {
           <p>表格和算法出自 <a href="https://google.github.io/filament/Filament.html" class="link">Physically Based Rendering in Filament</a>，原理可见原文。</p>
           <h1 id="heading1_4" index-text="V">更好的 Editor UI</h1>
           <p></p>
-          <div class="image_wrapper"><img src="/images/devlogs/延迟渲染管线、微表面 BRDF、法线变换、物体继承树 UI/image.jpg" alt="[image.png]"></div>
+          <div class="image_wrapper"><img src="/images/devlogs/延迟渲染管线、微表面 BRDF、法线变换、物体继承树 UI/image.jpg" alt="image.png"></div>
           <p>增加了世界物体继承和组件的 UI，可以相对方便地控制各个物体的组件了。</p>
           <h2 id="heading2_4">Material Override</h2>
           <p>增加了一个材质继承的组件，用于覆盖某个 Mesh 的材质。附加在 MeshRenderer 组件的即可。也因此可以方便地在 Inspector 中调整材质的属性了。</p>

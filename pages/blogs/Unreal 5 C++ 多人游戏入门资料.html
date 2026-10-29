@@ -70,7 +70,7 @@ init_all();     </script>
           <p>这样可以安全地回退版本。</p>
           <h1 id="heading1_1" index-text="II">UE 常见类</h1>
           <p>这个小节会描述 UE 当中重要且常用的一些类，总体的标题顺序是从基类到派生类。</p>
-          <h2 id="heading2_3">`UObject`</h2>
+          <h2 id="heading2_3"><code>UObject</code></h2>
           <p>UObject 是 UE 参与反射与垃圾回收的最基本类。其包含两个重要子类：</p>
           <ul>
             <li>
@@ -81,7 +81,7 @@ init_all();     </script>
             </li>
           </ul>
           <p>在类命名时通常使用 U 开头来标记此类为 UObject 的派生类，A 开头来标记此类为 AActor 的派生类。下文会对这两个类以及 UObject 的垃圾回收机制进行简单地介绍。</p>
-          <h2 id="heading2_4">`AActor`</h2>
+          <h2 id="heading2_4"><code>AActor</code></h2>
           <p>AActor 是可以放在场景中的物体的父类。具体来说，它有变换属性（旋转、缩放、位置等），同时也有网络功能。</p>
           <blockquote>
             <p>参考资料（官方文档）：<a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/unreal-engine-actor-lifecycle" class="link">https://dev.epicgames.com/documentation/en-us/unreal-engine/unreal-engine-actor-lifecycle</a></p>
@@ -110,10 +110,10 @@ init_all();     </script>
               <p><code>FinishDestory</code>（与垃圾回收相关，这是 <code>UObject</code>被释放前的最后一次调用）</p>
             </li>
           </ul>
-          <h2 id="heading2_5">`APawn`</h2>
+          <h2 id="heading2_5"><code>APawn</code></h2>
           <p>APawn 是用于表征可控制的实体，如玩家、NPC 等，它是 AActor 的子类。</p>
           <p><a href="https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/GameFramework/APawn" class="link">https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/GameFramework/APawn</a></p>
-          <h2 id="heading2_6">`UActorComponent`</h2>
+          <h2 id="heading2_6"><code>UActorComponent</code></h2>
           <p><code>UActorComponent</code> 是一个重要的类，它是渲染网格、图像、碰撞、音频等玩家视觉、听觉、交互的唯一途径，也是游戏逻辑的重要载体。下文将 Component 称为“组件“。</p>
           <p>组件被附加在 Actor 上，其没有变换信息。要想组件被正常使用，其需要被注册，注册会在组件被当作 sub-objects 时被自动完成，也可以手工使用 <code>RegisterComponent</code> 函数注册（但运行时注册会影响性能，这点需要注意）。</p>
           <p>注册组件时，<code>UActorComponent::OnRegister</code> 会被触发。此外，<code>CreateRenderState</code> 和 <code>OnCreatePhysicsState</code> 也会被触发。如果想要取消注册一个组件，使用 <code>UnregisterComponent</code> 组件即可。</p>
@@ -146,9 +146,9 @@ MyComponent-&gt;SetupAttachment(RootComponent); // RootComponent 是 Actor 的�
           <div class="table">
             <table>
               <tr class="table_header">
-                <td class="table_header"> <strong>**子类**</strong> </td>
-                <td class="table_header"> <strong>**功能说明**</strong> </td>
-                <td class="table_header"> <strong>**示例场景**</strong> </td>
+                <td class="table_header"> <strong>子类</strong> </td>
+                <td class="table_header"> <strong>功能说明</strong> </td>
+                <td class="table_header"> <strong>示例场景</strong> </td>
               </tr>
               <tr>
                 <td> <code>USceneComponent</code> </td>
@@ -221,7 +221,7 @@ TArray&lt;UMyObjectClass*&gt; Foo;</code></pre>
               <p>使用 <code>TWeakObjectPtr&lt;T&gt;</code> 或 <code>TSoftObjectPointer&lt;T&gt;</code> 弱指针作为成员变量</p>
             </li>
           </ul>
-          <h2 id="heading2_7">智能指针与非 `UObject` 对象的内存管理</h2>
+          <h2 id="heading2_7">智能指针与非 <code>UObject</code> 对象的内存管理</h2>
           <p>对于非 UObject 的对象，其不支持垃圾回收，但是 UE 也提供了与 C++11 标准库类似的内存管理方式，即智能指针。本小节不再赘述标准库中的智能指针的特性与工作原理，读者可以阅读 <a href="https://www.learncpp.com/cpp-tutorial/introduction-to-smart-pointers-move-semantics/" class="link">LEARN C++ 相关章节</a>。下面表格介绍了非 UObject 与 UObject 智能指针，需要注意的是，非 UObject 的智能指针不能给 UObject 使用！</p>
           <div class="table">
             <table>
@@ -394,19 +394,19 @@ protected:
 };</code></pre>
             </div>
           </div>
-          <h3 id="heading3_5">相关性（**Relevancy**）</h3>
+          <h3 id="heading3_5">相关性（<strong>Relevancy</strong>）</h3>
           <p>一个关卡可能很大，我们希望只有与玩家相关的 Actor 才被更新。UE 提供了相关性机制，只有与某个网络连接有关的 Actor 才会被复制。同时，如果某些 Actor 与当前客户端不相关，它们会在客户端被销毁。</p>
           <p>网络驱动程序会自动调用 <code>AActor::IsNetRelevantFor</code> 来判断某个 Actor 是否与某个连接相关。如果想要强制设置相关性，可以使用 <code>AActor::ForceNetRelevant</code> 来管理。下面是默认的相关性判断条件：</p>
           <ol>
             <li>
               <p>强制相关条件
-满足以下任一条件时，Actor <strong>**必定相关**</strong>（向客户端同步）：</p>
+满足以下任一条件时，Actor <strong>必定相关</strong>（向客户端同步）：</p>
               <ol>
                 <li>
-                  <p>Actor 被标记为 <strong>**<code>Always Relevant</code>**</strong>（始终相关）。</p>
+                  <p>Actor 被标记为 <strong><code>Always Relevant</code></strong>（始终相关）。</p>
                 </li>
                 <li>
-                  <p>Actor <strong>**属于当前连接的控制权对象**</strong>：</p>
+                  <p>Actor <strong>属于当前连接的控制权对象</strong>：</p>
                 </li>
                 <li>
                   <p>是当前连接的 <code>Pawn</code>。</p>
@@ -415,72 +415,72 @@ protected:
                   <p>被当前连接的 <code>Pawn</code> 或 <code>Player Controller</code> 拥有（<code>OwnedBy</code>）。</p>
                 </li>
                 <li>
-                  <p>Actor 是当前连接 <code>Pawn</code> 触发的<strong>**行为发起者**</strong>（如噪音、伤害的 Instigator）。</p>
+                  <p>Actor 是当前连接 <code>Pawn</code> 触发的<strong>行为发起者</strong>（如噪音、伤害的 Instigator）。</p>
                 </li>
               </ol>
             </li>
             <li>
               <p>依赖所有者的相关性
-若满足以下条件，Actor 的相关性 <strong>**由其 Owner 决定**</strong>：</p>
+若满足以下条件，Actor 的相关性 <strong>由其 Owner 决定</strong>：</p>
               <ol>
                 <li>
-                  <p>Actor <strong>**设置了 Owner**</strong>（通过 <code>SetOwner</code>）。</p>
+                  <p>Actor <strong>设置了 Owner</strong>（通过 <code>SetOwner</code>）。</p>
                 </li>
                 <li>
-                  <p>Actor 启用了 <strong>**<code>bNetUseOwnerRelevancy</code>**</strong>（使用 Owner 的相关性设置）。</p>
+                  <p>Actor 启用了 <strong><code>bNetUseOwnerRelevancy</code></strong>（使用 Owner 的相关性设置）。</p>
                 </li>
               </ol>
             </li>
             <li>
               <p>强制不相关条件
-满足以下任一条件时，Actor <strong>**必定不相关**</strong>：</p>
+满足以下任一条件时，Actor <strong>必定不相关</strong>：</p>
               <ol>
                 <li>
-                  <p>Actor <strong>**仅对 Owner 相关**</strong>（<code>bOnlyRelevantToOwner=true</code>），且：</p>
+                  <p>Actor <strong>仅对 Owner 相关</strong>（<code>bOnlyRelevantToOwner=true</code>），且：</p>
                 </li>
                 <li>
-                  <p>没有 Owner <strong>**或**</strong> Owner 自身不相关。</p>
+                  <p>没有 Owner <strong>或</strong> Owner 自身不相关。</p>
                 </li>
                 <li>
-                  <p>Actor <strong>**被隐藏**</strong>（<code>bHidden=true</code>）。</p>
+                  <p>Actor <strong>被隐藏</strong>（<code>bHidden=true</code>）。</p>
                 </li>
                 <li>
-                  <p>Actor <strong>**无根组件**</strong>（Root Component） <strong>**或**</strong> 根组件的碰撞未启用（<code>CollisionEnabled=NoCollision</code>）。</p>
+                  <p>Actor <strong>无根组件</strong>（Root Component） <strong>或</strong> 根组件的碰撞未启用（<code>CollisionEnabled=NoCollision</code>）。</p>
                 </li>
               </ol>
             </li>
             <li>
               <p>基于骨骼附加的相关性
-若 Actor <strong>**附加到其他 Actor 的骨骼**</strong>（如角色装备的武器）：</p>
+若 Actor <strong>附加到其他 Actor 的骨骼</strong>（如角色装备的武器）：</p>
               <ol>
                 <li>
-                  <p>使用被附加 Actor 的 <strong>**基础相关性规则**</strong>（附加目标的网络相关性决定其相关性）。</p>
+                  <p>使用被附加 Actor 的 <strong>基础相关性规则</strong>（附加目标的网络相关性决定其相关性）。</p>
                 </li>
               </ol>
             </li>
             <li>
               <p>距离相关性（可选）
-若启用了 <strong>**距离相关性**</strong>（通过 <code>AGameNetworkManager::bUseDistanceBasedRelevancy</code>）：</p>
+若启用了 <strong>距离相关性</strong>（通过 <code>AGameNetworkManager::bUseDistanceBasedRelevancy</code>）：</p>
               <ol>
                 <li>
-                  <p>Actor 在客户端的 <strong>**可视距离内**</strong>（基于 <code>NetCullDistanceSquared</code>）时相关，否则不相关。</p>
+                  <p>Actor 在客户端的 <strong>可视距离内</strong>（基于 <code>NetCullDistanceSquared</code>）时相关，否则不相关。</p>
                 </li>
               </ol>
             </li>
           </ol>
-          <p><strong>**规则优先级说明**</strong></p>
+          <p><strong>规则优先级说明</strong></p>
           <ol>
             <li>
-              <p><strong>**强制相关**</strong>条件的优先级最高（如 <code>Always Relevant</code>）。</p>
+              <p><strong>强制相关</strong>条件的优先级最高（如 <code>Always Relevant</code>）。</p>
             </li>
             <li>
-              <p><strong>**强制不相关**</strong>条件优先级次之（如隐藏或无根组件）。</p>
+              <p><strong>强制不相关</strong>条件优先级次之（如隐藏或无根组件）。</p>
             </li>
             <li>
-              <p>其余条件按顺序判断，最终由 <strong>**距离或附加目标相关性**</strong> 决定。</p>
+              <p>其余条件按顺序判断，最终由 <strong>距离或附加目标相关性</strong> 决定。</p>
             </li>
           </ol>
-          <p><strong>**调试建议**</strong></p>
+          <p><strong>调试建议</strong></p>
           <ul>
             <li>
               <p>使用控制台命令 <code>VisualizeNetworkRelevancy</code> 可视化相关性范围。</p>
@@ -489,7 +489,7 @@ protected:
               <p>检查 Actor 属性：<code>bAlwaysRelevant</code>、<code>bOnlyRelevantToOwner</code>、<code>NetCullDistanceSquared</code>。</p>
             </li>
           </ul>
-          <h3 id="heading3_6">网络休眠（**Network Dormancy**）</h3>
+          <h3 id="heading3_6">网络休眠（<strong>Network Dormancy</strong>）</h3>
           <p>休眠是一个手动管理的网络优化机制，休眠中的 Actor 不会发生复制，也不会在客户端因为相关性而被销毁。同时，不要修改休眠中的 Actor 的可复制数据，这可能发生数据丢失。</p>
           <p>休眠属性存储在 AActor::NetDormacy 属性中，可以通过 AActor::SetNetDormancy 来更改。</p>
           <p><code>NetDormacy</code> 的类型是 <code>TEnumAsByte&lt;enum ENetDormancy&gt;</code> ，其中 ENetDormancy 枚举类型有下：</p>
@@ -608,26 +608,26 @@ void ServerRequestLetMyFriendPetCat_Implementation() {
           <p>编辑器中的多人游戏调试菜单在下图的位置：</p>
           <p></p>
           <div class="stack-container">
-            <div class="stack-card" data-index="0"><img src="/images/blogs/GameDev/Unreal5Cpp多人游戏入门资料/actorlifecycle1.jpg" alt="[actorlifecycle1.png]"></div>
-            <div class="stack-card" data-index="1"><img src="/images/blogs/GameDev/Unreal5Cpp多人游戏入门资料/image.jpg" alt="[image.png]"></div>
+            <div class="stack-card" data-index="0"><img src="/images/blogs/GameDev/Unreal5Cpp多人游戏入门资料/actorlifecycle1.jpg" alt="actorlifecycle1.png"></div>
+            <div class="stack-card" data-index="1"><img src="/images/blogs/GameDev/Unreal5Cpp多人游戏入门资料/image.jpg" alt="image.png"></div>
           </div>
           <h2 id="heading2_12">场景切换</h2>
           <p>推荐阅读官方文档：<a href="https://dev.epicgames.com/documentation/zh-cn/unreal-engine/travelling-in-multiplayer-in-unreal-engine" class="link">https://dev.epicgames.com/documentation/zh-cn/unreal-engine/travelling-in-multiplayer-in-unreal-engine</a></p>
           <h1 id="heading1_4" index-text="V">Profiling</h1>
           <p>性能分析菜单可以通过编辑器右下角的选项打开。</p>
           <p></p>
-          <div class="image_wrapper"><img src="/images/blogs/GameDev/Unreal5Cpp多人游戏入门资料/image 1.jpg" alt="[image.png]"></div>
+          <div class="image_wrapper"><img src="/images/blogs/GameDev/Unreal5Cpp多人游戏入门资料/image 1.jpg" alt="image.png"></div>
           <p>点击 Unreal Insights (Session Browser) 的选项可以打开多个调试选项卡。</p>
           <p></p>
-          <div class="image_wrapper"><img src="/images/blogs/GameDev/Unreal5Cpp多人游戏入门资料/image 2.jpg" alt="[image.png]"></div>
+          <div class="image_wrapper"><img src="/images/blogs/GameDev/Unreal5Cpp多人游戏入门资料/image 2.jpg" alt="image.png"></div>
           <p>点击录制按钮开始录制，再次点击停止录制。</p>
           <p></p>
-          <div class="image_wrapper"><img src="/images/blogs/GameDev/Unreal5Cpp多人游戏入门资料/image 3.jpg" alt="[image.png]"></div>
+          <div class="image_wrapper"><img src="/images/blogs/GameDev/Unreal5Cpp多人游戏入门资料/image 3.jpg" alt="image.png"></div>
           <p>录制完成后 Unreal Insights 会显示录制的数据，双击即可查看分析数据。</p>
           <h3 id="heading3_7">参考资料</h3>
           <ul>
             <li>
-              <p><strong>**How to Optimize Performance in Unreal Engine 5**</strong> <a href="https://youtu.be/lfjG3z5VVIw" class="link">https://youtu.be/lfjG3z5VVIw</a></p>
+              <p><strong>How to Optimize Performance in Unreal Engine 5</strong> <a href="https://youtu.be/lfjG3z5VVIw" class="link">https://youtu.be/lfjG3z5VVIw</a></p>
             </li>
           </ul>
           <h1 id="heading1_5" index-text="VI">其它常用 API</h1>
@@ -686,22 +686,22 @@ NotReflectedPtr-&gt;IsValidLowLevel()</code></pre>
             <li class="h2"><a href="#heading2_1">Ctrl+S 并不是全部保存</a></li>
             <li class="h2"><a href="#heading2_2">使用版本管理工具</a></li>
             <li class="h1"><a href="#heading1_1">UE 常见类</a></li>
-            <li class="h2"><a href="#heading2_3">`UObject`</a></li>
-            <li class="h2"><a href="#heading2_4">`AActor`</a></li>
-            <li class="h2"><a href="#heading2_5">`APawn`</a></li>
-            <li class="h2"><a href="#heading2_6">`UActorComponent`</a></li>
+            <li class="h2"><a href="#heading2_3">UObject</a></li>
+            <li class="h2"><a href="#heading2_4">AActor</a></li>
+            <li class="h2"><a href="#heading2_5">APawn</a></li>
+            <li class="h2"><a href="#heading2_6">UActorComponent</a></li>
             <li class="h1"><a href="#heading1_2">UE 垃圾回收机制</a></li>
             <li class="h3"><a href="#heading3_0">所有强引用（Hard Reference）</a></li>
             <li class="h3"><a href="#heading3_1">某些弱引用（Soft Reference）</a></li>
-            <li class="h2"><a href="#heading2_7">智能指针与非 `UObject` 对象的内存管理</a></li>
+            <li class="h2"><a href="#heading2_7">智能指针与非 UObject 对象的内存管理</a></li>
             <li class="h2"><a href="#heading2_8">参考资料</a></li>
             <li class="h1"><a href="#heading1_3">多人游戏与网络同步机制</a></li>
             <li class="h2"><a href="#heading2_9">Actor 的网络属性</a></li>
             <li class="h3"><a href="#heading3_2">所有者：Role 和 Remote Role</a></li>
             <li class="h3"><a href="#heading3_3">优先级（Priority）</a></li>
             <li class="h3"><a href="#heading3_4">复制（Replication）</a></li>
-            <li class="h3"><a href="#heading3_5">相关性（**Relevancy**）</a></li>
-            <li class="h3"><a href="#heading3_6">网络休眠（**Network Dormancy**）</a></li>
+            <li class="h3"><a href="#heading3_5">相关性（Relevancy）</a></li>
+            <li class="h3"><a href="#heading3_6">网络休眠（Network Dormancy）</a></li>
             <li class="h2"><a href="#heading2_10">RPC 远程函数调用</a></li>
             <li class="h2"><a href="#heading2_11">调试建议</a></li>
             <li class="h2"><a href="#heading2_12">场景切换</a></li>

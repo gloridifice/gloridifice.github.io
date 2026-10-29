@@ -52,20 +52,20 @@ init_all();     </script>
           <p><a href="https://www.youtube.com/live/7kgXBifWQXI?si=YV_v28aWoVnYm98q&amp;t=5618" class="link">ThinkyCon 2024 - Day 1</a></p>
           <p>ThinkyCon 2024 视频</p>
           <p></p>
-          <div class="image_wrapper"><img src="/images/blogs/GameDev/《怪兽远征》的编辑器工具｜随记 ThinkyCon 2024/Untitled.jpg" alt="[Untitled]"></div>
+          <div class="image_wrapper"><img src="/images/blogs/GameDev/《怪兽远征》的编辑器工具｜随记 ThinkyCon 2024/Untitled.jpg" alt="Untitled"></div>
           <h1 id="heading1_0" index-text="I">PuzzleScript</h1>
           <p>开发者最早使用 PuzzleScript 实现了一个游戏原型，并用其制作关卡原型。</p>
           <p></p>
-          <div class="image_wrapper"><img src="/images/blogs/GameDev/《怪兽远征》的编辑器工具｜随记 ThinkyCon 2024/Untitled 1.jpg" alt="[Untitled]"></div>
+          <div class="image_wrapper"><img src="/images/blogs/GameDev/《怪兽远征》的编辑器工具｜随记 ThinkyCon 2024/Untitled 1.jpg" alt="Untitled"></div>
           <p>其中关卡是用字符来表示的，点选即载入。</p>
           <p></p>
-          <div class="image_wrapper"><img src="/images/blogs/GameDev/《怪兽远征》的编辑器工具｜随记 ThinkyCon 2024/Untitled 2.jpg" alt="[Untitled]"></div>
+          <div class="image_wrapper"><img src="/images/blogs/GameDev/《怪兽远征》的编辑器工具｜随记 ThinkyCon 2024/Untitled 2.jpg" alt="Untitled"></div>
           <h1 id="heading1_1" index-text="II">Unity</h1>
           <hr class="divider_block">
           <h2 id="heading2_0">编辑</h2>
           <p>开发者们实现了一套运行时编辑器关卡编辑工具，其可以检测玩家所在的关卡并进行操作。例如进入编辑模式，选择方块位置，拖拽，即可完成对关卡的修改。每一个关卡都有独立的编号，开发者可以通过编号索引关卡。鼠标悬浮在关卡上时会显示关卡名称和编号。</p>
           <p></p>
-          <div class="image_wrapper"><img src="/images/blogs/GameDev/《怪兽远征》的编辑器工具｜随记 ThinkyCon 2024/Untitled 3.jpg" alt="[Edit mode]"></div>
+          <div class="image_wrapper"><img src="/images/blogs/GameDev/《怪兽远征》的编辑器工具｜随记 ThinkyCon 2024/Untitled 3.jpg" alt="Edit mode"></div>
           <p>Edit mode</p>
           <p>Alan 说运行时编辑关卡的操作模式提供了一个很重要的特性：其避免了测试关卡时你需要“改关卡→重新运行→测试关卡”这样浪费时间的行为。</p>
           <p>具体到他们的编辑工具，其有这些模式：</p>
@@ -87,26 +87,26 @@ init_all();     </script>
           <p></p>
           <p></p>
           <div class="stack-container">
-            <div class="stack-card" data-index="0"><img src="/images/blogs/GameDev/《怪兽远征》的编辑器工具｜随记 ThinkyCon 2024/Untitled 4.jpg" alt="[Untitled]"></div>
-            <div class="stack-card" data-index="1"><img src="/images/blogs/GameDev/《怪兽远征》的编辑器工具｜随记 ThinkyCon 2024/Untitled 5.jpg" alt="[还做了碰撞标识]"></div>
+            <div class="stack-card" data-index="0"><img src="/images/blogs/GameDev/《怪兽远征》的编辑器工具｜随记 ThinkyCon 2024/Untitled 4.jpg" alt="Untitled"></div>
+            <div class="stack-card" data-index="1"><img src="/images/blogs/GameDev/《怪兽远征》的编辑器工具｜随记 ThinkyCon 2024/Untitled 5.jpg" alt="还做了碰撞标识"></div>
           </div>
           <p>还做了碰撞标识</p>
           <p>开发者提供了 x 的标识，用于标注这里不希望有方块，否则可以岛屿被连通。</p>
           <p></p>
-          <div class="image_wrapper"><img src="/images/blogs/GameDev/《怪兽远征》的编辑器工具｜随记 ThinkyCon 2024/Untitled 6.jpg" alt="[Untitled]"></div>
+          <div class="image_wrapper"><img src="/images/blogs/GameDev/《怪兽远征》的编辑器工具｜随记 ThinkyCon 2024/Untitled 6.jpg" alt="Untitled"></div>
           <h2 id="heading2_1">保存</h2>
           <p>做了任何改动，只有点击 Save/Save All，地图才会以 json 的格式被存储到磁盘中。使用 json 的其中一个好处是易于被 git 跟踪，可以进行版本管理。如果不小心搞毁了关卡，rollback 就好了。</p>
           <h2 id="heading2_2">设置主题</h2>
           <p>设置关卡的视觉主题是通过他们自己的 Tag 来实现的，开发者可以拖拽选择一系列关卡，然后切换关卡的 Tag 来快速切换主题。</p>
           <p></p>
-          <div class="image_wrapper"><img src="/images/blogs/GameDev/《怪兽远征》的编辑器工具｜随记 ThinkyCon 2024/Untitled 7.jpg" alt="[Untitled]"></div>
+          <div class="image_wrapper"><img src="/images/blogs/GameDev/《怪兽远征》的编辑器工具｜随记 ThinkyCon 2024/Untitled 7.jpg" alt="Untitled"></div>
           <h2 id="heading2_3">回放测试</h2>
           <p>他们还开发了测试模式，测试模式可以录制玩家的操作，存储到本地，需要时进行回放。其对于记录解谜游戏的解法有帮助，同时也可以批量测试关卡、案例，确保关卡不会因为某些机制改变而出现问题。</p>
           <p></p>
           <p></p>
           <div class="stack-container">
-            <div class="stack-card" data-index="0"><img src="/images/blogs/GameDev/《怪兽远征》的编辑器工具｜随记 ThinkyCon 2024/Untitled 8.jpg" alt="[Untitled]"></div>
-            <div class="stack-card" data-index="1"><img src="/images/blogs/GameDev/《怪兽远征》的编辑器工具｜随记 ThinkyCon 2024/Untitled 9.jpg" alt="[Untitled]"></div>
+            <div class="stack-card" data-index="0"><img src="/images/blogs/GameDev/《怪兽远征》的编辑器工具｜随记 ThinkyCon 2024/Untitled 8.jpg" alt="Untitled"></div>
+            <div class="stack-card" data-index="1"><img src="/images/blogs/GameDev/《怪兽远征》的编辑器工具｜随记 ThinkyCon 2024/Untitled 9.jpg" alt="Untitled"></div>
           </div>
         </div>
       </div>

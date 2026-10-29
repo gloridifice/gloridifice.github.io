@@ -54,7 +54,7 @@ init_all();     </script>
           <p>在 <code>NEtDriver.h</code> 中，有一段详细的关于 UE 的网络同步机制的介绍。本文首先会在第一章翻译 UE 的注释文档，这对理解网络同步过程与其代码会很有帮助。接着，网络同步主要发生在 Tick 阶段，本文会在第二章中具体看一下 <code>UNetDriver</code> 类和它的 <code>Tick</code> 阶段的行为，同时也会涉及一些 <code>UIpNetDriver</code> 的内容。接下来，UE 对握手流程有一个较为清除的介绍，本文会再深入一些握手的具体代码，看看握手在 UE 源码中的触发时机。</p>
           <h1 id="heading1_0" index-text="I">UE 网络同步系统</h1>
           <p><code>NetDriver.h</code> 中的注释文档非常详细地介绍了网络同步机制和相关的类与代码。笔者在此先对其进行翻译。理解这部分内容对理解 UE 5 的网络同步机制十分有帮助。</p>
-          <h2 id="heading2_0">`NetDriver`, `NetConnections` 和 `Channels`</h2>
+          <h2 id="heading2_0"><code>NetDriver</code>, <code>NetConnections</code> 和 <code>Channels</code></h2>
           <p><code>UNetDriver</code> 负责管理一系列 <code>UNetConnetions</code>。一些典型的 <code>UNetDrivers</code> 有：</p>
           <ul>
             <li>
@@ -82,7 +82,7 @@ init_all();     </script>
             </li>
           </ul>
           <p>即使不是很常见，也可能会有使用自定义的 <code>Channel</code> 的情况。</p>
-          <h2 id="heading2_1">`Game Net Drivers`, `Net Connections`, 和 `Channels`</h2>
+          <h2 id="heading2_1"><code>Game Net Drivers</code>, <code>Net Connections</code>, 和 <code>Channels</code></h2>
           <p>在一般情况下，在服务器和客户端只会存在一个 <code>NetDriver</code>，用于常规的游戏通信和连接。</p>
           <p>服务器的 <code>NetDriver</code> 会维护一个 <code>NetConnection</code> 列表，每一个都代表了一个在游戏中的玩家，负责复制 <code>Actor</code> 数据。</p>
           <p>客户端的 <code>NetDriver</code> 只有一个 <code>NetConnection</code>，表示与服务器的连接。</p>
@@ -99,7 +99,7 @@ init_all();     </script>
 在这个初始化过程中，客户端将会立即为服务器设置 <code>UNetConnection</code>，并开始通过这个连接发送数据，来初始化握手过程。</p>
           <p>不管是在客户端还是在服务端，<code>UNetDriver::TickDispatch</code> 都负责接受网络数据。通常来说，当我们接受到一个包时，我们会检查它的地址，看看我们知不知道这个地址。我们需要确定我们有没有对这个源地址建立了连接，这件事通过简单地维护一个键为 <code>FInternetAddr</code>，值为 <code>UNetConnection</code> 的表完成。</p>
           <p>如果一个包来自一个已经建立的连接，我们将包通过 <code>UNetConnection::ReceivedRawPacket</code> 传入连接。如果一个包来自一个没有被建立的连接，我们认为它是 <code>connectionless</code>（下文称“无连接的”），并尝试开始握手。要了解如何握手，见 <code>StatelessConnectionHandlerComponent.cpp</code>。</p>
-          <h3 id="heading3_1">`UWorld / UPendingNetGame / AGameModeBase Startup and Handshaking`</h3>
+          <h3 id="heading3_1"><code>UWorld / UPendingNetGame / AGameModeBase Startup and Handshaking</code></h3>
           <p>在 <code>UNetDriver</code> 和 <code>UNetConnection</code> 在服务器和客户端完成了它们的握手工作后。
 客户端将会触发 <code>UPendingNetGame::SendInitialJoin</code> 游戏级别（game level）的握手。</p>
           <p>游戏基本的握手大部分在 <code>FNetControlMessages</code> 完成。完整的控制信息集合可以见 <code>DataChannel.h</code>。</p>
@@ -213,7 +213,7 @@ init_all();     </script>
           <p>任何新的，在等待丢失束期间被接收到的束，不会被立刻处理，而是会被加入队列。</p>
           <h1 id="heading1_1" index-text="II">重要概念</h1>
           <p>除了第一章中的重要概念外，本章会介绍一些上文未出现的重要概念，这些概念在源码中经常见到。</p>
-          <p><strong>**网络指标（Network Metric）**</strong> 如其名称，是供开发者评估和调试网络性能的指标。在 UE 网络同步部分的源码中，会有许多更新网络指标的代码，其往往与 <code>Metric</code> 字眼相关。开发者也可以自行注册网络指标，以及监听网络指标更新事件。具体可见 <code>GetMetrics()</code> 与 <code>NetworkMetricsDatabase.h</code>。</p>
+          <p><strong>网络指标（Network Metric）</strong> 如其名称，是供开发者评估和调试网络性能的指标。在 UE 网络同步部分的源码中，会有许多更新网络指标的代码，其往往与 <code>Metric</code> 字眼相关。开发者也可以自行注册网络指标，以及监听网络指标更新事件。具体可见 <code>GetMetrics()</code> 与 <code>NetworkMetricsDatabase.h</code>。</p>
           <h1 id="heading1_2" index-text="III">源代码梳理 - Tick 阶段</h1>
           <p><code>UNetDriver</code> 是 UE 网络处理的核心，在 <code>UNetDriver</code> 中有一些重要的字段：</p>
           <ul>
@@ -320,7 +320,7 @@ void UNetDriver::RegisterTickEvents(class UWorld* InWorld)
               </tr>
             </table>
           </div>
-          <h2 id="heading2_4">`TickDispatch`</h2>
+          <h2 id="heading2_4"><code>TickDispatch</code></h2>
           <p>这个函数主要完成接收数据的工作。</p>
           <div class="code_block">
             <div class="code_part">
@@ -532,7 +532,7 @@ void UNetDriver::TickDispatch( float DeltaTime )
             </div>
           </div>
           <p>后半部分则主要与处理连接有关。包括处理新的连接请求，将接收到的数据分发到连接等。</p>
-          <h2 id="heading2_5">`PostTickDispatch`</h2>
+          <h2 id="heading2_5"><code>PostTickDispatch</code></h2>
           <p><code>PostTickDispatch()</code> 负责结束任务分发。</p>
           <div class="code_block">
             <div class="code_part">
@@ -598,7 +598,7 @@ void UNetDriver::TickDispatch( float DeltaTime )
 }</code></pre>
             </div>
           </div>
-          <h2 id="heading2_6">`TickFlush`</h2>
+          <h2 id="heading2_6"><code>TickFlush</code></h2>
           <p><code>NetDriver</code> 的主要工作发生在 <code>TickFlush</code> 中。</p>
           <div class="code_block">
             <div class="code_part">
@@ -638,7 +638,7 @@ void UNetDriver::TickDispatch( float DeltaTime )
           </div>
           <p>上述代码对应着服务器的复制（Replication） 机制，由于在 UE 5 中新出了 Iris 复制机制，于此出现了许多宏来区分传统的复制与 Iris 复制。Iris 机制会在后面一章中具体解释，这里为了便于阅读暂时省略。传统的复制机制发生在 <code>ServerReplicateActors()</code> 函数中。</p>
           <hr class="divider_block">
-          <h3 id="heading3_7">`ServerReplicateActors()`</h3>
+          <h3 id="heading3_7"><code>ServerReplicateActors()</code></h3>
           <p>复制所有与连接相关的 Actors。首先会构建一个相关的 Actor 列表，接着，尝试去复制每一个 Actor 到与他们相关的连接。直到一个连接饱和。</p>
           <div class="code_block">
             <div class="code_part">
@@ -1033,7 +1033,7 @@ void UNetDriver::TickDispatch( float DeltaTime )
           </div>
           <p>最后，函数会更新延迟状态机。这里不深入介绍。</p>
           <hr class="divider_block">
-          <h3 id="heading3_8">`UNetConnection::Tick`</h3>
+          <h3 id="heading3_8"><code>UNetConnection::Tick</code></h3>
           <p><code>UNetConnection::Tick</code> 的逻辑十分长和复杂，这里不贴其代码，而是系统性地介绍其功能，并列举部分代码。</p>
           <p>首先，在最开始，为了避免过于频繁地更新网络，导致带宽过载，引擎可能会直接跳过这帧这个连接的 Tick：</p>
           <div class="code_block">
@@ -1186,7 +1186,7 @@ if (ResendPacket &amp;&amp; Driver-&gt;IsNetResourceValid())
             </div>
           </div>
           <p>接近结束的位置，函数会尝试重发数据。它会获取重发数据队列并在 while 循环中逐包发送。</p>
-          <h2 id="heading2_7">`PostTickFlush`</h2>
+          <h2 id="heading2_7"><code>PostTickFlush</code></h2>
           <p><code>PostTickFlush</code> 主要负责清理工作，包括清理语音包以及销毁 <code>NetDriver</code> 本身（如果 <code>NetDriver</code> 待销毁）。</p>
           <div class="code_block">
             <div class="code_part">
@@ -1355,11 +1355,11 @@ if( NetDriver-&gt;InitConnect( this, URL, ConnectionError ) )
         <div class="catalogue">
           <ul>
             <li class="h1"><a href="#heading1_0">UE 网络同步系统</a></li>
-            <li class="h2"><a href="#heading2_0">`NetDriver`, `NetConnections` 和 `Channels`</a></li>
-            <li class="h2"><a href="#heading2_1">`Game Net Drivers`, `Net Connections`, 和 `Channels`</a></li>
+            <li class="h2"><a href="#heading2_0">NetDriver, NetConnections 和 Channels</a></li>
+            <li class="h2"><a href="#heading2_1">Game Net Drivers, Net Connections, 和 Channels</a></li>
             <li class="h2"><a href="#heading2_2">初始化连接 / 握手流程（Initiating Connections / Handshaking Flow）</a></li>
             <li class="h3"><a href="#heading3_0">开始设置与握手（Startup and Handshaking）</a></li>
-            <li class="h3"><a href="#heading3_1">`UWorld / UPendingNetGame / AGameModeBase Startup and Handshaking`</a></li>
+            <li class="h3"><a href="#heading3_1">UWorld / UPendingNetGame / AGameModeBase Startup and Handshaking</a></li>
             <li class="h3"><a href="#heading3_2">重新建立丢失的连接（Reestablishing Lost Connections）</a></li>
             <li class="h2"><a href="#heading2_3">数据传输（Data Transmission）</a></li>
             <li class="h3"><a href="#heading3_3">可靠性和重新传输（Reliability and Retransmission）</a></li>
@@ -1368,12 +1368,12 @@ if( NetDriver-&gt;InitConnect( this, URL, ConnectionError ) )
             <li class="h3"><a href="#heading3_6">重新发送丢失数据（Resending Missing Data）</a></li>
             <li class="h1"><a href="#heading1_1">重要概念</a></li>
             <li class="h1"><a href="#heading1_2">源代码梳理 - Tick 阶段</a></li>
-            <li class="h2"><a href="#heading2_4">`TickDispatch`</a></li>
-            <li class="h2"><a href="#heading2_5">`PostTickDispatch`</a></li>
-            <li class="h2"><a href="#heading2_6">`TickFlush`</a></li>
-            <li class="h3"><a href="#heading3_7">`ServerReplicateActors()`</a></li>
-            <li class="h3"><a href="#heading3_8">`UNetConnection::Tick`</a></li>
-            <li class="h2"><a href="#heading2_7">`PostTickFlush`</a></li>
+            <li class="h2"><a href="#heading2_4">TickDispatch</a></li>
+            <li class="h2"><a href="#heading2_5">PostTickDispatch</a></li>
+            <li class="h2"><a href="#heading2_6">TickFlush</a></li>
+            <li class="h3"><a href="#heading3_7">ServerReplicateActors()</a></li>
+            <li class="h3"><a href="#heading3_8">UNetConnection::Tick</a></li>
+            <li class="h2"><a href="#heading2_7">PostTickFlush</a></li>
             <li class="h2"><a href="#heading2_8">小结</a></li>
             <li class="h1"><a href="#heading1_3">握手</a></li>
             <li class="h2"><a href="#heading2_9">小结</a></li>

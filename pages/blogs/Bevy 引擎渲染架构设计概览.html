@@ -212,7 +212,7 @@ pub struct StartFooPass;</code></pre>
           <p>在 Bevy 核心渲染管线的不透明 Pass Node 中，其 Query 的是 ExtractedCamera 和其它渲染相关的组件。</p>
           <div><aside>
 👉</div>
-          <p><code>ExtractedCamera</code> 是渲染世界中提供了渲染所需信息的相机组件。在 Bevy 中，<em>*Extract*</em> 表示将从主世界提取到渲染世界中的过程。我们主相机实体和它的组件会在一个 <code>ExtractSchedule</code> 阶段的 system 中被 Query，然后被实例成一个 <code>ExtractedCamera</code>，插入到渲染世界的相机实体中。</p>
+          <p><code>ExtractedCamera</code> 是渲染世界中提供了渲染所需信息的相机组件。在 Bevy 中，<em>Extract</em> 表示将从主世界提取到渲染世界中的过程。我们主相机实体和它的组件会在一个 <code>ExtractSchedule</code> 阶段的 system 中被 Query，然后被实例成一个 <code>ExtractedCamera</code>，插入到渲染世界的相机实体中。</p>
           <div></aside></div>
           <div class="code_block">
             <div class="code_part">

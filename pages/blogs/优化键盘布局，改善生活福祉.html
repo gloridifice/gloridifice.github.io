@@ -68,7 +68,7 @@ init_all();     </script>
           <h2 id="heading2_0">布局设计</h2>
           <p>Kanata 支持层级设计，在 Kanata 中，键盘默认状态是名为 base 的层。因此我也用 Base 来称呼键盘的初始层或叫默认层。</p>
           <p></p>
-          <div class="image_wrapper"><img src="/images/blogs/Programming/优化键盘布局，改善生活福祉/Base_Layer.png" alt="[Base Layer.png]"></div>
+          <div class="image_wrapper"><img src="/images/blogs/Programming/优化键盘布局，改善生活福祉/Base_Layer.png" alt="Base Layer.png"></div>
           <p>我的 Base 层是其它层的入口，它采用了 Home Row Mods 范式，其思想是将手自然放置时的 8 个按键，在按住时变为修饰键，而点按时仍然是原来的键。具体映射如图所示。此外我的 Base 层还对两个符号位做了一点改变，我将 <code>;</code> 改为了<code>回车</code>、<code>”</code> 改为了 <code>:</code>， 不用担心因此这些符号丢失，我在符号层中给他们留了位置。将回车改近的好处不必多说，<code>:</code> 作为 Vim 中常用的按键，使用频率要远高于单引号，所以做了这样的设计。</p>
           <blockquote>
             <p>在 Kanata 和其它按键映射软件中，按键可以采用名为 <code>tap-hold-release</code> 的模式，其行为是当按键被按下并段时间内被松开时，发送键 <code>&lt;A&gt;</code>；当按键被按住（没有松开）并且用户在这个过程中按下并松开了其它键，则发送键 <code>&lt;B&gt;</code>。A 和 B 可以自由设置。</p>
@@ -76,17 +76,17 @@ init_all();     </script>
           <h3 id="heading3_0">Command 层：Cmd 修饰和 Vim 风格移动</h3>
           <p>我的设计中，Command 层是在按下 Command（MacOS 上）或 Ctrl（Windows 上）时进入的层。这一层让我可以使用 Vim 风格的光标移动方式。其行为可以直观地理解成：<code>Cmd+H</code> → 左，<code>Cmd+J</code> → 下……此外，图中没有写出行为的部分都是 <code>Cmd+按键</code> 的行为。</p>
           <p></p>
-          <div class="image_wrapper"><img src="/images/blogs/Programming/优化键盘布局，改善生活福祉/Command_Layer.png" alt="[Command Layer.png]"></div>
+          <div class="image_wrapper"><img src="/images/blogs/Programming/优化键盘布局，改善生活福祉/Command_Layer.png" alt="Command Layer.png"></div>
           <p>由于 Base 层将 F 和 J 映射到了 Cmd，所以可以使用 <code>F+H/J/K/L</code> 的方式来输出方向键，<code>J+C/V</code> 进行复制粘贴等等便利的事情。</p>
           <h3 id="heading3_1">Altaction 层：快速光标操作与退格</h3>
           <p>Altaction 层与 Command 层类似，也是允许我在 vim 系软件外使用 vim 风格的方式操作光标。不过其光标移动以单词位单位。映射到的目标，在 Windows 上就是 <code>Ctrl+方向键</code>，在 MacOS 上就是 <code>Option+方向键</code>。我暂称其为 Altaction（因为 Option 在 Kanata 的物理按键名称还是 Alt）。此外，Altaction 层的空格键被映射成了退格键，删除单个字符就不用将手移到键盘右上方再移回来了。</p>
           <p></p>
-          <div class="image_wrapper"><img src="/images/blogs/Programming/优化键盘布局，改善生活福祉/Altaction_Layer.png" alt="[Altaction Layer.png]"></div>
+          <div class="image_wrapper"><img src="/images/blogs/Programming/优化键盘布局，改善生活福祉/Altaction_Layer.png" alt="Altaction Layer.png"></div>
           <p>所以我可以使用 <code>S+H/J/K/L</code> 来快速移动光标，<code>S/L+空格键</code>来输出<code>退格键</code>。</p>
           <h3 id="heading3_2">符号层：便于输入符号而不移动手掌</h3>
           <p>符号层如其名，包含了各种符号。按住空格触发符号层。符号层的布局设计经过自身的使用经历的检验，在刚设计的两周间经过了反复地修改。最终，我定下了如图所示的现在这个设计。如果你好奇为什么这样安排，可以跟随下面的文字阅读图片。</p>
           <p></p>
-          <div class="image_wrapper"><img src="/images/blogs/Programming/优化键盘布局，改善生活福祉/Symbol_Layer.png" alt="[Symbol Layer.png]"></div>
+          <div class="image_wrapper"><img src="/images/blogs/Programming/优化键盘布局，改善生活福祉/Symbol_Layer.png" alt="Symbol Layer.png"></div>
           <ul>
             <li>
               <p>第二行前半部分来自原来数字键位 Shift 下输出的符号，它们本身使用频率不高不低，这样设计可以降低记忆成本，而 <code>U/I/O</code> 是右手的黄金位置，我给它们分配了 C++ 和 Rust 很常用的三个符号 <code>&amp; * _</code>。</p>

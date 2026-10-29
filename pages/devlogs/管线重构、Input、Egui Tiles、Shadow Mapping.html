@@ -49,7 +49,7 @@ init_all();     </script>
         </div>
         <div class="page_content">
           <p></p>
-          <div class="image_wrapper"><img src="/images/devlogs/管线重构、Input、Egui Tiles、Shadow Mapping/image.jpg" alt="[模型 [https://sketchfab.com/3d-models/mkr-lykken-91b274a40ebe46cd931235ac32ae0492](https://sketchfab.com/3d-models/mkr-lykken-91b274a40ebe46cd931235ac32ae0492)]"></div>
+          <div class="image_wrapper"><img src="/images/devlogs/管线重构、Input、Egui Tiles、Shadow Mapping/image.jpg" alt="模型 https://sketchfab.com/3d-models/mkr-lykken-91b274a40ebe46cd931235ac32ae0492(https://sketchfab.com/3d-models/mkr-lykken-91b274a40ebe46cd931235ac32ae0492)"></div>
           <p>模型 <a href="https://sketchfab.com/3d-models/mkr-lykken-91b274a40ebe46cd931235ac32ae0492" class="link">https://sketchfab.com/3d-models/mkr-lykken-91b274a40ebe46cd931235ac32ae0492</a></p>
           <p>箭头代表平行光的位置和方向（黑紫色的材质说明 Default Material 正常工作）。</p>
           <h1 id="heading1_0" index-text="I">渲染管线重构</h1>
@@ -205,7 +205,7 @@ macro_rules! bg_descriptor {
           </div>
           <h1 id="heading1_2" index-text="III">Egui Tiles</h1>
           <p></p>
-          <div class="image_wrapper"><img src="/images/devlogs/管线重构、Input、Egui Tiles、Shadow Mapping/image 1.jpg" alt="[图来自官方 github 页 [https://github.com/rerun-io/egui_tiles](https://github.com/rerun-io/egui_tiles)]"></div>
+          <div class="image_wrapper"><img src="/images/devlogs/管线重构、Input、Egui Tiles、Shadow Mapping/image 1.jpg" alt="图来自官方 github 页 https://github.com/rerun-io/egui_tiles(https://github.com/rerun-io/egui_tiles)"></div>
           <p>图来自官方 github 页 <a href="https://github.com/rerun-io/egui_tiles" class="link">https://github.com/rerun-io/egui_tiles</a></p>
           <p><a href="https://github.com/rerun-io/egui_tiles" class="link">egui_tiles</a> 是一个为 egui GUI 库实现标签页功能的库。与之功能类似的库还有 <a href="https://github.com/Adanos020/egui_dock" class="link">egui_dock</a>，我此前使用过，感觉不错。为了尝试新的库，还是在这个项目使用了 egui_tiles. 使用下来感觉还是 egui_dock 更好上手一些，提供的功能也更丰富。</p>
           <p>在本开发日志的头图上你已经可以看到程序有侧边栏和标签页用于控制相机和灯光的参数了。</p>
@@ -331,7 +331,7 @@ CSM 将玩家能看到的视野范围分为多个部分，这些部分分别用�
           </ul>
           <h2 id="heading2_2">Next Station</h2>
           <p>不过我在 Shadow Mapping 上耗费了太多精力（因为一些对库和矩阵不熟悉导致的问题）。打算先放一放，做一些其它工作换换口味比较好。最近的想法是先将 SSAO (Screen Space Ambient Occlusion) 实现了吧！如果可以，也修一下法线变换问题吧 <a href="Transforming Normal](https://terathon.com/blog/transforming-normals.html)" class="link">Transforming Normal](https://terathon.com/blog/transforming-normals.html)</a>，修完法线后说不定可以把 HBAO (Horizon-Based Ambient Occlusion) 实现了。做 SSAO 要写一下后处理管线，那么之后可以把 MSAA 实现了。</p>
-          <div class="image_wrapper"><img src="/images/devlogs/管线重构、Input、Egui Tiles、Shadow Mapping/image 2.jpg" alt="[image.png]"></div>
+          <div class="image_wrapper"><img src="/images/devlogs/管线重构、Input、Egui Tiles、Shadow Mapping/image 2.jpg" alt="image.png"></div>
         </div>
       </div>
       <div class="sidebar_wrapper_right sidebar_wrapper">

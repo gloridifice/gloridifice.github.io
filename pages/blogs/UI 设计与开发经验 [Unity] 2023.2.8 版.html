@@ -64,22 +64,22 @@ init_all();     </script>
             </li>
           </ul>
           <p></p>
-          <div class="image_wrapper"><img src="/images/blogs/GameDev/UI 设计与开发经验 [Unity] 2023 2 8 版/Untitled.jpg" alt="[草图]"></div>
+          <div class="image_wrapper"><img src="/images/blogs/GameDev/UI 设计与开发经验 [Unity] 2023 2 8 版/Untitled.jpg" alt="草图"></div>
           <p>草图</p>
           <p></p>
-          <div class="image_wrapper"><img src="/images/blogs/GameDev/UI 设计与开发经验 [Unity] 2023 2 8 版/ui-preview.jpg" alt="[成品]"></div>
+          <div class="image_wrapper"><img src="/images/blogs/GameDev/UI 设计与开发经验 [Unity] 2023 2 8 版/ui-preview.jpg" alt="成品"></div>
           <p>成品</p>
           <p></p>
-          <div class="image_wrapper"><img src="/images/blogs/GameDev/UI 设计与开发经验 [Unity] 2023 2 8 版/Untitled 1.jpg" alt="[草图]"></div>
+          <div class="image_wrapper"><img src="/images/blogs/GameDev/UI 设计与开发经验 [Unity] 2023 2 8 版/Untitled 1.jpg" alt="草图"></div>
           <p>草图</p>
           <p></p>
-          <div class="image_wrapper"><img src="/images/blogs/GameDev/UI 设计与开发经验 [Unity] 2023 2 8 版/Untitled 2.jpg" alt="[成品]"></div>
+          <div class="image_wrapper"><img src="/images/blogs/GameDev/UI 设计与开发经验 [Unity] 2023 2 8 版/Untitled 2.jpg" alt="成品"></div>
           <p>成品</p>
           <p></p>
-          <div class="image_wrapper"><img src="/images/blogs/GameDev/UI 设计与开发经验 [Unity] 2023 2 8 版/Untitled 3.jpg" alt="[草图]"></div>
+          <div class="image_wrapper"><img src="/images/blogs/GameDev/UI 设计与开发经验 [Unity] 2023 2 8 版/Untitled 3.jpg" alt="草图"></div>
           <p>草图</p>
           <p></p>
-          <div class="image_wrapper"><img src="/images/blogs/GameDev/UI 设计与开发经验 [Unity] 2023 2 8 版/Untitled 4.jpg" alt="[成品]"></div>
+          <div class="image_wrapper"><img src="/images/blogs/GameDev/UI 设计与开发经验 [Unity] 2023 2 8 版/Untitled 4.jpg" alt="成品"></div>
           <p>成品</p>
           <h2 id="heading2_1">2. 导出 UI 所需的图像素材</h2>
           <p>请将大小导出为 2^n（为了压缩），并最好使单位像素大小一致。</p>
@@ -265,12 +265,12 @@ public override void OnInspectorGUI()
     }</code></pre>
             </div>
           </div>
-          <p><strong>**Inspector**</strong>：</p>
+          <p><strong>Inspector</strong>：</p>
           <p></p>
-          <div class="image_wrapper"><img src="/images/blogs/GameDev/UI 设计与开发经验 [Unity] 2023 2 8 版/Untitled 5.jpg" alt="[Untitled]"></div>
-          <p><em>*效果*</em>：</p>
+          <div class="image_wrapper"><img src="/images/blogs/GameDev/UI 设计与开发经验 [Unity] 2023 2 8 版/Untitled 5.jpg" alt="Untitled"></div>
+          <p><em>效果</em>：</p>
           <p></p>
-          <div class="image_wrapper"><img src="/images/blogs/GameDev/UI 设计与开发经验 [Unity] 2023 2 8 版/sample.gif" alt="[sample.gif]"></div>
+          <div class="image_wrapper"><img src="/images/blogs/GameDev/UI 设计与开发经验 [Unity] 2023 2 8 版/sample.gif" alt="sample.gif"></div>
           <p>自己编写 Tweener 的可控性高却繁琐，单程动画自己一般会用 DoTween 实现。</p>
           <p>*我想 DOTween 也是有实现可打断动画的方法的，自己应该学习一下。//不过自己造轮子快乐啊</p>
           <h2 id="heading2_9">3. 无限趋近式：编写快捷、适应性高</h2>
@@ -280,7 +280,7 @@ public override void OnInspectorGUI()
           <p>在一次 Ludum Dare 的作品中我用了这个方法实现卡牌动画</p>
           <p><a href="https://trioduck.itch.io/time-cardmancer" class="link">Time: Cardmancer</a></p>
           <p></p>
-          <div class="image_wrapper"><img src="/images/blogs/GameDev/UI 设计与开发经验 [Unity] 2023 2 8 版/sample_1.gif" alt="[sample_1.gif]"></div>
+          <div class="image_wrapper"><img src="/images/blogs/GameDev/UI 设计与开发经验 [Unity] 2023 2 8 版/sample_1.gif" alt="sample_1.gif"></div>
           <p>无限趋近式的意思是，让希望改变的参数的实际值无限趋近这个目标值。</p>
           <p>以缩放为例，我们设定一个物体缩放的目标值，然后让实际值无限趋近这个目标值：</p>
           <div class="code_block">
@@ -301,7 +301,7 @@ public override void OnInspectorGUI()
             </div>
           </div>
           <p></p>
-          <div class="image_wrapper"><img src="/images/blogs/GameDev/UI 设计与开发经验 [Unity] 2023 2 8 版/sample_2.gif" alt="[sample_2.gif]"></div>
+          <div class="image_wrapper"><img src="/images/blogs/GameDev/UI 设计与开发经验 [Unity] 2023 2 8 版/sample_2.gif" alt="sample_2.gif"></div>
           <p>这种方法会导致物体永远无法达到目标值，动画的停用也需要用差值进行检测。但其管理和实现都很简单，2D 相机跟踪物体用这种方式实现十分方便。</p>
           <h1 id="heading1_4" index-text="V">后记：</h1>
           <p>回顾一下，发现自己做完的可玩的游戏都是 Game Jam 作品。自己在私下幻想和开发的游戏不便展示，完成度也拿不出手。所以本篇文章的 UI 美术都是 Game Jam 的快速生产内容，一定有许多不标准的地方。</p>

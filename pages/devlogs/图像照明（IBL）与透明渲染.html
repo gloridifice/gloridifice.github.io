@@ -72,7 +72,7 @@ $$</p>
           <p>在 IBL 的实现部分，本软件会在导入环境贴图后进行三个部分的预处理。分别是HDRI 环境贴图到 Cubemap 转换、漫反射项会用到的球面谐波函数参数的预计算，以及镜面反射项会用到的环境贴图的预滤波。</p>
           <h3 id="heading3_1">HDRI 到 Cubemap 转换</h3>
           <p>通常环境贴图以 HDRI（高动态范围图像）存储。要想让高动态范围颜色在 Wgpu 中被正确表达，本软件使用格式为 <code>Float16</code> 的颜色格式在显存中存储高动态范围图像，这意味着每个通道使用一个 16 位浮点数来表达。除此之外，HDRI 使用球面投影来将一个球面上的贴图投影到平面。但是在实时渲染中，通常会使用 Cubemap （立方体纹理）来存储环境贴图，这有更好的显存利用率和采样速度。所以在导入 HDR 图像作为环境贴图时，本软件会将一张 HDR 图像转换成高动态范围的 Cubemap。</p>
-          <p>具体到转换的过程，首先软件会使用一个静态的<strong>**单位立方体模型**</strong>（在软件初始化时既上传到 GPU），其六个面分别对应世界坐标系的正负轴向（+X、-X、+Y、-Y、+Z、-Z）。每个面需要配置独立的视图矩阵与正交投影矩阵，以定义从立方体中心到各面的观察方向与投影范围。例如+X面的视图矩阵将相机看向+X方向，正交投影的视锥范围定义为近平面0.1、远平面10.0，覆盖立方体面的尺寸。其余五个面以此类推，通过调整视图矩阵的 <code>look_at</code> 参数和投影矩阵的左右上下边界实现。</p>
+          <p>具体到转换的过程，首先软件会使用一个静态的<strong>单位立方体模型</strong>（在软件初始化时既上传到 GPU），其六个面分别对应世界坐标系的正负轴向（+X、-X、+Y、-Y、+Z、-Z）。每个面需要配置独立的视图矩阵与正交投影矩阵，以定义从立方体中心到各面的观察方向与投影范围。例如+X面的视图矩阵将相机看向+X方向，正交投影的视锥范围定义为近平面0.1、远平面10.0，覆盖立方体面的尺寸。其余五个面以此类推，通过调整视图矩阵的 <code>look_at</code> 参数和投影矩阵的左右上下边界实现。</p>
           <p>接着在渲染管线中顶点着色器负责将立方体顶点转换到世界空间，片元着色器则根据当前渲染的面方向，从 HDR 全景图中采样对应区域的光照数据。关键代码逻辑如下：</p>
           <div class="code_block">
             <div class="code_part">
@@ -179,7 +179,7 @@ for y in 0..height {
           </div>
           <p>其中 <code>coeffs</code> 即为代码，之后通过 Wgpu 队列写入缓冲区后就在着色器中被使用。计算好的球面谐波函数系数被用一个 Uniform 缓冲区存储，绑定在全局 BindGroup 中。</p>
           <h3 id="heading3_3">预滤波环境贴图</h3>
-          <p>本软件通过基于粗糙度的 GGX 分布卷积生成多级 Mipmap，近似积分微表面法线分布下所有入射光对反射方向的贡献；因为粗糙度越高，滤波后的环境贴图的模糊度越高，频率越低。这种情况下及时将纹理的分辨率降低至原来的一半，采样得到的效果也不会有显著变化。因此本渲染器使用 <strong>**Mipmap**</strong> 来存储不同粗糙度下的环境贴图的滤波结果，节约了滤波后的环境贴图的占用的显存空间。笔者希望使用 GPU 进行重要性采样来提升性能，也便于使用既有的 GPU 中的环境贴图，为此需要设定一个特殊的渲染管线，其 BindGroup 绑定的信息包括环境贴图，当次滤波的粗糙度，以及采样的次数。本软件使用了 5 级 Mipmap 来存储滤波后的环境贴图，这个级数已经可以满足效果的需要。与 HDRI 纹理到 Cubemap 的转换过程类似，软件会对六个方向的 Cubemap 纹理进行逐个滤波，并渲染到新的输出纹理当中。在一个 Mipmap 层级的六次渲染中，每次只访问当次需要的 Cubemap 的某个方向的纹理与当前的 Mipmap 级别。也就是说，滤波一张 Cubemap 贴图，需要进行 5 × 6 = 30 次。每次进行渲染，软件都会创建一个临时的 View。由于只需要被采样，所以 View 的用途只需要设置为 <code>RENDER_ATTACHMENT</code>：</p>
+          <p>本软件通过基于粗糙度的 GGX 分布卷积生成多级 Mipmap，近似积分微表面法线分布下所有入射光对反射方向的贡献；因为粗糙度越高，滤波后的环境贴图的模糊度越高，频率越低。这种情况下及时将纹理的分辨率降低至原来的一半，采样得到的效果也不会有显著变化。因此本渲染器使用 <strong>Mipmap</strong> 来存储不同粗糙度下的环境贴图的滤波结果，节约了滤波后的环境贴图的占用的显存空间。笔者希望使用 GPU 进行重要性采样来提升性能，也便于使用既有的 GPU 中的环境贴图，为此需要设定一个特殊的渲染管线，其 BindGroup 绑定的信息包括环境贴图，当次滤波的粗糙度，以及采样的次数。本软件使用了 5 级 Mipmap 来存储滤波后的环境贴图，这个级数已经可以满足效果的需要。与 HDRI 纹理到 Cubemap 的转换过程类似，软件会对六个方向的 Cubemap 纹理进行逐个滤波，并渲染到新的输出纹理当中。在一个 Mipmap 层级的六次渲染中，每次只访问当次需要的 Cubemap 的某个方向的纹理与当前的 Mipmap 级别。也就是说，滤波一张 Cubemap 贴图，需要进行 5 × 6 = 30 次。每次进行渲染，软件都会创建一个临时的 View。由于只需要被采样，所以 View 的用途只需要设置为 <code>RENDER_ATTACHMENT</code>：</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">rust</div>
@@ -264,7 +264,7 @@ return color / total_weight;</code></pre>
 let diffuse = diffuse_color * max(irradiance_sh(normal), vec3&lt;f32&gt;(0.0)) / PI;</code></pre>
             </div>
           </div>
-          <p>在获得了<strong>**预滤波环境贴图**</strong>和 <strong>**BRDF 预积分**</strong>后，经过如下的计算，得到最终的镜面反射项的结果。整体描述计算镜面反射项过程的 Wgsl 代码：</p>
+          <p>在获得了<strong>预滤波环境贴图</strong>和 <strong>BRDF 预积分</strong>后，经过如下的计算，得到最终的镜面反射项的结果。整体描述计算镜面反射项过程的 Wgsl 代码：</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">rust</div>
@@ -279,8 +279,8 @@ let specular = indirect_specular * specular_color;</code></pre>
           <p></p>
           <p></p>
           <div class="stack-container">
-            <div class="stack-card" data-index="0"><img src="/images/devlogs/图像照明（IBL）与透明渲染/ibl_all.jpg" alt="[ibl_all.jpg]"></div>
-            <div class="stack-card" data-index="1"><img src="/images/devlogs/图像照明（IBL）与透明渲染/deferred_dragons.jpg" alt="[deferred_dragons.jpg]"></div>
+            <div class="stack-card" data-index="0"><img src="/images/devlogs/图像照明（IBL）与透明渲染/ibl_all.jpg" alt="ibl_all.jpg"></div>
+            <div class="stack-card" data-index="1"><img src="/images/devlogs/图像照明（IBL）与透明渲染/deferred_dragons.jpg" alt="deferred_dragons.jpg"></div>
           </div>
           <h1 id="heading1_2" index-text="III">透明渲染实现</h1>
           <h2 id="heading2_1">导入时的透明物体与非透明物体管理</h2>
@@ -300,7 +300,7 @@ let specular = indirect_specular * specular_color;</code></pre>
 }</code></pre>
             </div>
           </div>
-          <p>在<strong>**着色**</strong>上，本软件引入物体的透明度参数，这个参数被设计在物体的基础色贴图和颜色属性的 Alpha 通道当中。在着色时，软件的着色器会根据 Alpha 值进行混合。透明物体的着色仍然使用 Cook-Torrance 微表面模型。对于透明物体来说，因为镜面反射项描述的时光在物体中反射的部分，而漫反射描述的是光进入物体后被充分吸收后反射或透射的部分，所以漫反射项会受物体的透明度影响，而镜面反射不会。在着色时，渲染器直仅将漫反射项根据 Alpha 混合，镜面反射项不受 Alpha 值影响，直接相加。混合的算法采用 Alpha 混合，就是以 1 - Alpha 为源像素的权重 Alpha 作为叠加像素的颜色进行加权平均。在透明物体的着色过程中，源像素的颜色是采样上一个渲染阶段的目标纹理的结果，叠加像素是通过微表面模型计算出的颜色。下面是本软件透明渲染混合过程的 Wgsl 代码：</p>
+          <p>在<strong>着色</strong>上，本软件引入物体的透明度参数，这个参数被设计在物体的基础色贴图和颜色属性的 Alpha 通道当中。在着色时，软件的着色器会根据 Alpha 值进行混合。透明物体的着色仍然使用 Cook-Torrance 微表面模型。对于透明物体来说，因为镜面反射项描述的时光在物体中反射的部分，而漫反射描述的是光进入物体后被充分吸收后反射或透射的部分，所以漫反射项会受物体的透明度影响，而镜面反射不会。在着色时，渲染器直仅将漫反射项根据 Alpha 混合，镜面反射项不受 Alpha 值影响，直接相加。混合的算法采用 Alpha 混合，就是以 1 - Alpha 为源像素的权重 Alpha 作为叠加像素的颜色进行加权平均。在透明物体的着色过程中，源像素的颜色是采样上一个渲染阶段的目标纹理的结果，叠加像素是通过微表面模型计算出的颜色。下面是本软件透明渲染混合过程的 Wgsl 代码：</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">rust</div>
@@ -333,8 +333,8 @@ let uv = frag_coord.xy / global.screen_resolution - normal_ndc.xy * refrac;</cod
           <p></p>
           <p></p>
           <div class="stack-container">
-            <div class="stack-card" data-index="0"><img src="/images/devlogs/图像照明（IBL）与透明渲染/transparent_metallic_reflectance.jpg" alt="[transparent_metallic_reflectance.jpg]"></div>
-            <div class="stack-card" data-index="1"><img src="/images/devlogs/图像照明（IBL）与透明渲染/colored_transparent.jpg" alt="[colored_transparent.jpg]"></div>
+            <div class="stack-card" data-index="0"><img src="/images/devlogs/图像照明（IBL）与透明渲染/transparent_metallic_reflectance.jpg" alt="transparent_metallic_reflectance.jpg"></div>
+            <div class="stack-card" data-index="1"><img src="/images/devlogs/图像照明（IBL）与透明渲染/colored_transparent.jpg" alt="colored_transparent.jpg"></div>
           </div>
           <h1 id="heading1_3" index-text="IV">附录</h1>
           <h2 id="heading2_5">GGX 重要性采样的 Wgsl 实现代码</h2>

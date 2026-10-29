@@ -227,7 +227,7 @@ void UEngine::ConditionalCollectGarbage()
               </tr>
             </table>
           </div>
-          <h3 id="heading3_0">`ConditionalCollectGarbage` 详解</h3>
+          <h3 id="heading3_0"><code>ConditionalCollectGarbage</code> 详解</h3>
           <p>刚刚本文介绍了 <code>ConditionalCollectGarbage</code> 局部的逻辑和获取间隔的逻辑，接着从整体上来看一下这个函数。</p>
           <div class="code_block">
             <div class="code_part">
@@ -301,7 +301,7 @@ void UEngine::ConditionalCollectGarbage()
       }</code></pre>
             </div>
           </div>
-          <p>这段代码与<strong>**强制**</strong>垃圾回收有关</p>
+          <p>这段代码与<strong>强制</strong>垃圾回收有关</p>
           <ul>
             <li>
               <p><code>EGarbageCollectionType</code> 枚举有三种值</p>
@@ -470,7 +470,7 @@ void UEngine::ConditionalCollectGarbage()
             </div>
           </div>
           <p>最后，如前文插入的 if 的结尾。如果增量回收的可达性分析还没有完成，进行可达性分析。</p>
-          <h3 id="heading3_1">`PerformGarbageCollectionAndCleanupActors()`</h3>
+          <h3 id="heading3_1"><code>PerformGarbageCollectionAndCleanupActors()</code></h3>
           <p>上文提到，在执行全量回收时，引擎会调用 <code>PerformGarbageCollectionAndCleanupActors()</code> 函数。其源代码如下：</p>
           <div class="code_block">
             <div class="code_part">
@@ -551,7 +551,7 @@ if (TryCollectGarbage(GARBAGE_COLLECTION_KEEPFLAGS, bForcePurge))
             </div>
           </div>
           <p>如源码中所示，首先会调用 <code>TryCollectGarbage()</code> 函数，接着会遍历所有世界（<code>UWorld</code>），调用其 <code>CleanupActors()</code> 函数，清除 <code>Actor</code>。下文会具体介绍 <code>TryCollectGarbage()</code> 和 <code>CleanupActors()</code> 的工作过程。 需要注意的一点是，强制全量垃圾回收并不会影响正常的垃圾回收帧计数（因为并没有更新<code>LastGCFrame</code>）。</p>
-          <h2 id="heading2_6">回收过程：`TryCollectGarbage`</h2>
+          <h2 id="heading2_6">回收过程：<code>TryCollectGarbage</code></h2>
           <p>下文中会时常出现 <code>IsSuspended</code> 这代表是否处于增量回收的挂起（或称暂停）状态。以及，对象簇（Cluster）一词指一系列紧密关联的 <code>UObject</code>，例如一个 Actor 和它的 Sub Objects。显然垃圾回收中使用集群可以减少遍历次数。</p>
           <p><code>TryCollectGarbage</code> 函数会调用 <code>GarbageColleciton.h</code> 中的 <code>FReachabilityAnalysisState::PerformReachabilityAnalysisAndConditionallyPurgeGarbage</code> 函数，它的大致过程为：</p>
           <ul>
@@ -575,7 +575,7 @@ if (TryCollectGarbage(GARBAGE_COLLECTION_KEEPFLAGS, bForcePurge))
               </ul>
             </li>
           </ul>
-          <p>本小节将<strong>**可达性分析**</strong>和<strong>**清扫分开**</strong>讲述。</p>
+          <p>本小节将<strong>可达性分析</strong>和<strong>清扫分开</strong>讲述。</p>
           <h3 id="heading3_2">可达性分析</h3>
           <p>在可达性分析时，存在中间函数，如 <code>FReachabilityAnalysisState</code> 的 <code>PerformReachabilityAnalysis()</code> 函数。但无论中间函数如何，其底层调用的都是 <code>FRealtimeGC::PerformReachabilityAnalysis</code> 函数，所以在此我们着重看这个函数的执行逻辑。下面是对这个函数的分步分析：</p>
           <div class="code_block">
@@ -639,7 +639,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
           </div>
           <p>追踪外部物体 todo</p>
           <hr class="divider_block">
-          <h3 id="heading3_3">`PerformReachabilityAnalysisPass`</h3>
+          <h3 id="heading3_3"><code>PerformReachabilityAnalysisPass</code></h3>
           <p><code>PerformReachabilityAnalysisPass</code> 是这里的核心，它在一个 While 循环中被使用，这个循环过程会逐步标记所有的对象。下面是对这个函数的分步解析：</p>
           <div class="code_block">
             <div class="code_part">
@@ -830,7 +830,7 @@ void PostCollectGarbageImpl(EObjectFlags KeepFlags)
               <p><code>IncrementalPurgeGarbage()</code> 函数是回收内存的核心函数，在 <code>PostCollectGarbageImpl</code> 中只会进行全量回收。但是这个函数也会在<code>UEngine::ConditionalCollectGarbage()</code> 中被调用</p>
             </li>
           </ul>
-          <h3 id="heading3_5">`GatherUnreachableObjects`</h3>
+          <h3 id="heading3_5"><code>GatherUnreachableObjects</code></h3>
           <p><code>GatherUnreachableObjects</code> 会并行地遍历所有对象，判断其可达性，核心代码如下：</p>
           <div class="code_block">
             <div class="code_part">
@@ -860,7 +860,7 @@ void PostCollectGarbageImpl(EObjectFlags KeepFlags)
             </li>
           </ul>
           <p>每个线程的迭代器预先被分配好，然后被迭代。<code>FUObjectItem</code> 除了包含了一个 <code>UObjectBase*</code> 裸指针外，还存储了一个 <code>FGCFlags</code> 位标记。一个不可达的对象将会被打上 <code>EInternalObjectFlags::Unreachabl</code> 的标记。</p>
-          <h3 id="heading3_6">`IncrementalDestroyGarbage`</h3>
+          <h3 id="heading3_6"><code>IncrementalDestroyGarbage</code></h3>
           <p>在 <code>IncrementalPurgeGarbage</code> 的函数中这个函数的核心部分如下。</p>
           <div class="code_block">
             <div class="code_part">
@@ -1039,8 +1039,8 @@ void PostCollectGarbageImpl(EObjectFlags KeepFlags)
 }</code></pre>
             </div>
           </div>
-          <p>至此，对 <code>IncrementalDestroyGarbage()</code> 函数的解析已经结束了。这个函数的作用是 <code>FinishDestroy()</code> 函数和释放内存。它通过一个<strong>**待销毁对象数组**</strong>来实现对工作的跨帧缓存，依此来实现增量回收；通过 while 循环来等待每一个待销毁对象执行完 <code>FinishDestroy()</code> 函数。</p>
-          <h2 id="heading2_7">`UWorld::CleanupActors()`</h2>
+          <p>至此，对 <code>IncrementalDestroyGarbage()</code> 函数的解析已经结束了。这个函数的作用是 <code>FinishDestroy()</code> 函数和释放内存。它通过一个<strong>待销毁对象数组</strong>来实现对工作的跨帧缓存，依此来实现增量回收；通过 while 循环来等待每一个待销毁对象执行完 <code>FinishDestroy()</code> 函数。</p>
+          <h2 id="heading2_7"><code>UWorld::CleanupActors()</code></h2>
           <p>在执行 <code>TryCollectGarbage</code> 后 <code>CleanupActors</code> 会被执行。因为 Actor 往往是采用手动地 <code>Destroy</code> 来删除的，<code>Destroy</code> 并不会将 Actor 的内存释放，而是但是标记为待销毁，等待垃圾回收系统来处理。下面是触发 <code>Destroy()</code> 会执行的事情：</p>
           <ul>
             <li>
@@ -1465,16 +1465,16 @@ StoleARO:
             <li class="h1"><a href="#heading1_2">垃圾回收的触发机制</a></li>
             <li class="h2"><a href="#heading2_4">强制垃圾回收</a></li>
             <li class="h2"><a href="#heading2_5">条件垃圾回收</a></li>
-            <li class="h3"><a href="#heading3_0">`ConditionalCollectGarbage` 详解</a></li>
-            <li class="h3"><a href="#heading3_1">`PerformGarbageCollectionAndCleanupActors()`</a></li>
+            <li class="h3"><a href="#heading3_0">ConditionalCollectGarbage 详解</a></li>
+            <li class="h3"><a href="#heading3_1">PerformGarbageCollectionAndCleanupActors()</a></li>
             <li class="h1"><a href="#heading1_3">垃圾回收的执行过程</a></li>
-            <li class="h2"><a href="#heading2_6">回收过程：`TryCollectGarbage`</a></li>
+            <li class="h2"><a href="#heading2_6">回收过程：TryCollectGarbage</a></li>
             <li class="h3"><a href="#heading3_2">可达性分析</a></li>
-            <li class="h3"><a href="#heading3_3">`PerformReachabilityAnalysisPass`</a></li>
+            <li class="h3"><a href="#heading3_3">PerformReachabilityAnalysisPass</a></li>
             <li class="h3"><a href="#heading3_4">清除垃圾</a></li>
-            <li class="h3"><a href="#heading3_5">`GatherUnreachableObjects`</a></li>
-            <li class="h3"><a href="#heading3_6">`IncrementalDestroyGarbage`</a></li>
-            <li class="h2"><a href="#heading2_7">`UWorld::CleanupActors()`</a></li>
+            <li class="h3"><a href="#heading3_5">GatherUnreachableObjects</a></li>
+            <li class="h3"><a href="#heading3_6">IncrementalDestroyGarbage</a></li>
+            <li class="h2"><a href="#heading2_7">UWorld::CleanupActors()</a></li>
             <li class="h1"><a href="#heading1_4">引用与对象图</a></li>
             <li class="h2"><a href="#heading2_8">自动引用生成与遍历</a></li>
           </ul>

@@ -72,13 +72,13 @@ init_all();     </script>
           <p>用到的 kotlin 库：</p>
           <ul>
             <li>
-              <p><a href="https://github.com/Kotlin/kotlinx.html#kotlinxhtml" class="link"><strong>**kotlinx.html**</strong></a>: A kotlinx.html library provides DSL to build HTML to <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Writer.html" class="link">Writer</a>/<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Appendable.html" class="link">Appendable</a> or DOM.</p>
+              <p><a href="https://github.com/Kotlin/kotlinx.html#kotlinxhtml" class="link"><strong>kotlinx.html</strong></a>: A kotlinx.html library provides DSL to build HTML to <a href="https://docs.oracle.com/javase/8/docs/api/java/io/Writer.html" class="link">Writer</a>/<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Appendable.html" class="link">Appendable</a> or DOM.</p>
             </li>
             <li>
-              <p><a href="https://github.com/seratch/notion-sdk-jvmhttps://github.com/seratch/notion-sdk-jvm" class="link"><strong>**notion-sdk-jvm**</strong></a>: A <a href="https://developers.notion.com/" class="link">Notion API</a> SDK for any JVM language users.</p>
+              <p><a href="https://github.com/seratch/notion-sdk-jvmhttps://github.com/seratch/notion-sdk-jvm" class="link"><strong>notion-sdk-jvm</strong></a>: A <a href="https://developers.notion.com/" class="link">Notion API</a> SDK for any JVM language users.</p>
             </li>
             <li>
-              <p><a href="https://github.com/ajalt/mordant" class="link"><strong>**mordant**</strong></a>: Colorful styling for command-line applications.</p>
+              <p><a href="https://github.com/ajalt/mordant" class="link"><strong>mordant</strong></a>: Colorful styling for command-line applications.</p>
             </li>
           </ul>
           <div class="code_block">
@@ -115,7 +115,7 @@ NotionClient(token = notionToken).use { client -&gt;
           <h2 id="heading2_0">数据的序列化和反序列化</h2>
           <p>notion-sdk-jvm 并没有提供直接获得 json 数据的 api，所有的方法返回的都是反序列化好的 Kotlin 对象。因此可以从其 api 中将需要的内容摘出来，复制一份该方法并直接返回 json（body : String ）。</p>
           <p></p>
-          <div class="image_wrapper"><img src="/images/blogs/Programming/Kotlin jvm 实现静态博客生成器随记/Untitled.jpg" alt="[Untitled]"></div>
+          <div class="image_wrapper"><img src="/images/blogs/Programming/Kotlin jvm 实现静态博客生成器随记/Untitled.jpg" alt="Untitled"></div>
           <p>然后写入本地就可以了。</p>
           <p>notion-sdk-jvm 的反序列化功能写在<code>NotionJsonSerializer</code> 及其子类中，可以直接调用  <code>NotionClient.defaultJsonSerializer</code> 来反序列化 json string 成 kotlin 对象。</p>
           <h2 id="heading2_1">数据的保存结构</h2>
@@ -133,7 +133,7 @@ NotionClient(token = notionToken).use { client -&gt;
             </div>
           </div>
           <p></p>
-          <div class="image_wrapper"><img src="/images/blogs/Programming/Kotlin jvm 实现静态博客生成器随记/Untitled 1.jpg" alt="[Untitled]"></div>
+          <div class="image_wrapper"><img src="/images/blogs/Programming/Kotlin jvm 实现静态博客生成器随记/Untitled 1.jpg" alt="Untitled"></div>
           <h2 id="heading2_2">动态更新数据</h2>
           <p>在获取数据时，可以通过比对最近更新时间 lastEditedTime，来判断是否需要更新该 page 或 block</p>
           <div class="code_block">
@@ -223,7 +223,7 @@ rm ts-files.txt</code></pre>
           </div>
           <p>在 IDEA 的运行选项 → Edit Confihurations 窗口下可以添加运行选项</p>
           <p></p>
-          <div class="image_wrapper"><img src="/images/blogs/Programming/Kotlin jvm 实现静态博客生成器随记/Untitled 2.jpg" alt="[Untitled]"></div>
+          <div class="image_wrapper"><img src="/images/blogs/Programming/Kotlin jvm 实现静态博客生成器随记/Untitled 2.jpg" alt="Untitled"></div>
           <h1 id="heading1_6" index-text="VII">六、本地服务器调试</h1>
           <p>本地服务器工具我用的是 http-server</p>
           <p><a href="https://github.com/http-party/http-server" class="link">GitHub - http-party/http-server: a simple zero-configuration command-line http server</a></p>
