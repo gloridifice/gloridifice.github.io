@@ -25,8 +25,8 @@ init_all();</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&amp;display=swap" rel="stylesheet">
-    <link rel="canonical" href="https://blog.koiro.xyz/zh-CN/pages/devlogs/deferred_rendering_brdf_and_scene_tree.html">
-    <meta name="robots" content="noindex,follow">
+    <link rel="canonical" href="https://blog.koiro.xyz/en-US/pages/devlogs/deferred_rendering_brdf_and_scene_tree.html">
+    <link rel="alternate" hreflang="en-US" href="https://blog.koiro.xyz/en-US/pages/devlogs/deferred_rendering_brdf_and_scene_tree.html">
     <link rel="alternate" hreflang="zh-CN" href="https://blog.koiro.xyz/zh-CN/pages/devlogs/deferred_rendering_brdf_and_scene_tree.html">
     <script src="/assets/js/highlightjs/highlight.js"></script>
     <link rel="stylesheet" href="/assets/css/layout.css">
@@ -35,61 +35,60 @@ init_all();</script>
     <link rel="stylesheet" href="/assets/css/post.css">
     <link rel="stylesheet" href="/assets/css/color_scheme_v2.dark_mode.css">
     <link rel="stylesheet" href="/assets/css/highlightjs/github-dark.css">
-    <title>延迟渲染管线、微表面 BRDF、法线变换、物体继承树 UI</title>
+    <title>Deferred Rendering Pipeline, Microfacet BRDF, Normal Transformation, and Object Hierarchy UI</title>
   </head>
   <body>
     <script>hljs.highlightAll();</script>
     <div class="post">
       <div class="sidebar_wrapper_left sidebar_wrapper">
-        <div class="navi"><a href="/en-US/home.html" class="navi_link button" aria-label="主页"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" version="1.1" width="21" height="20.999996185302734" viewBox="0 0 21 20.999996185302734"><defs><clipPath id="master_svg0_9_0235"><rect x="0" y="0" width="21" height="20.999996185302734" rx="0"/></clipPath></defs><g clip-path="url(#master_svg0_9_0235)"><g><path d="M9.9628,1.059317C10.27877,0.8135611,10.7212,0.8135611,11.03716,1.059317C11.03716,1.059317,18.9122,7.18432,18.9122,7.18432C19.1253,7.35009,19.25,7.60498,19.25,7.875C19.25,7.875,19.25,17.5,19.25,17.5C19.25,18.1962,18.9734,18.8639,18.4811,19.3561C17.9889,19.8484,17.321199999999997,20.125,16.625,20.125C16.625,20.125,4.375,20.125,4.375,20.125C3.67881,20.125,3.01113,19.8484,2.518845,19.3561C2.026561,18.8639,1.75,18.1962,1.75,17.5C1.75,17.5,1.75,7.875,1.75,7.875C1.75,7.60498,1.874664,7.35009,2.087802,7.18432C2.087802,7.18432,9.9628,1.059317,9.9628,1.059317C9.9628,1.059317,9.9628,1.059317,9.9628,1.059317ZM8.75,18.375C8.75,18.375,12.25,18.375,12.25,18.375C12.25,18.375,12.25,11.375,12.25,11.375C12.25,11.375,8.75,11.375,8.75,11.375C8.75,11.375,8.75,18.375,8.75,18.375C8.75,18.375,8.75,18.375,8.75,18.375ZM14,18.375C14,18.375,14,10.5,14,10.5C14,10.01674,13.6083,9.625,13.125,9.625C13.125,9.625,7.875,9.625,7.875,9.625C7.39176,9.625,7,10.01674,7,10.5C7,10.5,7,18.375,7,18.375C7,18.375,4.375,18.375,4.375,18.375C4.14293,18.375,3.92038,18.2828,3.75628,18.1187C3.59219,17.9547,3.5,17.732,3.5,17.5C3.5,17.5,3.5,8.30295,3.5,8.30295C3.5,8.30295,10.5,2.8585000000000003,10.5,2.8585000000000003C10.5,2.8585000000000003,17.5,8.30295,17.5,8.30295C17.5,8.30295,17.5,17.5,17.5,17.5C17.5,17.732,17.4078,17.9547,17.2437,18.1187C17.0796,18.2828,16.857,18.375,16.625,18.375C16.625,18.375,14,18.375,14,18.375C14,18.375,14,18.375,14,18.375Z" fill-rule="evenodd" fill="#373737" fill-opacity="1"/></g></g></svg></a><a href="/en-US/blogs.html" class="navi_link button" aria-label="博客"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg></a><a href="/en-US/portfolio.html" class="navi_link button" aria-label="项目"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M619-108q-11 11-25.5 17T563-85q-16 0-31-6t-26-17l-56-56q-11-11-16.5-24.5T427-216q-1-14 3.5-28t13.5-26l6-8-326-466 156-156 509 509q11 11 17 25.5t6 30.5q0 16-6 31t-17 26L619-108ZM507-335l113-112-340-340-52 52 279 400Zm56 170 169-169-56-57-170 170 57 56Zm-56-170 113-112-113 112Z"/></svg></a><a href="/en-US/about.html" class="navi_link button" aria-label="关于"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M194-80v-395h80v315h280v-193l105-105q29-29 45-65t16-77q0-40-16.5-76T659-741l-25-26-127 127H347l-43 43-57-56 67-67h160l160-160 82 82q40 40 62 90.5T800-600q0 57-22 107.5T716-402l-82 82v240H194Zm197-187L183-475q-11-11-17-26t-6-31q0-16 6-30.5t17-25.5l84-85 124 123q28 28 43.5 64.5T450-409q0 40-15 76.5T391-267Z"/></svg></a></div>
+        <div class="navi"><a href="/en-US/home.html" class="navi_link button" aria-label="Home"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" version="1.1" width="21" height="20.999996185302734" viewBox="0 0 21 20.999996185302734"><defs><clipPath id="master_svg0_9_0235"><rect x="0" y="0" width="21" height="20.999996185302734" rx="0"/></clipPath></defs><g clip-path="url(#master_svg0_9_0235)"><g><path d="M9.9628,1.059317C10.27877,0.8135611,10.7212,0.8135611,11.03716,1.059317C11.03716,1.059317,18.9122,7.18432,18.9122,7.18432C19.1253,7.35009,19.25,7.60498,19.25,7.875C19.25,7.875,19.25,17.5,19.25,17.5C19.25,18.1962,18.9734,18.8639,18.4811,19.3561C17.9889,19.8484,17.321199999999997,20.125,16.625,20.125C16.625,20.125,4.375,20.125,4.375,20.125C3.67881,20.125,3.01113,19.8484,2.518845,19.3561C2.026561,18.8639,1.75,18.1962,1.75,17.5C1.75,17.5,1.75,7.875,1.75,7.875C1.75,7.60498,1.874664,7.35009,2.087802,7.18432C2.087802,7.18432,9.9628,1.059317,9.9628,1.059317C9.9628,1.059317,9.9628,1.059317,9.9628,1.059317ZM8.75,18.375C8.75,18.375,12.25,18.375,12.25,18.375C12.25,18.375,12.25,11.375,12.25,11.375C12.25,11.375,8.75,11.375,8.75,11.375C8.75,11.375,8.75,18.375,8.75,18.375C8.75,18.375,8.75,18.375,8.75,18.375ZM14,18.375C14,18.375,14,10.5,14,10.5C14,10.01674,13.6083,9.625,13.125,9.625C13.125,9.625,7.875,9.625,7.875,9.625C7.39176,9.625,7,10.01674,7,10.5C7,10.5,7,18.375,7,18.375C7,18.375,4.375,18.375,4.375,18.375C4.14293,18.375,3.92038,18.2828,3.75628,18.1187C3.59219,17.9547,3.5,17.732,3.5,17.5C3.5,17.5,3.5,8.30295,3.5,8.30295C3.5,8.30295,10.5,2.8585000000000003,10.5,2.8585000000000003C10.5,2.8585000000000003,17.5,8.30295,17.5,8.30295C17.5,8.30295,17.5,17.5,17.5,17.5C17.5,17.732,17.4078,17.9547,17.2437,18.1187C17.0796,18.2828,16.857,18.375,16.625,18.375C16.625,18.375,14,18.375,14,18.375C14,18.375,14,18.375,14,18.375Z" fill-rule="evenodd" fill="#373737" fill-opacity="1"/></g></g></svg></a><a href="/en-US/blogs.html" class="navi_link button" aria-label="Blog"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg></a><a href="/en-US/portfolio.html" class="navi_link button" aria-label="Projects"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M619-108q-11 11-25.5 17T563-85q-16 0-31-6t-26-17l-56-56q-11-11-16.5-24.5T427-216q-1-14 3.5-28t13.5-26l6-8-326-466 156-156 509 509q11 11 17 25.5t6 30.5q0 16-6 31t-17 26L619-108ZM507-335l113-112-340-340-52 52 279 400Zm56 170 169-169-56-57-170 170 57 56Zm-56-170 113-112-113 112Z"/></svg></a><a href="/en-US/about.html" class="navi_link button" aria-label="About"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M194-80v-395h80v315h280v-193l105-105q29-29 45-65t16-77q0-40-16.5-76T659-741l-25-26-127 127H347l-43 43-57-56 67-67h160l160-160 82 82q40 40 62 90.5T800-600q0 57-22 107.5T716-402l-82 82v240H194Zm197-187L183-475q-11-11-17-26t-6-31q0-16 6-30.5t17-25.5l84-85 124 123q28 28 43.5 64.5T450-409q0 40-15 76.5T391-267Z"/></svg></a></div>
       </div>
       <div class="contents">
         <div class="top_gap_space"></div>
-        <div class="header"><a href="/en-US/home.html" class="navi_link button" aria-label="主页"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" version="1.1" width="21" height="20.999996185302734" viewBox="0 0 21 20.999996185302734"><defs><clipPath id="master_svg0_9_0235"><rect x="0" y="0" width="21" height="20.999996185302734" rx="0"/></clipPath></defs><g clip-path="url(#master_svg0_9_0235)"><g><path d="M9.9628,1.059317C10.27877,0.8135611,10.7212,0.8135611,11.03716,1.059317C11.03716,1.059317,18.9122,7.18432,18.9122,7.18432C19.1253,7.35009,19.25,7.60498,19.25,7.875C19.25,7.875,19.25,17.5,19.25,17.5C19.25,18.1962,18.9734,18.8639,18.4811,19.3561C17.9889,19.8484,17.321199999999997,20.125,16.625,20.125C16.625,20.125,4.375,20.125,4.375,20.125C3.67881,20.125,3.01113,19.8484,2.518845,19.3561C2.026561,18.8639,1.75,18.1962,1.75,17.5C1.75,17.5,1.75,7.875,1.75,7.875C1.75,7.60498,1.874664,7.35009,2.087802,7.18432C2.087802,7.18432,9.9628,1.059317,9.9628,1.059317C9.9628,1.059317,9.9628,1.059317,9.9628,1.059317ZM8.75,18.375C8.75,18.375,12.25,18.375,12.25,18.375C12.25,18.375,12.25,11.375,12.25,11.375C12.25,11.375,8.75,11.375,8.75,11.375C8.75,11.375,8.75,18.375,8.75,18.375C8.75,18.375,8.75,18.375,8.75,18.375ZM14,18.375C14,18.375,14,10.5,14,10.5C14,10.01674,13.6083,9.625,13.125,9.625C13.125,9.625,7.875,9.625,7.875,9.625C7.39176,9.625,7,10.01674,7,10.5C7,10.5,7,18.375,7,18.375C7,18.375,4.375,18.375,4.375,18.375C4.14293,18.375,3.92038,18.2828,3.75628,18.1187C3.59219,17.9547,3.5,17.732,3.5,17.5C3.5,17.5,3.5,8.30295,3.5,8.30295C3.5,8.30295,10.5,2.8585000000000003,10.5,2.8585000000000003C10.5,2.8585000000000003,17.5,8.30295,17.5,8.30295C17.5,8.30295,17.5,17.5,17.5,17.5C17.5,17.732,17.4078,17.9547,17.2437,18.1187C17.0796,18.2828,16.857,18.375,16.625,18.375C16.625,18.375,14,18.375,14,18.375C14,18.375,14,18.375,14,18.375Z" fill-rule="evenodd" fill="#373737" fill-opacity="1"/></g></g></svg></a><a href="/en-US/blogs.html" class="navi_link button" aria-label="博客"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg></a><a href="/en-US/portfolio.html" class="navi_link button" aria-label="项目"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M619-108q-11 11-25.5 17T563-85q-16 0-31-6t-26-17l-56-56q-11-11-16.5-24.5T427-216q-1-14 3.5-28t13.5-26l6-8-326-466 156-156 509 509q11 11 17 25.5t6 30.5q0 16-6 31t-17 26L619-108ZM507-335l113-112-340-340-52 52 279 400Zm56 170 169-169-56-57-170 170 57 56Zm-56-170 113-112-113 112Z"/></svg></a><a href="/en-US/about.html" class="navi_link button" aria-label="关于"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M194-80v-395h80v315h280v-193l105-105q29-29 45-65t16-77q0-40-16.5-76T659-741l-25-26-127 127H347l-43 43-57-56 67-67h160l160-160 82 82q40 40 62 90.5T800-600q0 57-22 107.5T716-402l-82 82v240H194Zm197-187L183-475q-11-11-17-26t-6-31q0-16 6-30.5t17-25.5l84-85 124 123q28 28 43.5 64.5T450-409q0 40-15 76.5T391-267Z"/></svg></a></div>
+        <div class="header"><a href="/en-US/home.html" class="navi_link button" aria-label="Home"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" version="1.1" width="21" height="20.999996185302734" viewBox="0 0 21 20.999996185302734"><defs><clipPath id="master_svg0_9_0235"><rect x="0" y="0" width="21" height="20.999996185302734" rx="0"/></clipPath></defs><g clip-path="url(#master_svg0_9_0235)"><g><path d="M9.9628,1.059317C10.27877,0.8135611,10.7212,0.8135611,11.03716,1.059317C11.03716,1.059317,18.9122,7.18432,18.9122,7.18432C19.1253,7.35009,19.25,7.60498,19.25,7.875C19.25,7.875,19.25,17.5,19.25,17.5C19.25,18.1962,18.9734,18.8639,18.4811,19.3561C17.9889,19.8484,17.321199999999997,20.125,16.625,20.125C16.625,20.125,4.375,20.125,4.375,20.125C3.67881,20.125,3.01113,19.8484,2.518845,19.3561C2.026561,18.8639,1.75,18.1962,1.75,17.5C1.75,17.5,1.75,7.875,1.75,7.875C1.75,7.60498,1.874664,7.35009,2.087802,7.18432C2.087802,7.18432,9.9628,1.059317,9.9628,1.059317C9.9628,1.059317,9.9628,1.059317,9.9628,1.059317ZM8.75,18.375C8.75,18.375,12.25,18.375,12.25,18.375C12.25,18.375,12.25,11.375,12.25,11.375C12.25,11.375,8.75,11.375,8.75,11.375C8.75,11.375,8.75,18.375,8.75,18.375C8.75,18.375,8.75,18.375,8.75,18.375ZM14,18.375C14,18.375,14,10.5,14,10.5C14,10.01674,13.6083,9.625,13.125,9.625C13.125,9.625,7.875,9.625,7.875,9.625C7.39176,9.625,7,10.01674,7,10.5C7,10.5,7,18.375,7,18.375C7,18.375,4.375,18.375,4.375,18.375C4.14293,18.375,3.92038,18.2828,3.75628,18.1187C3.59219,17.9547,3.5,17.732,3.5,17.5C3.5,17.5,3.5,8.30295,3.5,8.30295C3.5,8.30295,10.5,2.8585000000000003,10.5,2.8585000000000003C10.5,2.8585000000000003,17.5,8.30295,17.5,8.30295C17.5,8.30295,17.5,17.5,17.5,17.5C17.5,17.732,17.4078,17.9547,17.2437,18.1187C17.0796,18.2828,16.857,18.375,16.625,18.375C16.625,18.375,14,18.375,14,18.375C14,18.375,14,18.375,14,18.375Z" fill-rule="evenodd" fill="#373737" fill-opacity="1"/></g></g></svg></a><a href="/en-US/blogs.html" class="navi_link button" aria-label="Blog"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg></a><a href="/en-US/portfolio.html" class="navi_link button" aria-label="Projects"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M619-108q-11 11-25.5 17T563-85q-16 0-31-6t-26-17l-56-56q-11-11-16.5-24.5T427-216q-1-14 3.5-28t13.5-26l6-8-326-466 156-156 509 509q11 11 17 25.5t6 30.5q0 16-6 31t-17 26L619-108ZM507-335l113-112-340-340-52 52 279 400Zm56 170 169-169-56-57-170 170 57 56Zm-56-170 113-112-113 112Z"/></svg></a><a href="/en-US/about.html" class="navi_link button" aria-label="About"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M194-80v-395h80v315h280v-193l105-105q29-29 45-65t16-77q0-40-16.5-76T659-741l-25-26-127 127H347l-43 43-57-56 67-67h160l160-160 82 82q40 40 62 90.5T800-600q0 57-22 107.5T716-402l-82 82v240H194Zm197-187L183-475q-11-11-17-26t-6-31q0-16 6-30.5t17-25.5l84-85 124 123q28 28 43.5 64.5T450-409q0 40-15 76.5T391-267Z"/></svg></a></div>
         <div class="article-language-tools">
-          <div class="sidebar-tools" role="group" aria-label="社交链接与语言"><button type="button" class="sidebar-tool language-trigger" aria-controls="site-language-menu" aria-expanded="false" aria-label="选择语言" title="选择语言"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1m14 20-5-10-5 10M14 18h6"/></svg></button>
-            <div class="language-menu" id="site-language-menu" aria-label="选择语言">
-              <p class="language-caption"><span lang="zh-CN">选择语言</span></p>
+          <div class="sidebar-tools" role="group" aria-label="Social links and language"><button type="button" class="sidebar-tool language-trigger" aria-controls="site-language-menu" aria-expanded="false" aria-label="Choose a language" title="Choose a language"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1m14 20-5-10-5 10M14 18h6"/></svg></button>
+            <div class="language-menu" id="site-language-menu" aria-label="Choose a language">
+              <p class="language-caption"><span lang="en-US">Choose a language</span></p>
 <a href="/en-US/pages/devlogs/deferred_rendering_brdf_and_scene_tree.html" class="language-choice" data-locale="en-US" aria-current="true"><span lang="en-US">English</span><span class="language-code">en-US</span><span class="language-check" aria-hidden="true">✓</span></a><a href="/zh-CN/pages/devlogs/deferred_rendering_brdf_and_scene_tree.html" class="language-choice" data-locale="zh-CN"><span lang="zh-CN">简体中文</span><span class="language-code">zh-CN</span><span class="language-check" aria-hidden="true"></span></a></div>
           </div>
         </div>
         <div class="page_description">
-          <h1 class="title" lang="zh-CN">延迟渲染管线、微表面 BRDF、法线变换、物体继承树 UI</h1>
+          <h1 class="title" lang="en-US">Deferred Rendering Pipeline, Microfacet BRDF, Normal Transformation, and Object Hierarchy UI</h1>
           <hr>
           <div class="sub_info">
             <p class="date">2025-01-25</p>
           </div>
         </div>
         <div class="article-translation-notices">
-          <p class="translation-line translation-fallback" lang="zh-CN"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1m14 20-5-10-5 10M14 18h6"/></svg><span>本文章无英语，自动回退到中文。</span></p>
+          <p class="translation-line" lang="en-US"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1m14 20-5-10-5 10M14 18h6"/></svg><span>Auto translated into English by AI.</span></p>
         </div>
-        <div class="page_content" lang="zh-CN">
-          <p></p>
+        <div class="page_content" lang="en-US">
           <div class="image_wrapper"><img src="/images/content/devlogs/deferred_rendering_brdf_and_scene_tree/images/Jan-29-2025_01-13-05.gif" alt="Jan-29-2025 01-13-05.gif"></div>
-          <h1 id="heading1_0" index-text="I">法线变换</h1>
-          <p>法线的变换受模型旋转和缩放的影响。但缩放会使法线变换发生错误，不能直接用模型缩放和旋转的合变换来做。Jason L. McKesson 的 <a href="https://www.notion.so/Normal-Mapping-1737e342f5b580499966c8b906b26558?pvs=21" class="link">这篇文章</a> 介绍了法线变换矩阵的原理和计算方法。这里直接卸出结论：</p>
+          <h1 id="heading1_0" index-text="I">Normal transformation</h1>
+          <p>Normal transformations are affected by the model's rotation and scale. But scaling can make the normal transformation incorrect, so we can't directly use the combined model scale and rotation transformation. <a href="https://www.notion.so/Normal-Mapping-1737e342f5b580499966c8b906b26558?pvs=21" class="link">This article</a> by Jason L. McKesson explains the reasoning behind the normal transformation matrix and how to calculate it. I'll give the conclusion directly here:</p>
           <p>$$
 N_{ormal} = (M_{scale\_rotation}^{-1})^T
 $$</p>
-          <p>这个公式会对矩阵进行逆运算，如何安全快速地求逆：</p>
+          <p>This formula involves inverting a matrix. How can we do that safely and quickly?</p>
           <blockquote>
-            <p>下文会用 <code>./</code> 符号，如 <code>A ./ B</code> ，表示一种运算：对 B 的所有非零元素取倒数后，与 A 的元素逐个相乘。</p>
+            <p>Below, I'll use the <code>./</code> symbol, as in <code>A ./ B</code>, to mean this operation: take the reciprocal of every nonzero element of B, then multiply it elementwise by A.</p>
           </blockquote>
           <ul>
             <li>
-              <p>因为旋转和缩放变换都是 3x3 矩阵即可表达，所以我们的法线变换矩阵只需要一个 3x3 矩阵，本节下文中矩阵均为 3x3</p>
+              <p>Since rotation and scale transformations can both be expressed as 3x3 matrices, our normal transformation matrix only needs to be 3x3. All matrices in the rest of this section are 3x3.</p>
             </li>
           </ul>
           <blockquote></blockquote>
           <ul>
             <li>
-              <p>旋转矩阵（下文称 R）是可逆的，其特性是其逆矩阵等于其转置矩阵，所以对旋转矩阵求逆是安全的：<code>invert(R) = transpose(R)</code></p>
+              <p>A rotation matrix (called R below) is invertible. Its inverse equals its transpose, so inverting a rotation matrix is safe: <code>invert(R) = transpose(R)</code>.</p>
             </li>
             <li>
-              <p>缩放矩阵（下文称 S）是一个对角矩阵，其在对角线元素不为零的情况下是可逆的，并且其结果是各元素取倒：<code>invert(S) = 1 ./ S</code></p>
+              <p>A scale matrix (called S below) is a diagonal matrix. It is invertible when its diagonal elements are nonzero, and the result is the reciprocal of each element: <code>invert(S) = 1 ./ S</code>.</p>
             </li>
             <li>
-              <p>根据矩阵积的求逆和转置性质，我们有：</p>
+              <p>From the properties of matrix product inverses and transposes, we have:</p>
             </li>
           </ul>
           <p>$$
@@ -103,11 +102,11 @@ N_{ormal} = (M^{-1})^T
 \\
 \implies N = (S^{-1}R^{-1})^T=(R^{-1})^T (S^{-1})^T=(R^T)^T(1./S)^T
 $$</p>
-          <p>最终得到的结果是</p>
+          <p>The final result is:</p>
           <p>$$
 N_{ormal} = R\  ./\  S
 $$</p>
-          <p>代码实现</p>
+          <p>Code implementation:</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">rust</div>
@@ -132,10 +131,10 @@ pub fn model_normal_matrix(&amp;self) -&gt; (Mat4, Mat3) {
 }</code></pre>
             </div>
           </div>
-          <h1 id="heading1_1" index-text="II">延迟渲染管线</h1>
-          <p>目前项目延迟渲染管线实现方式是将一系列计算光照用的几何数据渲染成一系列纹理（一般被称为 Geometry Buffer &lt;G-Buffer&gt;），然后在计算 Pass 中采样并计算像素颜色。</p>
+          <h1 id="heading1_1" index-text="II">Deferred rendering pipeline</h1>
+          <p>The project's deferred rendering pipeline currently renders a set of geometric data used for lighting into a set of textures (usually called the Geometry Buffer &lt;G-Buffer&gt;), then samples them and calculates pixel colors in the computation Pass.</p>
           <h2 id="heading2_0">Write G-Buffer Pass</h2>
-          <p>所以我们需要一个写入 G-Buffer 的 Pass 我们需要的几何信息写入多个纹理，wgpu 支持多目标渲染的，可以将片源着色器结果设为多个目标。具体实现是：在创建渲染管线时需要指定 targets（是一个 <code>Option&lt;ColorTargetState&gt;</code> 的数组，<code>ColorTargetState</code> 声明了 Target 的纹理格式、混合模式以及写入蒙版）。</p>
+          <p>So we need a Pass that writes the geometric information we need into multiple G-Buffer textures. wgpu supports rendering to multiple targets: the fragment shader's output can be set to multiple targets. Specifically, when creating the rendering pipeline, we need to specify targets (an array of <code>Option&lt;ColorTargetState&gt;</code> values, where <code>ColorTargetState</code> declares the target's texture format, blend mode, and write mask).</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">rust</div>
@@ -147,7 +146,7 @@ pub fn model_normal_matrix(&amp;self) -&gt; (Mat4, Mat3) {
 }),</code></pre>
             </div>
           </div>
-          <p>Write G-Buffer 的渲染目标目前是四个 Rgba8Unorm 的参数，框架和 wgsl 如下表：</p>
+          <p>The Write G-Buffer rendering targets currently consist of four Rgba8Unorm parameters. The layout and wgsl are shown below:</p>
           <div class="table">
             <table>
               <tr class="table_header">
@@ -195,9 +194,9 @@ fn fs_main(in: VertexOutput) -&gt; FragmentOutput {
             </div>
           </div>
           <h2 id="heading2_1">Main Pass</h2>
-          <p>得到了有关几何信息的贴图后，在后续的任何 Pass 中，我们都可以使用他们。延迟渲染管线中的主 Pass 又时被称为 Compute Pass，因为很多时候是用 Compute Shader 实现的。这样做在光源剔除上有好处。我还没有这么做，是一个需要后续优化的地方。我直接使用了一个全屏幕 Vertex Shader 来实现。</p>
+          <p>Once we have textures containing the geometric information, we can use them in any subsequent Pass. The main Pass in a deferred rendering pipeline is sometimes called the Compute Pass because it's often implemented with a Compute Shader. This is useful for light culling. I haven't done that yet; it's something to optimize later. I've implemented it directly with a full-screen Vertex Shader.</p>
           <h3 id="heading3_0">Full screen vertex shader</h3>
-          <p>我们唯一的输入是 vertex_index: u32，这是着色器内置的输入信息，通过 <code>@builtin(vertex_index)</code> 声明它。</p>
+          <p>Our only input is vertex_index: u32, a built-in shader input declared with <code>@builtin(vertex_index)</code>.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">rust</div>
@@ -211,7 +210,7 @@ fn vs_main(
 }</code></pre>
             </div>
           </div>
-          <p>在渲染调用时，我们不需要指定顶点的结构，也不需要任何 Buffer，只要绘制序号为 0, 1, 2 的顶点就可以了。我们只用到了三个顶点，三个顶点是如下图的方式运作的：</p>
+          <p>In the rendering call, we don't need to specify a vertex layout or provide any Buffer. We only need to draw vertices numbered 0, 1, and 2. We use just three vertices, which work as shown below:</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">rust</div>
@@ -222,11 +221,10 @@ fn vs_main(
 }</code></pre>
             </div>
           </div>
-          <p></p>
-          <div class="image_wrapper"><img src="/images/content/devlogs/deferred_rendering_brdf_and_scene_tree/images/25-1-22.png" alt="面的前方：左手系逆时针 (CCW) "></div>
-          <p>面的前方：左手系逆时针 (CCW) </p>
+          <div class="image_wrapper"><img src="/images/content/devlogs/deferred_rendering_brdf_and_scene_tree/images/25-1-22.png" alt="Front face: counterclockwise (CCW) in a left-handed coordinate system "></div>
+          <p>Front face: counterclockwise (CCW) in a left-handed coordinate system </p>
           <h3 id="heading3_1">Bindings</h3>
-          <p>关于 G-Buffer 的部分我传入主 Pass 的参数如右图。因为所有贴图的采样方式都是 No Filter (Nearest)，ClampToEdge. 所以只需要一个采样器就可以了。</p>
+          <p>The G-Buffer parameters I pass to the main Pass are shown in the table on the right. All textures use No Filter (Nearest) and ClampToEdge sampling, so only one sampler is needed.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">rust</div>
@@ -272,22 +270,22 @@ fn vs_main(
               </tr>
             </table>
           </div>
-          <h1 id="heading1_2" index-text="III">点光源</h1>
-          <p>在 Shader 中计算点光源需要两个数据，一个是存储所有点光源信息的 Storage Buffer，另一个是点光源的总数，用于遍历。</p>
+          <h1 id="heading1_2" index-text="III">Point lights</h1>
+          <p>Calculating point lights in the Shader requires two pieces of data: a Storage Buffer containing information about all point lights, and the total number of point lights for iteration.</p>
           <h2 id="heading2_2">Radiance of a Point Light</h2>
           <blockquote>
-            <p>下文将 Radiance 翻译为辐射率。（<a href="https://zh.wikipedia.org/wiki/%E8%BE%90%E5%B0%84%E7%8E%87" class="link">https://zh.wikipedia.org/wiki/辐射率</a>）</p>
+            <p>Below, I translate Radiance into Chinese as 辐射率. (<a href="https://zh.wikipedia.org/wiki/%E8%BE%90%E5%B0%84%E7%8E%87" class="link">https://zh.wikipedia.org/wiki/辐射率</a>)</p>
           </blockquote>
-          <p>点光源的辐射率可以通过如下的方式计算：</p>
+          <p>The radiance of a point light can be calculated as follows:</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">rust</div>
               <pre><code class="language-rust">let radiance = intensity / ((decay * pow2(distance)) + 0.001);</code></pre>
             </div>
           </div>
-          <p><code>intensity</code> 和 <code>decay</code> 是光源的属性，<code>distance</code> 是世界空间下光源到片源的距离，世界空间下的坐标方才记录在 G-Buffer 中了，<code>+ 0.001</code> 是为了除法安全。</p>
-          <h2 id="heading2_3">遍历光源</h2>
-          <p>点光源的数量存在了一个全局的光照相关的 Binding 中的一个向量里。<code>light.lights_nums.x</code> 其它分量设想用于存其它光照的数量。</p>
+          <p><code>intensity</code> and <code>decay</code> are properties of the light, and <code>distance</code> is the world-space distance from the light to the fragment. We recorded the world-space coordinates in the G-Buffer earlier. The <code>+ 0.001</code> is for division safety.</p>
+          <h2 id="heading2_3">Iterating over lights</h2>
+          <p>The number of point lights is stored in a vector in a global lighting-related Binding: <code>light.lights_nums.x</code>. The other components are intended to store the counts of other types of lights.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">rust</div>
@@ -309,9 +307,9 @@ fn vs_main(
         );</code></pre>
             </div>
           </div>
-          <h1 id="heading1_3" index-text="IV">微表面 BRDF</h1>
-          <p>鄙人理论知识不够扎实，加之有许多很好的理论资料，就不在这里说明微表面模型理论。资料会列在文尾的参考资料中。</p>
-          <p>微表面模型实现的难点是找到详细的一套参数标准和其跟实际计算的映射关系的。例如在微表面模型的计算不直接存在 Metallic （下文称金属度）参数。金属度实际影响菲涅尔项。翻的许多文章或视频并没有讲清楚这些。好在最终找到了好的参照。我参照 filament 引擎的实现，如此设置面向用户的参数（目前实现的部分）：</p>
+          <h1 id="heading1_3" index-text="IV">Microfacet BRDF</h1>
+          <p>My theoretical grounding isn't solid enough, and there are plenty of good resources on the theory, so I won't explain microfacet model theory here. I'll list resources in the references at the end.</p>
+          <p>The hard part of implementing a microfacet model is finding a detailed set of parameter conventions and how they map to the actual calculations. For example, the microfacet model's calculations don't directly contain a Metallic parameter (called metalness below). Metalness actually affects the Fresnel term. Many of the articles and videos I went through didn't explain this clearly. Fortunately, I eventually found a good reference. Following the filament engine's implementation, I set up these user-facing parameters (the parts implemented so far):</p>
           <div class="table">
             <table>
               <tr class="table_header">
@@ -336,7 +334,7 @@ fn vs_main(
               </tr>
             </table>
           </div>
-          <p>其中 BaseColor, Reflectance, Metallic 共同决定了 f0 项，Reflectance, Metallic 目前也只影响 f0 项，diffuse 会也会受 metallic 影响。此外，为了让 roughness 的视觉变换更符合直觉，roughness 可以平方处理一下。</p>
+          <p>BaseColor, Reflectance, and Metallic together determine the f0 term. Reflectance and Metallic currently only affect the f0 term, though diffuse is also affected by metallic. Also, to make the visual changes in roughness more intuitive, roughness can be squared.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">rust</div>
@@ -349,21 +347,20 @@ fn perceptual_roughness_to_roughness(perceptual_roughness: f32) -&gt; f32 {
 }</code></pre>
             </div>
           </div>
-          <p>表格和算法出自 <a href="https://google.github.io/filament/Filament.html" class="link">Physically Based Rendering in Filament</a>，原理可见原文。</p>
-          <h1 id="heading1_4" index-text="V">更好的 Editor UI</h1>
-          <p></p>
+          <p>The table and algorithm come from <a href="https://google.github.io/filament/Filament.html" class="link">Physically Based Rendering in Filament</a>. See the original for the reasoning behind them.</p>
+          <h1 id="heading1_4" index-text="V">A better Editor UI</h1>
           <div class="image_wrapper"><img src="/images/content/devlogs/deferred_rendering_brdf_and_scene_tree/images/image.jpg" alt="image.png"></div>
-          <p>增加了世界物体继承和组件的 UI，可以相对方便地控制各个物体的组件了。</p>
+          <p>I've added UI for the world's object hierarchy and components, making it fairly convenient to control each object's components.</p>
           <h2 id="heading2_4">Material Override</h2>
-          <p>增加了一个材质继承的组件，用于覆盖某个 Mesh 的材质。附加在 MeshRenderer 组件的即可。也因此可以方便地在 Inspector 中调整材质的属性了。</p>
-          <h1 id="heading1_5" index-text="VI">参考资料</h1>
+          <p>I've added a material inheritance component to override the material of a particular Mesh. It can simply be attached to the MeshRenderer component. This also makes it easy to adjust material properties in the Inspector.</p>
+          <h1 id="heading1_5" index-text="VI">References</h1>
           <ul>
             <li>
               <p>Romain Guy, Mathias Agopian - Physically Based Rendering in Filament <a href="https://google.github.io/filament/Filament.html" class="link">https://google.github.io/filament/Filament.html</a>
-一篇非常好和全面的 PBR 文章，细致地解释了 filament 实时渲染引擎中的 PBR 是如何实现的</p>
+An excellent, comprehensive PBR article that explains in detail how PBR is implemented in the filament real-time rendering engine.</p>
             </li>
             <li>
-              <p>Blender - 原理化 BSDF <a href="https://docs.blender.org/manual/zh-hans/3.5/render/shader_nodes/shader/principled.html" class="link">https://docs.blender.org/manual/zh-hans/3.5/render/shader_nodes/shader/principled.html</a></p>
+              <p>Blender - Principled BSDF <a href="https://docs.blender.org/manual/zh-hans/3.5/render/shader_nodes/shader/principled.html" class="link">https://docs.blender.org/manual/zh-hans/3.5/render/shader_nodes/shader/principled.html</a></p>
             </li>
             <li>
               <p>Boson (2020) - GraphicEngine-Tile-based Deferred Shading using Compute Shader <a href="https://myboson.wordpress.com/2020/05/29/graphicengine-tiled-based-deferred-shading-using-compute-shader/" class="link">https://myboson.wordpress.com/2020/05/29/graphicengine-tiled-based-deferred-shading-using-compute-shader/</a></p>
@@ -377,19 +374,19 @@ fn perceptual_roughness_to_roughness(perceptual_roughness: f32) -&gt; f32 {
       <div class="sidebar_wrapper_right sidebar_wrapper">
         <div class="catalogue">
           <ul>
-            <li class="h1"><a href="#heading1_0">法线变换</a></li>
-            <li class="h1"><a href="#heading1_1">延迟渲染管线</a></li>
+            <li class="h1"><a href="#heading1_0">Normal transformation</a></li>
+            <li class="h1"><a href="#heading1_1">Deferred rendering pipeline</a></li>
             <li class="h2"><a href="#heading2_0">Write G-Buffer Pass</a></li>
             <li class="h2"><a href="#heading2_1">Main Pass</a></li>
             <li class="h3"><a href="#heading3_0">Full screen vertex shader</a></li>
             <li class="h3"><a href="#heading3_1">Bindings</a></li>
-            <li class="h1"><a href="#heading1_2">点光源</a></li>
+            <li class="h1"><a href="#heading1_2">Point lights</a></li>
             <li class="h2"><a href="#heading2_2">Radiance of a Point Light</a></li>
-            <li class="h2"><a href="#heading2_3">遍历光源</a></li>
-            <li class="h1"><a href="#heading1_3">微表面 BRDF</a></li>
-            <li class="h1"><a href="#heading1_4">更好的 Editor UI</a></li>
+            <li class="h2"><a href="#heading2_3">Iterating over lights</a></li>
+            <li class="h1"><a href="#heading1_3">Microfacet BRDF</a></li>
+            <li class="h1"><a href="#heading1_4">A better Editor UI</a></li>
             <li class="h2"><a href="#heading2_4">Material Override</a></li>
-            <li class="h1"><a href="#heading1_5">参考资料</a></li>
+            <li class="h1"><a href="#heading1_5">References</a></li>
           </ul>
         </div>
       </div>

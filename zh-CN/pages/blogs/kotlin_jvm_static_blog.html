@@ -26,6 +26,7 @@ init_all();</script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&amp;display=swap" rel="stylesheet">
     <link rel="canonical" href="https://blog.koiro.xyz/zh-CN/pages/blogs/kotlin_jvm_static_blog.html">
+    <link rel="alternate" hreflang="en-US" href="https://blog.koiro.xyz/en-US/pages/blogs/kotlin_jvm_static_blog.html">
     <link rel="alternate" hreflang="zh-CN" href="https://blog.koiro.xyz/zh-CN/pages/blogs/kotlin_jvm_static_blog.html">
     <script src="/assets/js/highlightjs/highlight.js"></script>
     <link rel="stylesheet" href="/assets/css/layout.css">
@@ -126,7 +127,6 @@ NotionClient(token = notionToken).use { client -&gt;
           <p>每次生成博客都重新获取 notion 数据很慢，因此我们将获取 notion 数据的部分和生成博客的部分分开。我们从 notion 请求数据获得的是序列化好的 json 数据，我们先将其存储在本地。在生成博客的部分反序列化为 kotlin 对象，供我们使用。</p>
           <h2 id="heading2_0">数据的序列化和反序列化</h2>
           <p>notion-sdk-jvm 并没有提供直接获得 json 数据的 api，所有的方法返回的都是反序列化好的 Kotlin 对象。因此可以从其 api 中将需要的内容摘出来，复制一份该方法并直接返回 json（body : String ）。</p>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/programming/kotlin_jvm_static_blog/images/Untitled.jpg" alt="Untitled"></div>
           <p>然后写入本地就可以了。</p>
           <p>notion-sdk-jvm 的反序列化功能写在<code>NotionJsonSerializer</code> 及其子类中，可以直接调用  <code>NotionClient.defaultJsonSerializer</code> 来反序列化 json string 成 kotlin 对象。</p>
@@ -144,7 +144,6 @@ NotionClient(token = notionToken).use { client -&gt;
     - img_b.png //如果某个block是图片，则存储图片资源以img_id的格式</code></pre>
             </div>
           </div>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/programming/kotlin_jvm_static_blog/images/Untitled 1.jpg" alt="Untitled"></div>
           <h2 id="heading2_2">动态更新数据</h2>
           <p>在获取数据时，可以通过比对最近更新时间 lastEditedTime，来判断是否需要更新该 page 或 block</p>
@@ -234,7 +233,6 @@ rm ts-files.txt</code></pre>
             </div>
           </div>
           <p>在 IDEA 的运行选项 → Edit Confihurations 窗口下可以添加运行选项</p>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/programming/kotlin_jvm_static_blog/images/Untitled 2.jpg" alt="Untitled"></div>
           <h1 id="heading1_6" index-text="VII">六、本地服务器调试</h1>
           <p>本地服务器工具我用的是 http-server</p>

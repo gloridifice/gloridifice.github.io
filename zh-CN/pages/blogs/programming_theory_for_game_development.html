@@ -26,6 +26,7 @@ init_all();</script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&amp;display=swap" rel="stylesheet">
     <link rel="canonical" href="https://blog.koiro.xyz/zh-CN/pages/blogs/programming_theory_for_game_development.html">
+    <link rel="alternate" hreflang="en-US" href="https://blog.koiro.xyz/en-US/pages/blogs/programming_theory_for_game_development.html">
     <link rel="alternate" hreflang="zh-CN" href="https://blog.koiro.xyz/zh-CN/pages/blogs/programming_theory_for_game_development.html">
     <script src="/assets/js/highlightjs/highlight.js"></script>
     <link rel="stylesheet" href="/assets/css/layout.css">
@@ -143,7 +144,7 @@ init_all();</script>
           <ul>
             <li>
               <p>执行流过长会导致程序的运行难以分析和排障</p>
-              <p>  </p>
+              <div class="image_wrapper"><img src="/images/content/blogs/programming/programming_theory_for_game_development/images/Untitled.gif" alt="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/kernel/fork.c?h=v6.7-rc4(https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/kernel/fork.c?h=v6.7-rc4)  fork.c 中的长代码"></div>
               <p>  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/kernel/fork.c?h=v6.7-rc4" class="link">https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/kernel/fork.c?h=v6.7-rc4</a>  fork.c 中的长代码</p>
             </li>
             <li>
@@ -193,11 +194,7 @@ void spawnDrops(){
             </div>
           </div>
           <p>但是在 Minecraft 中，不同的方块掉落物品的行为是不同的，比如泥土是掉落自己的方块物品，树叶是概率掉落树苗。但是我们 <code>Block</code> 类只有一个，只能实现一种逻辑。实际上，不止掉落物品，我们每个方块的各种行为都是不同的，那么有没有一种既可以保持它们有相同的行为声明和变量声明，又能实现每个方块特别行为的架构呢？</p>
-          <p></p>
-          <div class="stack-container">
-            <div class="stack-card" style="--image-width: 320px; --image-ratio: 320 / 166"><img src="/images/content/blogs/programming/programming_theory_for_game_development/images/Untitled.gif" width="320" height="166" alt="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/kernel/fork.c?h=v6.7-rc4(https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/kernel/fork.c?h=v6.7-rc4)  fork.c 中的长代码"></div>
-            <div class="stack-card" style="--image-width: 898px; --image-ratio: 898 / 744"><img src="/images/content/blogs/programming/programming_theory_for_game_development/images/Untitled.jpg" width="898" height="744" alt="Untitled"></div>
-          </div>
+          <div class="image_wrapper"><img src="/images/content/blogs/programming/programming_theory_for_game_development/images/Untitled.jpg" alt="Untitled"></div>
           <p>继承这个概念出现了。它允许我们在给我们的类扩充新功能的同时，保留旧的那一个类的内容。</p>
           <div class="code_block">
             <div class="code_part">
@@ -224,8 +221,6 @@ void spawnDrops(){
           <p>@宏楼 Koiro </p>
           <p>我们刚刚了解过了继承，用继承去设计游戏是一件符合直觉的事情。以 Minecraft 为例，Minecraft 是一个使用继承模型实现的游戏。在 Minecraft 中，我们用实体 Entity 这个基类来实现各种不是方块的物体，例如掉落物、生物等。我们看看 Minecraft 是怎么实现鸡和牛的，因为所有生物是有共性的，例如生物有血量系统、会受伤，于是开发者派生出 LivingEntity 这个类作为所有生物的基类。每个生物的行为是不一样的，因此开发者要派生出每个具体生物的类。</p>
           <p>例如：只有鸡在空中会缓慢降落，因此开发者只需把缓落逻辑写在 Chicken 类中。类似的，开发者把用桶接牛奶的逻辑写在 Cow 类中。</p>
-          <p></p>
-          <p></p>
           <div class="stack-container">
             <div class="stack-card" style="--image-width: 320px; --image-ratio: 320 / 320"><img src="/images/content/blogs/programming/programming_theory_for_game_development/images/Untitled 1.gif" width="320" height="320" alt="Untitled"></div>
             <div class="stack-card" style="--image-width: 320px; --image-ratio: 320 / 320"><img src="/images/content/blogs/programming/programming_theory_for_game_development/images/Untitled 2.gif" width="320" height="320" alt="Untitled"></div>
@@ -258,12 +253,10 @@ void spawnDrops(){
             </div>
           </div>
           <p>在继承结构中，Chicken 和 Cow 都继承自 Animal 类，而 Animal 则经过多层继承来自 LivingEntity。</p>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/programming/programming_theory_for_game_development/images/Untitled 1.jpg" alt="牛 Cow 类的继承关系"></div>
           <p>牛 Cow 类的继承关系</p>
           <p>但是各位思考一个问题，如果我们要做一只既可以接奶又可以缓落的生物，我们该怎么做？</p>
           <p>这个问题在现实中很好解决，既然我们无法同时继承鸡的类或者牛的类，那我们创造一个新类，把鸡的滑翔逻辑和牛的接奶逻辑都放进去就好了。但各位应该发现一些问题了：我们复制了代码。复制代码是个很棘手的问题，因为在未来我们修改一个代码时要把所有的复制代码也都改了，这降低了代码的可维护性。在继承模型中，为了缓解复制代码的问题，我们只能将各种行为抽象成很更多类。例如我们看牛的类的继承关系：从 Animal 到 Mob 中有很多层类。但如果我们想到一个生物不能兼容现有的任何类，那么我们又要重新调整继承关系，或者选择复制之前的代码，造成代码复制的问题。如果我们能预知未来，我们就够构造一个完美的继承结构；但现实是我们不能，我们要么在每次遇到新需求的时候重整继承结构，要么就复制代码。</p>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/programming/programming_theory_for_game_development/images/Untitled 2.jpg" alt="Untitled"></div>
           <p>所以，在继承模型中，我们很难把不同的功能组合在一起。</p>
           <h1 id="heading1_3" index-text="IV">组合模型大于继承模型</h1>
@@ -294,10 +287,8 @@ void spawnDrops(){
           <p>继承是编程语言的特性，它和组合模型并不冲突。例如：不同生物的 AI 行为是不同的，但是他们有共享的部分，因此它们可以从同一个基类中派生出来。</p>
           <h2 id="heading2_3">容易接触到的组合模型</h2>
           <p>现代游戏引擎几乎都是可以使用组合模型的。在 Unity 中，每个物体的行为由各种各样的组件实现的。在 Godot 中，我们可以用 Node 来实现组合。</p>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/programming/programming_theory_for_game_development/images/Untitled 3.jpg" alt="Unity"></div>
           <p>Unity</p>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/programming/programming_theory_for_game_development/images/Untitled 4.jpg" alt="Godot"></div>
           <p>Godot</p>
           <h1 id="heading1_4" index-text="V">面向对象在游戏开发中的问题</h1>
@@ -328,7 +319,6 @@ min a b = case compare a b of
             </div>
           </div>
           <p>把相似的数据存储在一起，我们就可以在我们需要的时候只拿取出我们想要的数据，而我们对这些数据执行的操作又是相同的，因为这些数据有共同的特征，这就是数据的模式。</p>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/programming/programming_theory_for_game_development/images/Untitled 5.png" alt="Untitled"></div>
           <p>因此，数据驱动的编程范式更适合用于处理对大量相似的数据做同类操作的问题，它们天生就有更好的性能，并且能够更方便地使用多线程相关的优化技巧。但并不适合处理对某些特殊数据做某些操作的任务，因为这通常意味着我们得生造出那个特殊数据的“相似性”，并要求其他数据不满足这个特性，而这是反模式的。这种任务天生更适合用面向对象的方法完成。</p>
           <h1 id="heading1_6" index-text="VII">什么是 ECS</h1>
@@ -359,7 +349,6 @@ min a b = case compare a b of
 ..</code></pre>
             </div>
           </div>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/programming/programming_theory_for_game_development/images/Dec-07-2023_22-49-46.gif" alt="Dec-07-2023 22-49-46.gif"></div>
           <p>各位可能好奇为什么我们不直接创建一个 Item 的组件，把物体相关的参数都放进去。</p>
           <p>这确实是一种可以用的设计方法，但是，对于 ECS 模型，将组件做小，在 ECS 的 Systems（系统）中有性能优势，下面会介绍。</p>
@@ -375,14 +364,12 @@ min a b = case compare a b of
           </ul>
           <h3 id="heading3_0">组件是怎样被存储的</h3>
           <p>我们刚刚说过 ECS 是一种面向数据的架构。在面向数据的思想中，我们会将同一类的数据放在一起。而在 ECS 中，组件就是这样的数据，在实现上我们将同一种组件放在一起存储。</p>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/programming/programming_theory_for_game_development/images/Untitled 5.png" alt="Untitled"></div>
           <h3 id="heading3_1">将系统放在一起</h3>
           <p>基本数据类型可以被存储，函数是也可以被存储的，我们游戏通过循环来更新，系统或者说函数就是在这个过程中被执行的。现在大部分语言都拥有许多函数式编程特性，使得存储函数或者说操作的事情变得并不困难。函数式编程又是另一个天坑，我们未来再聊。大家只需知道我们可以像存储数据一样把函数存储在一起，然后在游戏循环中每帧调用。</p>
           <h2 id="heading2_8">🌰 例子</h2>
           <p>我们刚刚了解了如何解决处理数据遇到的两个问题，来看看具体的例子吧！</p>
           <p>在 Minecraft 中，我们的掉落物会随时间旋转，这需要我们每帧改变所有掉落物的 <code>Transform</code> 组件中的旋转的数据。实现上，我们就是写了一个处理 <code>Transform</code> 组件的函数，然后每帧去执行它。我们的掉落物虽然有非常多，但得益于面向数据的设计，我们可以低成本地获取所有掉落物的 <code>Transform</code> 组件，改变其中的值，实现让所有掉落物都匀速旋转的效果。在这个过程中，我们不会获取每个掉落物的其它不需要的数据，避免了不必要的开销。</p>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/programming/programming_theory_for_game_development/images/Dec-07-2023_22-49-46.gif" alt="Dec-07-2023 22-49-46.gif"></div>
           <div class="code_block">
             <div class="code_part">

@@ -26,6 +26,7 @@ init_all();</script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&amp;display=swap" rel="stylesheet">
     <link rel="canonical" href="https://blog.koiro.xyz/zh-CN/pages/devlogs/deferred_rendering_brdf_and_scene_tree.html">
+    <link rel="alternate" hreflang="en-US" href="https://blog.koiro.xyz/en-US/pages/devlogs/deferred_rendering_brdf_and_scene_tree.html">
     <link rel="alternate" hreflang="zh-CN" href="https://blog.koiro.xyz/zh-CN/pages/devlogs/deferred_rendering_brdf_and_scene_tree.html">
     <script src="/assets/js/highlightjs/highlight.js"></script>
     <link rel="stylesheet" href="/assets/css/layout.css">
@@ -60,7 +61,6 @@ init_all();</script>
           </div>
         </div>
         <div class="page_content" lang="zh-CN">
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/devlogs/deferred_rendering_brdf_and_scene_tree/images/Jan-29-2025_01-13-05.gif" alt="Jan-29-2025 01-13-05.gif"></div>
           <h1 id="heading1_0" index-text="I">法线变换</h1>
           <p>法线的变换受模型旋转和缩放的影响。但缩放会使法线变换发生错误，不能直接用模型缩放和旋转的合变换来做。Jason L. McKesson 的 <a href="https://www.notion.so/Normal-Mapping-1737e342f5b580499966c8b906b26558?pvs=21" class="link">这篇文章</a> 介绍了法线变换矩阵的原理和计算方法。这里直接卸出结论：</p>
@@ -218,7 +218,6 @@ fn vs_main(
 }</code></pre>
             </div>
           </div>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/devlogs/deferred_rendering_brdf_and_scene_tree/images/25-1-22.png" alt="面的前方：左手系逆时针 (CCW) "></div>
           <p>面的前方：左手系逆时针 (CCW) </p>
           <h3 id="heading3_1">Bindings</h3>
@@ -347,7 +346,6 @@ fn perceptual_roughness_to_roughness(perceptual_roughness: f32) -&gt; f32 {
           </div>
           <p>表格和算法出自 <a href="https://google.github.io/filament/Filament.html" class="link">Physically Based Rendering in Filament</a>，原理可见原文。</p>
           <h1 id="heading1_4" index-text="V">更好的 Editor UI</h1>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/devlogs/deferred_rendering_brdf_and_scene_tree/images/image.jpg" alt="image.png"></div>
           <p>增加了世界物体继承和组件的 UI，可以相对方便地控制各个物体的组件了。</p>
           <h2 id="heading2_4">Material Override</h2>

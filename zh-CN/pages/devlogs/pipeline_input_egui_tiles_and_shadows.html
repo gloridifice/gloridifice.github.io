@@ -26,6 +26,7 @@ init_all();</script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&amp;display=swap" rel="stylesheet">
     <link rel="canonical" href="https://blog.koiro.xyz/zh-CN/pages/devlogs/pipeline_input_egui_tiles_and_shadows.html">
+    <link rel="alternate" hreflang="en-US" href="https://blog.koiro.xyz/en-US/pages/devlogs/pipeline_input_egui_tiles_and_shadows.html">
     <link rel="alternate" hreflang="zh-CN" href="https://blog.koiro.xyz/zh-CN/pages/devlogs/pipeline_input_egui_tiles_and_shadows.html">
     <script src="/assets/js/highlightjs/highlight.js"></script>
     <link rel="stylesheet" href="/assets/css/layout.css">
@@ -60,7 +61,6 @@ init_all();</script>
           </div>
         </div>
         <div class="page_content" lang="zh-CN">
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/devlogs/pipeline_input_egui_tiles_and_shadows/images/image.jpg" alt="模型 https://sketchfab.com/3d-models/mkr-lykken-91b274a40ebe46cd931235ac32ae0492(https://sketchfab.com/3d-models/mkr-lykken-91b274a40ebe46cd931235ac32ae0492)"></div>
           <p>模型 <a href="https://sketchfab.com/3d-models/mkr-lykken-91b274a40ebe46cd931235ac32ae0492" class="link">https://sketchfab.com/3d-models/mkr-lykken-91b274a40ebe46cd931235ac32ae0492</a></p>
           <p>箭头代表平行光的位置和方向（黑紫色的材质说明 Default Material 正常工作）。</p>
@@ -216,7 +216,6 @@ macro_rules! bg_descriptor {
             </table>
           </div>
           <h1 id="heading1_2" index-text="III">Egui Tiles</h1>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/devlogs/pipeline_input_egui_tiles_and_shadows/images/image 1.jpg" alt="图来自官方 github 页 https://github.com/rerun-io/egui_tiles(https://github.com/rerun-io/egui_tiles)"></div>
           <p>图来自官方 github 页 <a href="https://github.com/rerun-io/egui_tiles" class="link">https://github.com/rerun-io/egui_tiles</a></p>
           <p><a href="https://github.com/rerun-io/egui_tiles" class="link">egui_tiles</a> 是一个为 egui GUI 库实现标签页功能的库。与之功能类似的库还有 <a href="https://github.com/Adanos020/egui_dock" class="link">egui_dock</a>，我此前使用过，感觉不错。为了尝试新的库，还是在这个项目使用了 egui_tiles. 使用下来感觉还是 egui_dock 更好上手一些，提供的功能也更丰富。</p>
@@ -338,12 +337,11 @@ CSM 将玩家能看到的视野范围分为多个部分，这些部分分别用�
             <li>
               <p>反走样：
 目前我还没有太多了解，之后会查一些资料。实践后切身认识到 Shadow Mapping 的反走样重要性，目前的程序时常走样地可怕。</p>
-              <p>  </p>
+              <div class="image_wrapper"><img src="/images/content/devlogs/pipeline_input_egui_tiles_and_shadows/images/image 2.jpg" alt="image.png"></div>
             </li>
           </ul>
           <h2 id="heading2_2">Next Station</h2>
           <p>不过我在 Shadow Mapping 上耗费了太多精力（因为一些对库和矩阵不熟悉导致的问题）。打算先放一放，做一些其它工作换换口味比较好。最近的想法是先将 SSAO (Screen Space Ambient Occlusion) 实现了吧！如果可以，也修一下法线变换问题吧 [[Transforming Normal](https://terathon.com/blog/transforming-normals.html)]，修完法线后说不定可以把 HBAO (Horizon-Based Ambient Occlusion) 实现了。做 SSAO 要写一下后处理管线，那么之后可以把 MSAA 实现了。</p>
-          <div class="image_wrapper"><img src="/images/content/devlogs/pipeline_input_egui_tiles_and_shadows/images/image 2.jpg" alt="image.png"></div>
         </div>
       </div>
       <div class="sidebar_wrapper_right sidebar_wrapper">

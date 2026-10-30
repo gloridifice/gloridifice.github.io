@@ -26,6 +26,7 @@ init_all();</script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&amp;display=swap" rel="stylesheet">
     <link rel="canonical" href="https://blog.koiro.xyz/zh-CN/pages/devlogs/ibl_and_transparency.html">
+    <link rel="alternate" hreflang="en-US" href="https://blog.koiro.xyz/en-US/pages/devlogs/ibl_and_transparency.html">
     <link rel="alternate" hreflang="zh-CN" href="https://blog.koiro.xyz/zh-CN/pages/devlogs/ibl_and_transparency.html">
     <script src="/assets/js/highlightjs/highlight.js"></script>
     <link rel="stylesheet" href="/assets/css/layout.css">
@@ -288,8 +289,6 @@ let specular = indirect_specular * specular_color;</code></pre>
           </div>
           <p>IBL 的结果与前面微表面模型的光照计算的返回值一样，分成漫反射项和镜面反射项返回。</p>
           <h2 id="heading2_0">效果截图</h2>
-          <p></p>
-          <p></p>
           <div class="stack-container">
             <div class="stack-card" style="--image-width: 2048px; --image-ratio: 2048 / 1730"><img src="/images/content/devlogs/ibl_and_transparency/images/ibl_all.jpg" width="2048" height="1730" alt="ibl_all.jpg"></div>
             <div class="stack-card" style="--image-width: 2048px; --image-ratio: 2048 / 979"><img src="/images/content/devlogs/ibl_and_transparency/images/deferred_dragons.jpg" width="2048" height="979" alt="deferred_dragons.jpg"></div>
@@ -342,8 +341,6 @@ let uv = frag_coord.xy / global.screen_resolution - normal_ndc.xy * refrac;</cod
             </div>
           </div>
           <h2 id="heading2_4">效果截图</h2>
-          <p></p>
-          <p></p>
           <div class="stack-container">
             <div class="stack-card" style="--image-width: 1674px; --image-ratio: 1674 / 846"><img src="/images/content/devlogs/ibl_and_transparency/images/transparent_metallic_reflectance.jpg" width="1674" height="846" alt="transparent_metallic_reflectance.jpg"></div>
             <div class="stack-card" style="--image-width: 2048px; --image-ratio: 2048 / 896"><img src="/images/content/devlogs/ibl_and_transparency/images/colored_transparent.jpg" width="2048" height="896" alt="colored_transparent.jpg"></div>

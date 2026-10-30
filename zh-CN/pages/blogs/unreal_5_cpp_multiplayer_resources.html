@@ -26,6 +26,7 @@ init_all();</script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&amp;display=swap" rel="stylesheet">
     <link rel="canonical" href="https://blog.koiro.xyz/zh-CN/pages/blogs/unreal_5_cpp_multiplayer_resources.html">
+    <link rel="alternate" hreflang="en-US" href="https://blog.koiro.xyz/en-US/pages/blogs/unreal_5_cpp_multiplayer_resources.html">
     <link rel="alternate" hreflang="zh-CN" href="https://blog.koiro.xyz/zh-CN/pages/blogs/unreal_5_cpp_multiplayer_resources.html">
     <script src="/assets/js/highlightjs/highlight.js"></script>
     <link rel="stylesheet" href="/assets/css/layout.css">
@@ -101,7 +102,7 @@ init_all();</script>
           <ul>
             <li>
               <p>完整生命周期图表</p>
-              <p>  </p>
+              <div class="image_wrapper"><img src="/images/content/blogs/game_dev/unreal_5_cpp_multiplayer_resources/images/actorlifecycle1.jpg" alt="actorlifecycle1.png"></div>
             </li>
           </ul>
           <p>一些重点（按顺序）：</p>
@@ -618,22 +619,15 @@ void ServerRequestLetMyFriendPetCat_Implementation() {
           <p>我们使用自身连接的 Actor 给服务器发送 RPC，而不是在自己的连接让朋友 Actor 发送摸猫操作的请求。</p>
           <h2 id="heading2_11">调试建议</h2>
           <p>编辑器中的多人游戏调试菜单在下图的位置：</p>
-          <p></p>
-          <div class="stack-container">
-            <div class="stack-card" style="--image-width: 923px; --image-ratio: 923 / 1912"><img src="/images/content/blogs/game_dev/unreal_5_cpp_multiplayer_resources/images/actorlifecycle1.jpg" width="923" height="1912" alt="actorlifecycle1.png"></div>
-            <div class="stack-card" style="--image-width: 489px; --image-ratio: 489 / 636"><img src="/images/content/blogs/game_dev/unreal_5_cpp_multiplayer_resources/images/image.jpg" width="489" height="636" alt="image.png"></div>
-          </div>
+          <div class="image_wrapper"><img src="/images/content/blogs/game_dev/unreal_5_cpp_multiplayer_resources/images/image.jpg" alt="image.png"></div>
           <h2 id="heading2_12">场景切换</h2>
           <p>推荐阅读官方文档：<a href="https://dev.epicgames.com/documentation/zh-cn/unreal-engine/travelling-in-multiplayer-in-unreal-engine" class="link">https://dev.epicgames.com/documentation/zh-cn/unreal-engine/travelling-in-multiplayer-in-unreal-engine</a></p>
           <h1 id="heading1_4" index-text="V">Profiling</h1>
           <p>性能分析菜单可以通过编辑器右下角的选项打开。</p>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/game_dev/unreal_5_cpp_multiplayer_resources/images/image 1.jpg" alt="image.png"></div>
           <p>点击 Unreal Insights (Session Browser) 的选项可以打开多个调试选项卡。</p>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/game_dev/unreal_5_cpp_multiplayer_resources/images/image 2.jpg" alt="image.png"></div>
           <p>点击录制按钮开始录制，再次点击停止录制。</p>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/game_dev/unreal_5_cpp_multiplayer_resources/images/image 3.jpg" alt="image.png"></div>
           <p>录制完成后 Unreal Insights 会显示录制的数据，双击即可查看分析数据。</p>
           <h3 id="heading3_7">参考资料</h3>

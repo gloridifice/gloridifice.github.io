@@ -26,6 +26,7 @@ init_all();</script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&amp;display=swap" rel="stylesheet">
     <link rel="canonical" href="https://blog.koiro.xyz/zh-CN/pages/blogs/monsters_expedition_editor_thinkycon_2024.html">
+    <link rel="alternate" hreflang="en-US" href="https://blog.koiro.xyz/en-US/pages/blogs/monsters_expedition_editor_thinkycon_2024.html">
     <link rel="alternate" hreflang="zh-CN" href="https://blog.koiro.xyz/zh-CN/pages/blogs/monsters_expedition_editor_thinkycon_2024.html">
     <script src="/assets/js/highlightjs/highlight.js"></script>
     <link rel="stylesheet" href="/assets/css/layout.css">
@@ -63,20 +64,16 @@ init_all();</script>
           <p>本编文章是 ThinkyCon 2024 有关怪兽远征编辑器部分的分享的笔记，这部分的主讲是 Alan Hazelden，下文用 Alan 简称。</p>
           <p><a href="https://www.youtube.com/live/7kgXBifWQXI?si=YV_v28aWoVnYm98q&amp;t=5618" class="link">ThinkyCon 2024 - Day 1</a></p>
           <p>ThinkyCon 2024 视频</p>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/game_dev/monsters_expedition_editor_thinkycon_2024/images/Untitled.jpg" alt="Untitled"></div>
           <h1 id="heading1_0" index-text="I">PuzzleScript</h1>
           <p>开发者最早使用 PuzzleScript 实现了一个游戏原型，并用其制作关卡原型。</p>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/game_dev/monsters_expedition_editor_thinkycon_2024/images/Untitled 1.jpg" alt="Untitled"></div>
           <p>其中关卡是用字符来表示的，点选即载入。</p>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/game_dev/monsters_expedition_editor_thinkycon_2024/images/Untitled 2.jpg" alt="Untitled"></div>
           <h1 id="heading1_1" index-text="II">Unity</h1>
           <hr class="divider_block">
           <h2 id="heading2_0">编辑</h2>
           <p>开发者们实现了一套运行时编辑器关卡编辑工具，其可以检测玩家所在的关卡并进行操作。例如进入编辑模式，选择方块位置，拖拽，即可完成对关卡的修改。每一个关卡都有独立的编号，开发者可以通过编号索引关卡。鼠标悬浮在关卡上时会显示关卡名称和编号。</p>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/game_dev/monsters_expedition_editor_thinkycon_2024/images/Untitled 3.jpg" alt="Edit mode"></div>
           <p>Edit mode</p>
           <p>Alan 说运行时编辑关卡的操作模式提供了一个很重要的特性：其避免了测试关卡时你需要“改关卡→重新运行→测试关卡”这样浪费时间的行为。</p>
@@ -96,26 +93,20 @@ init_all();</script>
             </li>
           </ul>
           <p>同时他们还提供了 Editor-only Level，即只有编辑器中才存在的关卡。这些关卡和普通关卡放在同一张大地图中，用白色的框标识。编辑器里可以设置显示和隐藏。</p>
-          <p></p>
-          <p></p>
           <div class="stack-container">
             <div class="stack-card" style="--image-width: 1028px; --image-ratio: 1028 / 758"><img src="/images/content/blogs/game_dev/monsters_expedition_editor_thinkycon_2024/images/Untitled 4.jpg" width="1028" height="758" alt="Untitled"></div>
             <div class="stack-card" style="--image-width: 718px; --image-ratio: 718 / 494"><img src="/images/content/blogs/game_dev/monsters_expedition_editor_thinkycon_2024/images/Untitled 5.jpg" width="718" height="494" alt="还做了碰撞标识"></div>
           </div>
           <p>还做了碰撞标识</p>
           <p>开发者提供了 x 的标识，用于标注这里不希望有方块，否则可以岛屿被连通。</p>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/game_dev/monsters_expedition_editor_thinkycon_2024/images/Untitled 6.jpg" alt="Untitled"></div>
           <h2 id="heading2_1">保存</h2>
           <p>做了任何改动，只有点击 Save/Save All，地图才会以 json 的格式被存储到磁盘中。使用 json 的其中一个好处是易于被 git 跟踪，可以进行版本管理。如果不小心搞毁了关卡，rollback 就好了。</p>
           <h2 id="heading2_2">设置主题</h2>
           <p>设置关卡的视觉主题是通过他们自己的 Tag 来实现的，开发者可以拖拽选择一系列关卡，然后切换关卡的 Tag 来快速切换主题。</p>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/game_dev/monsters_expedition_editor_thinkycon_2024/images/Untitled 7.jpg" alt="Untitled"></div>
           <h2 id="heading2_3">回放测试</h2>
           <p>他们还开发了测试模式，测试模式可以录制玩家的操作，存储到本地，需要时进行回放。其对于记录解谜游戏的解法有帮助，同时也可以批量测试关卡、案例，确保关卡不会因为某些机制改变而出现问题。</p>
-          <p></p>
-          <p></p>
           <div class="stack-container">
             <div class="stack-card" style="--image-width: 914px; --image-ratio: 914 / 486"><img src="/images/content/blogs/game_dev/monsters_expedition_editor_thinkycon_2024/images/Untitled 8.jpg" width="914" height="486" alt="Untitled"></div>
             <div class="stack-card" style="--image-width: 1594px; --image-ratio: 1594 / 854"><img src="/images/content/blogs/game_dev/monsters_expedition_editor_thinkycon_2024/images/Untitled 9.jpg" width="1594" height="854" alt="Untitled"></div>

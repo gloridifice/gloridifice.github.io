@@ -26,6 +26,7 @@ init_all();</script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&amp;display=swap" rel="stylesheet">
     <link rel="canonical" href="https://blog.koiro.xyz/zh-CN/pages/blogs/notion_api_notes.html">
+    <link rel="alternate" hreflang="en-US" href="https://blog.koiro.xyz/en-US/pages/blogs/notion_api_notes.html">
     <link rel="alternate" hreflang="zh-CN" href="https://blog.koiro.xyz/zh-CN/pages/blogs/notion_api_notes.html">
     <script src="/assets/js/highlightjs/highlight.js"></script>
     <link rel="stylesheet" href="/assets/css/layout.css">
@@ -75,7 +76,7 @@ init_all();</script>
             </li>
             <li>
               <p>Block：文章内容的基本单位</p>
-              <p>  </p>
+              <div class="image_wrapper"><img src="/images/content/blogs/programming/notion_api_notes/images/Untitled.jpg" alt="拖拽选中一个 block 会被高亮"></div>
               <p>  拖拽选中一个 block 会被高亮</p>
             </li>
           </ul>
@@ -90,11 +91,7 @@ init_all();</script>
           <p>记得 #Retrieve block children 只能获取一个 block 的子 block 的信息，我们还要用 #Retrieve block 来获取方块本身的信息。</p>
           <h1 id="heading1_4" index-text="V">容易遗漏的点</h1>
           <p>创建一个 token（Integration） 后，我们还需要在一个数据库或者文章的右上角省略号设置的 connections 中加上对应的 Integration，这样该 Integration 才有读取或操作对应数据库和文章和的权限。</p>
-          <p></p>
-          <div class="stack-container">
-            <div class="stack-card" style="--image-width: 1668px; --image-ratio: 1668 / 402"><img src="/images/content/blogs/programming/notion_api_notes/images/Untitled.jpg" width="1668" height="402" alt="拖拽选中一个 block 会被高亮"></div>
-            <div class="stack-card" style="--image-width: 966px; --image-ratio: 966 / 810"><img src="/images/content/blogs/programming/notion_api_notes/images/Untitled 1.jpg" width="966" height="810" alt="Untitled"></div>
-          </div>
+          <div class="image_wrapper"><img src="/images/content/blogs/programming/notion_api_notes/images/Untitled 1.jpg" alt="Untitled"></div>
         </div>
       </div>
       <div class="sidebar_wrapper_right sidebar_wrapper">

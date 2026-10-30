@@ -26,6 +26,7 @@ init_all();</script>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&amp;display=swap" rel="stylesheet">
     <link rel="canonical" href="https://blog.koiro.xyz/zh-CN/pages/blogs/unity_ui_design_notes_2023_02_08.html">
+    <link rel="alternate" hreflang="en-US" href="https://blog.koiro.xyz/en-US/pages/blogs/unity_ui_design_notes_2023_02_08.html">
     <link rel="alternate" hreflang="zh-CN" href="https://blog.koiro.xyz/zh-CN/pages/blogs/unity_ui_design_notes_2023_02_08.html">
     <script src="/assets/js/highlightjs/highlight.js"></script>
     <link rel="stylesheet" href="/assets/css/layout.css">
@@ -75,22 +76,16 @@ init_all();</script>
               <p>一些草图杂乱，很多部分都是在游戏中优化完成</p>
             </li>
           </ul>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/game_dev/unity_ui_design_notes_2023_02_08/images/Untitled.jpg" alt="草图"></div>
           <p>草图</p>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/game_dev/unity_ui_design_notes_2023_02_08/images/ui-preview.jpg" alt="成品"></div>
           <p>成品</p>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/game_dev/unity_ui_design_notes_2023_02_08/images/Untitled 1.jpg" alt="草图"></div>
           <p>草图</p>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/game_dev/unity_ui_design_notes_2023_02_08/images/Untitled 2.jpg" alt="成品"></div>
           <p>成品</p>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/game_dev/unity_ui_design_notes_2023_02_08/images/Untitled 3.jpg" alt="草图"></div>
           <p>草图</p>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/game_dev/unity_ui_design_notes_2023_02_08/images/Untitled 4.jpg" alt="成品"></div>
           <p>成品</p>
           <h2 id="heading2_1">2. 导出 UI 所需的图像素材</h2>
@@ -278,10 +273,8 @@ public override void OnInspectorGUI()
             </div>
           </div>
           <p><strong>Inspector</strong>：</p>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/game_dev/unity_ui_design_notes_2023_02_08/images/Untitled 5.jpg" alt="Untitled"></div>
           <p><em>效果</em>：</p>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/game_dev/unity_ui_design_notes_2023_02_08/images/sample.gif" alt="sample.gif"></div>
           <p>自己编写 Tweener 的可控性高却繁琐，单程动画自己一般会用 DoTween 实现。</p>
           <p>*我想 DOTween 也是有实现可打断动画的方法的，自己应该学习一下。//不过自己造轮子快乐啊</p>
@@ -291,7 +284,6 @@ public override void OnInspectorGUI()
           </blockquote>
           <p>在一次 Ludum Dare 的作品中我用了这个方法实现卡牌动画</p>
           <p><a href="https://trioduck.itch.io/time-cardmancer" class="link">Time: Cardmancer</a></p>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/game_dev/unity_ui_design_notes_2023_02_08/images/sample_1.gif" alt="sample_1.gif"></div>
           <p>无限趋近式的意思是，让希望改变的参数的实际值无限趋近这个目标值。</p>
           <p>以缩放为例，我们设定一个物体缩放的目标值，然后让实际值无限趋近这个目标值：</p>
@@ -312,7 +304,6 @@ public override void OnInspectorGUI()
 }</code></pre>
             </div>
           </div>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/game_dev/unity_ui_design_notes_2023_02_08/images/sample_2.gif" alt="sample_2.gif"></div>
           <p>这种方法会导致物体永远无法达到目标值，动画的停用也需要用差值进行检测。但其管理和实现都很简单，2D 相机跟踪物体用这种方式实现十分方便。</p>
           <h1 id="heading1_4" index-text="V">后记：</h1>

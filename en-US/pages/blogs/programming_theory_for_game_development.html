@@ -25,8 +25,8 @@ init_all();</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&amp;display=swap" rel="stylesheet">
-    <link rel="canonical" href="https://blog.koiro.xyz/zh-CN/pages/blogs/programming_theory_for_game_development.html">
-    <meta name="robots" content="noindex,follow">
+    <link rel="canonical" href="https://blog.koiro.xyz/en-US/pages/blogs/programming_theory_for_game_development.html">
+    <link rel="alternate" hreflang="en-US" href="https://blog.koiro.xyz/en-US/pages/blogs/programming_theory_for_game_development.html">
     <link rel="alternate" hreflang="zh-CN" href="https://blog.koiro.xyz/zh-CN/pages/blogs/programming_theory_for_game_development.html">
     <script src="/assets/js/highlightjs/highlight.js"></script>
     <link rel="stylesheet" href="/assets/css/layout.css">
@@ -35,42 +35,42 @@ init_all();</script>
     <link rel="stylesheet" href="/assets/css/post.css">
     <link rel="stylesheet" href="/assets/css/color_scheme_v2.dark_mode.css">
     <link rel="stylesheet" href="/assets/css/highlightjs/github-dark.css">
-    <title>游戏开发中的编程理论基础</title>
+    <title>Programming Theory Fundamentals for Game Development</title>
   </head>
   <body>
     <script>hljs.highlightAll();</script>
     <div class="post">
       <div class="sidebar_wrapper_left sidebar_wrapper">
-        <div class="navi"><a href="/en-US/home.html" class="navi_link button" aria-label="主页"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" version="1.1" width="21" height="20.999996185302734" viewBox="0 0 21 20.999996185302734"><defs><clipPath id="master_svg0_9_0235"><rect x="0" y="0" width="21" height="20.999996185302734" rx="0"/></clipPath></defs><g clip-path="url(#master_svg0_9_0235)"><g><path d="M9.9628,1.059317C10.27877,0.8135611,10.7212,0.8135611,11.03716,1.059317C11.03716,1.059317,18.9122,7.18432,18.9122,7.18432C19.1253,7.35009,19.25,7.60498,19.25,7.875C19.25,7.875,19.25,17.5,19.25,17.5C19.25,18.1962,18.9734,18.8639,18.4811,19.3561C17.9889,19.8484,17.321199999999997,20.125,16.625,20.125C16.625,20.125,4.375,20.125,4.375,20.125C3.67881,20.125,3.01113,19.8484,2.518845,19.3561C2.026561,18.8639,1.75,18.1962,1.75,17.5C1.75,17.5,1.75,7.875,1.75,7.875C1.75,7.60498,1.874664,7.35009,2.087802,7.18432C2.087802,7.18432,9.9628,1.059317,9.9628,1.059317C9.9628,1.059317,9.9628,1.059317,9.9628,1.059317ZM8.75,18.375C8.75,18.375,12.25,18.375,12.25,18.375C12.25,18.375,12.25,11.375,12.25,11.375C12.25,11.375,8.75,11.375,8.75,11.375C8.75,11.375,8.75,18.375,8.75,18.375C8.75,18.375,8.75,18.375,8.75,18.375ZM14,18.375C14,18.375,14,10.5,14,10.5C14,10.01674,13.6083,9.625,13.125,9.625C13.125,9.625,7.875,9.625,7.875,9.625C7.39176,9.625,7,10.01674,7,10.5C7,10.5,7,18.375,7,18.375C7,18.375,4.375,18.375,4.375,18.375C4.14293,18.375,3.92038,18.2828,3.75628,18.1187C3.59219,17.9547,3.5,17.732,3.5,17.5C3.5,17.5,3.5,8.30295,3.5,8.30295C3.5,8.30295,10.5,2.8585000000000003,10.5,2.8585000000000003C10.5,2.8585000000000003,17.5,8.30295,17.5,8.30295C17.5,8.30295,17.5,17.5,17.5,17.5C17.5,17.732,17.4078,17.9547,17.2437,18.1187C17.0796,18.2828,16.857,18.375,16.625,18.375C16.625,18.375,14,18.375,14,18.375C14,18.375,14,18.375,14,18.375Z" fill-rule="evenodd" fill="#373737" fill-opacity="1"/></g></g></svg></a><a href="/en-US/blogs.html" class="navi_link button" aria-label="博客"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg></a><a href="/en-US/portfolio.html" class="navi_link button" aria-label="项目"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M619-108q-11 11-25.5 17T563-85q-16 0-31-6t-26-17l-56-56q-11-11-16.5-24.5T427-216q-1-14 3.5-28t13.5-26l6-8-326-466 156-156 509 509q11 11 17 25.5t6 30.5q0 16-6 31t-17 26L619-108ZM507-335l113-112-340-340-52 52 279 400Zm56 170 169-169-56-57-170 170 57 56Zm-56-170 113-112-113 112Z"/></svg></a><a href="/en-US/about.html" class="navi_link button" aria-label="关于"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M194-80v-395h80v315h280v-193l105-105q29-29 45-65t16-77q0-40-16.5-76T659-741l-25-26-127 127H347l-43 43-57-56 67-67h160l160-160 82 82q40 40 62 90.5T800-600q0 57-22 107.5T716-402l-82 82v240H194Zm197-187L183-475q-11-11-17-26t-6-31q0-16 6-30.5t17-25.5l84-85 124 123q28 28 43.5 64.5T450-409q0 40-15 76.5T391-267Z"/></svg></a></div>
+        <div class="navi"><a href="/en-US/home.html" class="navi_link button" aria-label="Home"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" version="1.1" width="21" height="20.999996185302734" viewBox="0 0 21 20.999996185302734"><defs><clipPath id="master_svg0_9_0235"><rect x="0" y="0" width="21" height="20.999996185302734" rx="0"/></clipPath></defs><g clip-path="url(#master_svg0_9_0235)"><g><path d="M9.9628,1.059317C10.27877,0.8135611,10.7212,0.8135611,11.03716,1.059317C11.03716,1.059317,18.9122,7.18432,18.9122,7.18432C19.1253,7.35009,19.25,7.60498,19.25,7.875C19.25,7.875,19.25,17.5,19.25,17.5C19.25,18.1962,18.9734,18.8639,18.4811,19.3561C17.9889,19.8484,17.321199999999997,20.125,16.625,20.125C16.625,20.125,4.375,20.125,4.375,20.125C3.67881,20.125,3.01113,19.8484,2.518845,19.3561C2.026561,18.8639,1.75,18.1962,1.75,17.5C1.75,17.5,1.75,7.875,1.75,7.875C1.75,7.60498,1.874664,7.35009,2.087802,7.18432C2.087802,7.18432,9.9628,1.059317,9.9628,1.059317C9.9628,1.059317,9.9628,1.059317,9.9628,1.059317ZM8.75,18.375C8.75,18.375,12.25,18.375,12.25,18.375C12.25,18.375,12.25,11.375,12.25,11.375C12.25,11.375,8.75,11.375,8.75,11.375C8.75,11.375,8.75,18.375,8.75,18.375C8.75,18.375,8.75,18.375,8.75,18.375ZM14,18.375C14,18.375,14,10.5,14,10.5C14,10.01674,13.6083,9.625,13.125,9.625C13.125,9.625,7.875,9.625,7.875,9.625C7.39176,9.625,7,10.01674,7,10.5C7,10.5,7,18.375,7,18.375C7,18.375,4.375,18.375,4.375,18.375C4.14293,18.375,3.92038,18.2828,3.75628,18.1187C3.59219,17.9547,3.5,17.732,3.5,17.5C3.5,17.5,3.5,8.30295,3.5,8.30295C3.5,8.30295,10.5,2.8585000000000003,10.5,2.8585000000000003C10.5,2.8585000000000003,17.5,8.30295,17.5,8.30295C17.5,8.30295,17.5,17.5,17.5,17.5C17.5,17.732,17.4078,17.9547,17.2437,18.1187C17.0796,18.2828,16.857,18.375,16.625,18.375C16.625,18.375,14,18.375,14,18.375C14,18.375,14,18.375,14,18.375Z" fill-rule="evenodd" fill="#373737" fill-opacity="1"/></g></g></svg></a><a href="/en-US/blogs.html" class="navi_link button" aria-label="Blog"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg></a><a href="/en-US/portfolio.html" class="navi_link button" aria-label="Projects"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M619-108q-11 11-25.5 17T563-85q-16 0-31-6t-26-17l-56-56q-11-11-16.5-24.5T427-216q-1-14 3.5-28t13.5-26l6-8-326-466 156-156 509 509q11 11 17 25.5t6 30.5q0 16-6 31t-17 26L619-108ZM507-335l113-112-340-340-52 52 279 400Zm56 170 169-169-56-57-170 170 57 56Zm-56-170 113-112-113 112Z"/></svg></a><a href="/en-US/about.html" class="navi_link button" aria-label="About"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M194-80v-395h80v315h280v-193l105-105q29-29 45-65t16-77q0-40-16.5-76T659-741l-25-26-127 127H347l-43 43-57-56 67-67h160l160-160 82 82q40 40 62 90.5T800-600q0 57-22 107.5T716-402l-82 82v240H194Zm197-187L183-475q-11-11-17-26t-6-31q0-16 6-30.5t17-25.5l84-85 124 123q28 28 43.5 64.5T450-409q0 40-15 76.5T391-267Z"/></svg></a></div>
       </div>
       <div class="contents">
         <div class="top_gap_space"></div>
-        <div class="header"><a href="/en-US/home.html" class="navi_link button" aria-label="主页"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" version="1.1" width="21" height="20.999996185302734" viewBox="0 0 21 20.999996185302734"><defs><clipPath id="master_svg0_9_0235"><rect x="0" y="0" width="21" height="20.999996185302734" rx="0"/></clipPath></defs><g clip-path="url(#master_svg0_9_0235)"><g><path d="M9.9628,1.059317C10.27877,0.8135611,10.7212,0.8135611,11.03716,1.059317C11.03716,1.059317,18.9122,7.18432,18.9122,7.18432C19.1253,7.35009,19.25,7.60498,19.25,7.875C19.25,7.875,19.25,17.5,19.25,17.5C19.25,18.1962,18.9734,18.8639,18.4811,19.3561C17.9889,19.8484,17.321199999999997,20.125,16.625,20.125C16.625,20.125,4.375,20.125,4.375,20.125C3.67881,20.125,3.01113,19.8484,2.518845,19.3561C2.026561,18.8639,1.75,18.1962,1.75,17.5C1.75,17.5,1.75,7.875,1.75,7.875C1.75,7.60498,1.874664,7.35009,2.087802,7.18432C2.087802,7.18432,9.9628,1.059317,9.9628,1.059317C9.9628,1.059317,9.9628,1.059317,9.9628,1.059317ZM8.75,18.375C8.75,18.375,12.25,18.375,12.25,18.375C12.25,18.375,12.25,11.375,12.25,11.375C12.25,11.375,8.75,11.375,8.75,11.375C8.75,11.375,8.75,18.375,8.75,18.375C8.75,18.375,8.75,18.375,8.75,18.375ZM14,18.375C14,18.375,14,10.5,14,10.5C14,10.01674,13.6083,9.625,13.125,9.625C13.125,9.625,7.875,9.625,7.875,9.625C7.39176,9.625,7,10.01674,7,10.5C7,10.5,7,18.375,7,18.375C7,18.375,4.375,18.375,4.375,18.375C4.14293,18.375,3.92038,18.2828,3.75628,18.1187C3.59219,17.9547,3.5,17.732,3.5,17.5C3.5,17.5,3.5,8.30295,3.5,8.30295C3.5,8.30295,10.5,2.8585000000000003,10.5,2.8585000000000003C10.5,2.8585000000000003,17.5,8.30295,17.5,8.30295C17.5,8.30295,17.5,17.5,17.5,17.5C17.5,17.732,17.4078,17.9547,17.2437,18.1187C17.0796,18.2828,16.857,18.375,16.625,18.375C16.625,18.375,14,18.375,14,18.375C14,18.375,14,18.375,14,18.375Z" fill-rule="evenodd" fill="#373737" fill-opacity="1"/></g></g></svg></a><a href="/en-US/blogs.html" class="navi_link button" aria-label="博客"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg></a><a href="/en-US/portfolio.html" class="navi_link button" aria-label="项目"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M619-108q-11 11-25.5 17T563-85q-16 0-31-6t-26-17l-56-56q-11-11-16.5-24.5T427-216q-1-14 3.5-28t13.5-26l6-8-326-466 156-156 509 509q11 11 17 25.5t6 30.5q0 16-6 31t-17 26L619-108ZM507-335l113-112-340-340-52 52 279 400Zm56 170 169-169-56-57-170 170 57 56Zm-56-170 113-112-113 112Z"/></svg></a><a href="/en-US/about.html" class="navi_link button" aria-label="关于"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M194-80v-395h80v315h280v-193l105-105q29-29 45-65t16-77q0-40-16.5-76T659-741l-25-26-127 127H347l-43 43-57-56 67-67h160l160-160 82 82q40 40 62 90.5T800-600q0 57-22 107.5T716-402l-82 82v240H194Zm197-187L183-475q-11-11-17-26t-6-31q0-16 6-30.5t17-25.5l84-85 124 123q28 28 43.5 64.5T450-409q0 40-15 76.5T391-267Z"/></svg></a></div>
+        <div class="header"><a href="/en-US/home.html" class="navi_link button" aria-label="Home"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" version="1.1" width="21" height="20.999996185302734" viewBox="0 0 21 20.999996185302734"><defs><clipPath id="master_svg0_9_0235"><rect x="0" y="0" width="21" height="20.999996185302734" rx="0"/></clipPath></defs><g clip-path="url(#master_svg0_9_0235)"><g><path d="M9.9628,1.059317C10.27877,0.8135611,10.7212,0.8135611,11.03716,1.059317C11.03716,1.059317,18.9122,7.18432,18.9122,7.18432C19.1253,7.35009,19.25,7.60498,19.25,7.875C19.25,7.875,19.25,17.5,19.25,17.5C19.25,18.1962,18.9734,18.8639,18.4811,19.3561C17.9889,19.8484,17.321199999999997,20.125,16.625,20.125C16.625,20.125,4.375,20.125,4.375,20.125C3.67881,20.125,3.01113,19.8484,2.518845,19.3561C2.026561,18.8639,1.75,18.1962,1.75,17.5C1.75,17.5,1.75,7.875,1.75,7.875C1.75,7.60498,1.874664,7.35009,2.087802,7.18432C2.087802,7.18432,9.9628,1.059317,9.9628,1.059317C9.9628,1.059317,9.9628,1.059317,9.9628,1.059317ZM8.75,18.375C8.75,18.375,12.25,18.375,12.25,18.375C12.25,18.375,12.25,11.375,12.25,11.375C12.25,11.375,8.75,11.375,8.75,11.375C8.75,11.375,8.75,18.375,8.75,18.375C8.75,18.375,8.75,18.375,8.75,18.375ZM14,18.375C14,18.375,14,10.5,14,10.5C14,10.01674,13.6083,9.625,13.125,9.625C13.125,9.625,7.875,9.625,7.875,9.625C7.39176,9.625,7,10.01674,7,10.5C7,10.5,7,18.375,7,18.375C7,18.375,4.375,18.375,4.375,18.375C4.14293,18.375,3.92038,18.2828,3.75628,18.1187C3.59219,17.9547,3.5,17.732,3.5,17.5C3.5,17.5,3.5,8.30295,3.5,8.30295C3.5,8.30295,10.5,2.8585000000000003,10.5,2.8585000000000003C10.5,2.8585000000000003,17.5,8.30295,17.5,8.30295C17.5,8.30295,17.5,17.5,17.5,17.5C17.5,17.732,17.4078,17.9547,17.2437,18.1187C17.0796,18.2828,16.857,18.375,16.625,18.375C16.625,18.375,14,18.375,14,18.375C14,18.375,14,18.375,14,18.375Z" fill-rule="evenodd" fill="#373737" fill-opacity="1"/></g></g></svg></a><a href="/en-US/blogs.html" class="navi_link button" aria-label="Blog"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg></a><a href="/en-US/portfolio.html" class="navi_link button" aria-label="Projects"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M619-108q-11 11-25.5 17T563-85q-16 0-31-6t-26-17l-56-56q-11-11-16.5-24.5T427-216q-1-14 3.5-28t13.5-26l6-8-326-466 156-156 509 509q11 11 17 25.5t6 30.5q0 16-6 31t-17 26L619-108ZM507-335l113-112-340-340-52 52 279 400Zm56 170 169-169-56-57-170 170 57 56Zm-56-170 113-112-113 112Z"/></svg></a><a href="/en-US/about.html" class="navi_link button" aria-label="About"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M194-80v-395h80v315h280v-193l105-105q29-29 45-65t16-77q0-40-16.5-76T659-741l-25-26-127 127H347l-43 43-57-56 67-67h160l160-160 82 82q40 40 62 90.5T800-600q0 57-22 107.5T716-402l-82 82v240H194Zm197-187L183-475q-11-11-17-26t-6-31q0-16 6-30.5t17-25.5l84-85 124 123q28 28 43.5 64.5T450-409q0 40-15 76.5T391-267Z"/></svg></a></div>
         <div class="article-language-tools">
-          <div class="sidebar-tools" role="group" aria-label="社交链接与语言"><button type="button" class="sidebar-tool language-trigger" aria-controls="site-language-menu" aria-expanded="false" aria-label="选择语言" title="选择语言"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1m14 20-5-10-5 10M14 18h6"/></svg></button>
-            <div class="language-menu" id="site-language-menu" aria-label="选择语言">
-              <p class="language-caption"><span lang="zh-CN">选择语言</span></p>
+          <div class="sidebar-tools" role="group" aria-label="Social links and language"><button type="button" class="sidebar-tool language-trigger" aria-controls="site-language-menu" aria-expanded="false" aria-label="Choose a language" title="Choose a language"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1m14 20-5-10-5 10M14 18h6"/></svg></button>
+            <div class="language-menu" id="site-language-menu" aria-label="Choose a language">
+              <p class="language-caption"><span lang="en-US">Choose a language</span></p>
 <a href="/en-US/pages/blogs/programming_theory_for_game_development.html" class="language-choice" data-locale="en-US" aria-current="true"><span lang="en-US">English</span><span class="language-code">en-US</span><span class="language-check" aria-hidden="true">✓</span></a><a href="/zh-CN/pages/blogs/programming_theory_for_game_development.html" class="language-choice" data-locale="zh-CN"><span lang="zh-CN">简体中文</span><span class="language-code">zh-CN</span><span class="language-check" aria-hidden="true"></span></a></div>
           </div>
         </div>
         <div class="page_description">
-          <h1 class="title" lang="zh-CN">游戏开发中的编程理论基础</h1>
+          <h1 class="title" lang="en-US">Programming Theory Fundamentals for Game Development</h1>
           <hr>
           <div class="sub_info">
             <p class="date">2024-04-06</p>
           </div>
         </div>
         <div class="article-translation-notices">
-          <p class="translation-line translation-fallback" lang="zh-CN"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1m14 20-5-10-5 10M14 18h6"/></svg><span>本文章无英语，自动回退到中文。</span></p>
+          <p class="translation-line" lang="en-US"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1m14 20-5-10-5 10M14 18h6"/></svg><span>Auto translated into English by AI.</span></p>
         </div>
-        <div class="page_content" lang="zh-CN">
+        <div class="page_content" lang="en-US">
           <div><aside>
-💡 前沿：本篇文章为社团分享，作者为宏楼(我) (Koiro) 和 [拉斯普（Aspirin）](https://github.com/raspirin)两人。本文包含游戏开发中一些重要理论的基本概念，包括编程范式、面向对象、组合与继承、面向数据、ECS 的概念和优点以及一些现在市面上游戏引擎的使用的架构。</aside></div>
+💡 Preface: This article was prepared for a club presentation by 宏楼 (me) (Koiro) and [拉斯普 (Aspirin)](https://github.com/raspirin). It covers the basic concepts of some important theories in game development, including programming paradigms, object-oriented programming, composition and inheritance, data-oriented programming, the concepts and benefits of ECS, and the architectures used by some game engines currently on the market.</aside></div>
           <div></div>
-          <h1 id="heading1_0" index-text="I">基础知识</h1>
-          <h2 id="heading2_0">编程范式</h2>
-          <p>让我们从简单一点的内容开始。程序语言不仅仅给我们提供了强大的工具，还帮助我们组织我们关于一件事情“如何做”的想法。为此，程序语言需要赋予我们三种能力：表达最基本的表达式的能力，它们组成了这个程序语言最基本的概念，例如整数、浮点数等基本数据类型（以及锁、通道等等）；组合的能力，我们需要把最基本的内容组合起来构建复杂的东西；抽象的能力，就是把组合起来的复杂结构当作一个整体并赋予名字的能力。</p>
-          <p>基本数据类型大家都了解，我们具体介绍一下组合的能力和数据的能力。例如现在我们现在要表示一个三维空间中的一个点，我们可以用三个数例如 x y z 来表示。但是这样我们每声明一个点，就需要三个变量，同时我们需要用命名的方式给不同的点的 x y z 区分开来。下面就是声明两个点的例子。</p>
+          <h1 id="heading1_0" index-text="I">Fundamentals</h1>
+          <h2 id="heading2_0">Programming paradigms</h2>
+          <p>Let's start with something simple. Programming languages don't just give us powerful tools; they also help us organize our thoughts about “how to do” something. To do this, a programming language needs to give us three abilities: the ability to express the most basic expressions, which make up the language's most fundamental concepts, such as primitive data types like integers and floating-point numbers (as well as locks, channels, and so on); the ability to compose, so we can combine the basics into something complex; and the ability to abstract, meaning that we can treat a complex structure we've put together as a whole and give it a name.</p>
+          <p>Everyone is familiar with primitive data types, so let's look more closely at composition and data. Suppose we want to represent a point in three-dimensional space. We can use three numbers, such as x, y, and z. But that means we need three variables every time we declare a point, and we have to use names to distinguish the x, y, and z values of different points. Here's an example declaring two points.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">c</div>
@@ -86,8 +86,8 @@ init_all();</script>
 }</code></pre>
             </div>
           </div>
-          <p>一方面，我们要用命名的方式来声明每个变量的关联性，另一方面，声明多个变量让我们的代码变得很难管理，例如如果我们声明三个点，就需要声明九个变量。可见这样表达非常麻烦。</p>
-          <p>于是我们想，能不能将有关联的对象组合在一起，同时把它赋予一个新的名字呢？C 语言赋予了我们这样的能力，这个能力也就是 C 语言中的 <code>struct</code>（结构体）。</p>
+          <p>On the one hand, we have to use naming to indicate how the variables relate to one another. On the other, declaring so many variables makes our code hard to manage: declaring three points, for example, means declaring nine variables. As you can see, this is a cumbersome way to express things.</p>
+          <p>So we might ask: could we combine related objects and give the result a new name? C gives us this ability through <code>struct</code>.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">c</div>
@@ -98,18 +98,18 @@ init_all();</script>
 };</code></pre>
             </div>
           </div>
-          <p>这里我们把三个数据类型组合成了一个新的数据类型，并给它起名为 <code>Vector3</code>（三维向量）。这就是程序语言赋予我们组合和抽象能力的体现之一。我们把 x y z 组合在了一起，并抽象成了 <code>Vector3</code>.</p>
-          <p>我们通过程序语言提供的这些能力构建我们想要的程序，程序语言也反过来通过它们塑造我们解决问题的风格。这类风格一般被称作编程范式。能叫得出名字的编程范式有很多，比如指令式编程、面向过程编程、面向对象编程、函数式编程之类的。值得注意的是，不同的编程范式不应该被看作是彼此独立甚至对立的，但有些编程范式确实会产生冲突，这点我们后面聊面向数据编程的时候会接着讲。</p>
-          <h2 id="heading2_1">走近面向对象编程，之前</h2>
+          <p>Here, we've combined three data types into a new data type and named it <code>Vector3</code> (a three-dimensional vector). This is one example of how programming languages give us composition and abstraction. We've combined x, y, and z and abstracted them into <code>Vector3</code>.</p>
+          <p>We use these abilities provided by programming languages to build the programs we want, and the languages in turn shape our style of solving problems. These styles are generally called programming paradigms. There are many named paradigms, such as imperative programming, procedural programming, object-oriented programming, and functional programming. It's worth noting that different programming paradigms shouldn't be seen as independent of one another, let alone opposed to one another. Some paradigms do conflict, though; we'll come back to that when we talk about data-oriented programming.</p>
+          <h2 id="heading2_1">Before approaching object-oriented programming</h2>
           <blockquote>
-            <p>在本文中，“对数据的操作”、“操作”和“函数”的含义差不多，在本模块的语境中请当作一个概念看待。</p>
+            <p>In this article, “operations on data,” “operations,” and “functions” mean roughly the same thing. Please treat them as one concept in this section.</p>
           </blockquote>
-          <p>回忆一下我们从 C 语言课上学到的东西，C 语言允许使用我们使用基本类型的变量来存放我们想要的数据，这是它赋予我们的第一个能力。同时，它也允许我们通过语句来操作这些变量，我们还可以把多条语句放在一个函数里面，这样我们就能把一个复杂的操作当作一个操作看待，这也是 C 语言赋予我们组合和抽象能力的体现之一。</p>
-          <p>C 风格（准确地说是面向过程）的编程范式将程序的重心放在函数上，也就是我们程序要完成的操作上。在这种观点下， 程序实际上是一系列的函数声明，我们把我们会用到的操作全都以函数的形式写下来，而变量是函数之间传递信息的方法。这种方法在维护某些大型项目的时候会遇到一些很特别的问题：首先是执行流过长会导致程序的运行难以分析和排障，虽然我们写代码的时候能够将程序的执行流看作一个不可分割的整体，但是我们在调试的时候仍就得将它们展开。其次是变量和关于它们的操作在代码逻辑上没有关联性，这会带来很多困惑。举例子来说：左偏树和二叉搜索树都被存储成数组（大家不需要知道这两个东西是什么，只要知道它们是数组就可以），而它们的区别仅在于对数组的操作不同。比如它们的插入函数就彼此不同。这种情况下，如果我们不用名称或者注释等方法注明，我们不知道一个数组是左偏树还是二叉搜索树。因此我们会说这两个数据结构和维护它们的操作在代码逻辑上没有关联性，但其在数据结构的逻辑上是有关联性的。因此我们需要一种将数据和对数据的操作的关联性表达在代码中的能力。也就是将数据和对数据的操作组合和抽象起来的能力。</p>
-          <h1 id="heading1_1" index-text="II">什么是面向对象 OOP</h1>
+          <p>Think back to what we learned in C class. C lets us use variables of primitive types to store the data we want. That's the first ability it gives us. It also lets us manipulate those variables through statements, and we can put multiple statements into a function so we can treat a complex operation as a single operation. This is another example of C's support for composition and abstraction.</p>
+          <p>The C-style (or, more precisely, procedural) programming paradigm puts functions at the center of the program—in other words, the operations our program needs to perform. From this perspective, a program is essentially a series of function declarations. We write down every operation we'll need as a function, and variables are how information passes between functions. This approach runs into some particular problems when maintaining certain large projects. First, a long execution flow makes the program hard to analyze and troubleshoot. Even though we can treat the program's execution flow as an indivisible whole while writing code, we still have to unfold it when debugging. Second, variables and the operations on them aren't associated in the code's logic, which can cause a lot of confusion. For example, both leftist heaps and binary search trees are stored as arrays (you don't need to know what these are; just know they're arrays). The difference is only in the operations on the arrays. Their insertion functions, for example, are different. In this situation, unless we indicate it through names, comments, or similar means, we don't know whether an array is a leftist heap or a binary search tree. So we say these two data structures and the operations that maintain them aren't associated in the code's logic, even though they are associated in the logic of the data structures. We therefore need a way to express the relationship between data and operations on that data in code: the ability to compose and abstract data together with its operations.</p>
+          <h1 id="heading1_1" index-text="II">What is object-oriented programming (OOP)?</h1>
           <p>@Rasp </p>
-          <p>来看看面向对象的编程范式对上述的问题做出了什么解决的尝试。面向对象的编程范式把编程从一系列函数声明变成了一系列对象（更准确地说，是类）的声明。它认为应当把对象看作是程序执行功能的基本单位，或者说，对象是工厂里的工人，而功能是工人要做的事情。面向对象的编程范式是怎么实现这个黑魔法的呢？大部分面向对象的程序语言构造变量和表达式的方式跟我们在 C 语言里习惯的并不不同，那我们得思考以下面向对象的程序语言给我们提供的组合和抽象的能力有什么不同了。</p>
-          <p>一部分的面向对象的程序语言会提供一个叫做“类”（class）的基本概念，这是一种组合基本单元的方式。不过不同于我们在 C 语言的结构体里面做的那样，类不仅仅能组合数据，还可以把操作也一起组合进来。下面是一个类的示例。这里的 <code>public</code> 关键字大家先忽略，我们下面会介绍。</p>
+          <p>Let's see how the object-oriented programming paradigm attempts to solve these problems. Object-oriented programming turns programming from a series of function declarations into a series of object (or, more precisely, class) declarations. It treats objects as the basic units that carry out a program's functionality. Put another way, objects are the workers in a factory, and functionality is the work they do. How does object-oriented programming pull off this black magic? Most object-oriented languages construct variables and expressions in much the same way we're used to in C, so we need to think about what's different in the composition and abstraction abilities they provide.</p>
+          <p>Some object-oriented languages provide a basic concept called a “class,” a way of combining basic units. Unlike what we did with C structs, however, classes can combine not just data but operations too. Here's an example of a class. Ignore the <code>public</code> keyword for now; we'll explain it below.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">csharp</div>
@@ -127,8 +127,8 @@ init_all();</script>
 }</code></pre>
             </div>
           </div>
-          <p>在类的语境里，类包括两部分：第一部分是类的成员字段，也就是持有的变量，比如上面的 x y z；第二部分是类的成员方法，也就是类持有的函数，比如上面的 <code>Clear()</code>，这个函数没有什么特别的作用，就只是把这个向量的 x y z 都设置成 0。成员字段是这个类应当存储的数据，而成员方法就是对这些数据可行的操作。</p>
-          <p>在这个示例中，我们声明了一个叫 <code>Vector3</code> 的类，同时我们将一个操作也放了进来也就是 <code>Clear</code> 函数，或者说 <code>Clear</code> 方法。方法与函数的不同在于在方法中，我们天然地可以访问类中的其它变量，我们看到，上面的 <code>Clear</code> 方法可以直接访问 x y z 变量，而不需要把他们当作参数传进来。我们的 <code>Clear</code> 方法实际上类似于下面这样一个函数，这个函数在类之外。下面的函数中，我们传了一个名字为 <code>self</code> 的 <code>Vector3</code>；而在上面的类的函数中我们并不需要传一个 <code>self</code> 进去，实际上我们把这个 <code>self</code> 隐藏了，我们隐藏地认为类中的函数可以使用这个类中的其它变量，所以我们并不用写出这个 <code>self</code>. 我们把这样的函数称作方法。</p>
+          <p>In this context, a class has two parts. The first is its member fields—the variables it holds, such as x, y, and z above. The second is its member methods—the functions it holds, such as <code>Clear()</code> above. This function doesn't do anything special; it just sets the vector's x, y, and z values to 0. Member fields are the data the class should store, and member methods are the operations that can be performed on that data.</p>
+          <p>In this example, we've declared a class called <code>Vector3</code> and included an operation: the <code>Clear</code> function, or <code>Clear</code> method. A method differs from a function in that it naturally has access to the other variables in the class. As we can see, the <code>Clear</code> method above can access x, y, and z directly without having them passed in as parameters. Our <code>Clear</code> method is actually similar to the function below, which sits outside the class. In the function below, we pass in a <code>Vector3</code> named <code>self</code>. In the class function above, we don't need to pass in <code>self</code>. We've effectively hidden it: we implicitly assume that functions in a class can use the class's other variables, so we don't have to write out <code>self</code>. We call this kind of function a method.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">csharp</div>
@@ -139,23 +139,23 @@ init_all();</script>
 }</code></pre>
             </div>
           </div>
-          <p>同时，优秀的面向对象的程序要求每个类设计得足够小，小到只能完成一个逻辑上的功能。</p>
-          <p>这是一种理解组合和抽象的新方式，在类的范畴下，我们要思考的内容不再是整个程序在什么情况下要做什么，而是这些类应当具备什么功能，为了让某个类具备某个功能，我们应当在其中存储什么数据，实现什么方法。</p>
-          <p>另外，面向对象的编程范式认为，过多地考虑外部代码的正确性并不是好事，所以它希望程序员能够放弃做这件事情。因此，在定义类的时候，我们可以只让外部看到我们希望让别的类知道的细节，比如我们可以只对外表明我们有 A 方法和 B 方法，而除了 A 和 B 方法外我们内部还有一些其他的方法。这种技术被称为封装。</p>
-          <p>回到上面的代码，我们发现每个变量和类的声明前都有一个 <code>public</code> 关键字，这个关键字其实就是声明整个类和变量是对其它类都可见的。如果我们不声明，在很多编程语言中，这个字段默认对其它类是不可见（也就是说，字段默认是 <code>private</code> 的）。</p>
-          <p>那么，依靠类，我们是怎么解决先前的那些问题的呢。我们先回顾一下之前的问题是什么。</p>
+          <p>Good object-oriented programs also require each class to be designed small enough to perform only one logical function.</p>
+          <p>This is a new way of understanding composition and abstraction. In terms of classes, we no longer think about what the entire program should do under which circumstances. Instead, we think about what capabilities each class should have, and what data and methods we should put into a class to give it a particular capability.</p>
+          <p>The object-oriented paradigm also considers it unhelpful to spend too much effort thinking about the correctness of external code, and encourages programmers to stop doing so. When defining a class, then, we can expose only the details we want other classes to know. For example, we can tell the outside world only that we have methods A and B, while keeping some other methods internal. This technique is called encapsulation.</p>
+          <p>Looking back at the code above, we see a <code>public</code> keyword before every variable and class declaration. This keyword declares that the class and variables are visible to other classes. If we don't specify it, in many programming languages the field is invisible to other classes by default (that is, fields are <code>private</code> by default).</p>
+          <p>So how do classes solve our earlier problems? Let's first review what those problems were.</p>
           <ul>
             <li>
-              <p>执行流过长会导致程序的运行难以分析和排障</p>
-              <p>  </p>
-              <p>  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/kernel/fork.c?h=v6.7-rc4" class="link">https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/kernel/fork.c?h=v6.7-rc4</a>  fork.c 中的长代码</p>
+              <p>Long execution flows make a program hard to analyze and troubleshoot.</p>
+              <div class="image_wrapper"><img src="/images/content/blogs/programming/programming_theory_for_game_development/images/Untitled.gif" alt="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/kernel/fork.c?h=v6.7-rc4(https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/kernel/fork.c?h=v6.7-rc4)  Long code in fork.c"></div>
+              <p>  <a href="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/kernel/fork.c?h=v6.7-rc4" class="link">https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/kernel/fork.c?h=v6.7-rc4</a>  Long code in fork.c</p>
             </li>
             <li>
-              <p>变量和关于它们的操作在代码逻辑上没有关联性</p>
+              <p>Variables and the operations on them aren't associated in the code's logic.</p>
             </li>
           </ul>
-          <p>首先，我们规定了类的功能之后，在封装的帮助下，就只需要考虑这个功能本身的正确性，如果一个类本身工作正常，那么它在与别的类合作的时候也一定工作正常。因为我们只需要把一个类中承诺能实现的功能的部分暴露给其他人，其它部分被限制在类内部。其次，在封装的帮助下，我们不能也不会过分地考虑程序的细节，因为别的库的大部分代码都被其它开发者隐藏了。这两点把我们思考中要容纳的范畴缩小到了一个相对轻松的范畴。面向对象范式的支持者认为，应用面向对象的思想去设计程序会让程序变得更好维护。</p>
-          <p>我们以 Minecraft 的方块 <code>Block</code> 为例，给大家具体介绍一下类的概念。之前我们介绍了类，它拥有组合变量和操作的能力。MC 中方块的类简化后是代码中这样的。为了方便大家阅读，在后面我们所有的 <code>public</code> 关键字都省略掉，大家认为所有的字段都是 <code>public</code> 就好了。</p>
+          <p>First, once we've defined a class's functionality, encapsulation lets us consider only the correctness of that functionality itself. If a class works correctly on its own, it will also work correctly when cooperating with other classes. That's because we only need to expose the parts of a class that promise to provide its functionality; the other parts are confined within the class. Second, encapsulation means we can't, and won't, spend too much time considering program details, because most code in other libraries has been hidden by other developers. These two points reduce the scope we need to keep in mind to something relatively manageable. Supporters of the object-oriented paradigm believe that designing programs with object-oriented thinking makes them easier to maintain.</p>
+          <p>Let's use Minecraft's <code>Block</code> as a concrete example of a class. As we mentioned earlier, a class can combine variables and operations. A simplified version of Minecraft's block class looks like this. To make the code easier to read, we'll leave out all <code>public</code> keywords from now on. Just assume every field is <code>public</code>.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">java</div>
@@ -168,15 +168,15 @@ init_all();</script>
 }</code></pre>
             </div>
           </div>
-          <p>我们在 <code>Block</code> 类中声明了许多所有方块几乎都会有的信息，例如破坏需要的时间等等。这时，要创建一个方块，例如泥土，我们只需要把 <code>Block</code> 类实例化出来就好了。</p>
+          <p>In the <code>Block</code> class, we've declared a lot of information that almost every block has, such as the time needed to break it. Now, to create a block—dirt, for example—we just need to instantiate the <code>Block</code> class.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">java</div>
               <pre><code class="language-java">Block dirt = new Block(&quot;dirt&quot;,...);</code></pre>
             </div>
           </div>
-          <p>等下，什么是实例化？我们之前介绍了 <code>struct</code> ，我们创建一个 <code>struct</code> 时就是同时创建了其中所有的声明的变量，这些变量被“打包”到一个变量里。几乎一样的，我们创建一个类的时候，其实就是同时将一堆类中声明过的变量和函数创建出来，“打包”在一个变量里，我们把这个变量称作“对象”，我们称这个过程为“实例化”。这个被创建出的 <code>dirt</code> 变量就是被我们称作的“对象”。各位可能好奇我们没有设置过这些变量的初始值，那我们创建出的泥土里的变量的初始值是什么呢，在编程语言中我们有很多声明和设置对象的初始值的方法，大家可以在学编程语言时了解。这里我们方便大家理解概念，把这些代码省略了，这样看起来会更好懂一点。</p>
-          <p>好了，现在我们创建了一个泥土方块，我们可以类似地创建石头方块、树叶方块等等。</p>
+          <p>Wait, what is instantiation? We introduced <code>struct</code> earlier. When we create a <code>struct</code>, we create all the variables declared inside it at the same time, “packaged” into one variable. Almost the same thing happens when we create a class: we create a collection of variables and functions declared in the class and “package” them into one variable. We call this variable an “object,” and the process “instantiation.” The <code>dirt</code> variable we've created is what we call an “object.” You may be wondering: since we haven't set initial values for these variables, what are their initial values in the dirt block we created? Programming languages offer many ways to declare and set an object's initial values, which you can learn about as you study a language. We've omitted that code here to make the concepts easier to understand.</p>
+          <p>Now we've created a dirt block. We can create stone blocks, leaf blocks, and so on in the same way.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">java</div>
@@ -186,8 +186,8 @@ Block leaf = new Block(&quot;leaf&quot;,...);
 ...</code></pre>
             </div>
           </div>
-          <p>大家注意我们上面代码里的括号，这是我们在 Java 语言设置对象初始值的一种方式。我们不同的方块有不同贴图、名字、破坏时间，都可以在我们声明这个方块的括号中设置。</p>
-          <p>我们刚刚举例介绍了类是如何组合变量的，现在我们来看看“操作(函数/方法)”，举个例子，我们每个方块都会有在被破坏时掉落物品的行为，我们在 Block 类里写了一个 <code>spawnDrops</code> （生成掉落物）方法，在方块被破坏时生成我们的掉落物。</p>
+          <p>Notice the parentheses in the code above. This is one way of setting an object's initial values in Java. Our different blocks have different textures, names, and breaking times, and we can set all of these inside the parentheses when we declare a block.</p>
+          <p>We've just used an example to show how classes combine variables. Now let's look at “operations (functions/methods).” For example, every block has a behavior that drops items when it's broken. We write a <code>spawnDrops</code> method in the Block class to spawn our drops when a block breaks.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">java</div>
@@ -196,13 +196,9 @@ void spawnDrops(){
 }</code></pre>
             </div>
           </div>
-          <p>但是在 Minecraft 中，不同的方块掉落物品的行为是不同的，比如泥土是掉落自己的方块物品，树叶是概率掉落树苗。但是我们 <code>Block</code> 类只有一个，只能实现一种逻辑。实际上，不止掉落物品，我们每个方块的各种行为都是不同的，那么有没有一种既可以保持它们有相同的行为声明和变量声明，又能实现每个方块特别行为的架构呢？</p>
-          <p></p>
-          <div class="stack-container">
-            <div class="stack-card" style="--image-width: 320px; --image-ratio: 320 / 166"><img src="/images/content/blogs/programming/programming_theory_for_game_development/images/Untitled.gif" width="320" height="166" alt="https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/kernel/fork.c?h=v6.7-rc4(https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/kernel/fork.c?h=v6.7-rc4)  fork.c 中的长代码"></div>
-            <div class="stack-card" style="--image-width: 898px; --image-ratio: 898 / 744"><img src="/images/content/blogs/programming/programming_theory_for_game_development/images/Untitled.jpg" width="898" height="744" alt="Untitled"></div>
-          </div>
-          <p>继承这个概念出现了。它允许我们在给我们的类扩充新功能的同时，保留旧的那一个类的内容。</p>
+          <p>But in Minecraft, different blocks drop items differently. Dirt drops its own block item, for example, while leaves have a chance to drop saplings. We only have one <code>Block</code> class, though, so it can implement only one piece of logic. In fact, it's not just item drops: all sorts of behaviors differ from block to block. Is there an architecture that lets them keep the same behavior and variable declarations while implementing the special behaviors of each block?</p>
+          <div class="image_wrapper"><img src="/images/content/blogs/programming/programming_theory_for_game_development/images/Untitled.jpg" alt="Untitled"></div>
+          <p>This is where inheritance comes in. It lets us extend our classes with new functionality while retaining the contents of the original class.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">java</div>
@@ -223,13 +219,11 @@ void spawnDrops(){
 }</code></pre>
             </div>
           </div>
-          <p>上面我们从 <code>Block</code> 派生了两个新的类，两个类继承自 <code>Block</code>，它们拥有 <code>Block</code> 类的内容，同时类允许我们修改其中某个方法的逻辑。这就解决了我们之前的遇到的问题。</p>
-          <h1 id="heading1_2" index-text="III">用继承模型实现游戏</h1>
+          <p>Above, we've derived two new classes from <code>Block</code>. Both inherit from <code>Block</code>, so they have the contents of the <code>Block</code> class, while the class mechanism lets us change the logic of a particular method. This solves the problem we encountered earlier.</p>
+          <h1 id="heading1_2" index-text="III">Implementing a game with an inheritance model</h1>
           <p>@宏楼 Koiro </p>
-          <p>我们刚刚了解过了继承，用继承去设计游戏是一件符合直觉的事情。以 Minecraft 为例，Minecraft 是一个使用继承模型实现的游戏。在 Minecraft 中，我们用实体 Entity 这个基类来实现各种不是方块的物体，例如掉落物、生物等。我们看看 Minecraft 是怎么实现鸡和牛的，因为所有生物是有共性的，例如生物有血量系统、会受伤，于是开发者派生出 LivingEntity 这个类作为所有生物的基类。每个生物的行为是不一样的，因此开发者要派生出每个具体生物的类。</p>
-          <p>例如：只有鸡在空中会缓慢降落，因此开发者只需把缓落逻辑写在 Chicken 类中。类似的，开发者把用桶接牛奶的逻辑写在 Cow 类中。</p>
-          <p></p>
-          <p></p>
+          <p>We've just learned about inheritance, and using it to design a game is intuitive. Take Minecraft, a game implemented using an inheritance model. In Minecraft, the base class Entity is used to implement all kinds of things that aren't blocks, such as dropped items and mobs. Let's look at how Minecraft implements chickens and cows. Since all living entities share some characteristics, such as having a health system and being able to take damage, the developers derived a class called LivingEntity to serve as the base class for all living entities. Each mob behaves differently, so the developers derive a class for each specific mob.</p>
+          <p>For example, only chickens descend slowly through the air, so the developers just need to put the slow-falling logic in the Chicken class. Similarly, they put the logic for collecting milk with a bucket in the Cow class.</p>
           <div class="stack-container">
             <div class="stack-card" style="--image-width: 320px; --image-ratio: 320 / 320"><img src="/images/content/blogs/programming/programming_theory_for_game_development/images/Untitled 1.gif" width="320" height="320" alt="Untitled"></div>
             <div class="stack-card" style="--image-width: 320px; --image-ratio: 320 / 320"><img src="/images/content/blogs/programming/programming_theory_for_game_development/images/Untitled 2.gif" width="320" height="320" alt="Untitled"></div>
@@ -261,66 +255,62 @@ void spawnDrops(){
    }</code></pre>
             </div>
           </div>
-          <p>在继承结构中，Chicken 和 Cow 都继承自 Animal 类，而 Animal 则经过多层继承来自 LivingEntity。</p>
-          <p></p>
-          <div class="image_wrapper"><img src="/images/content/blogs/programming/programming_theory_for_game_development/images/Untitled 1.jpg" alt="牛 Cow 类的继承关系"></div>
-          <p>牛 Cow 类的继承关系</p>
-          <p>但是各位思考一个问题，如果我们要做一只既可以接奶又可以缓落的生物，我们该怎么做？</p>
-          <p>这个问题在现实中很好解决，既然我们无法同时继承鸡的类或者牛的类，那我们创造一个新类，把鸡的滑翔逻辑和牛的接奶逻辑都放进去就好了。但各位应该发现一些问题了：我们复制了代码。复制代码是个很棘手的问题，因为在未来我们修改一个代码时要把所有的复制代码也都改了，这降低了代码的可维护性。在继承模型中，为了缓解复制代码的问题，我们只能将各种行为抽象成很更多类。例如我们看牛的类的继承关系：从 Animal 到 Mob 中有很多层类。但如果我们想到一个生物不能兼容现有的任何类，那么我们又要重新调整继承关系，或者选择复制之前的代码，造成代码复制的问题。如果我们能预知未来，我们就够构造一个完美的继承结构；但现实是我们不能，我们要么在每次遇到新需求的时候重整继承结构，要么就复制代码。</p>
-          <p></p>
+          <p>In the inheritance hierarchy, Chicken and Cow both inherit from Animal, which in turn inherits from LivingEntity through several layers.</p>
+          <div class="image_wrapper"><img src="/images/content/blogs/programming/programming_theory_for_game_development/images/Untitled 1.jpg" alt="Inheritance hierarchy of the Cow class"></div>
+          <p>Inheritance hierarchy of the Cow class</p>
+          <p>But consider this: what if we want a mob that can both be milked and fall slowly? What should we do?</p>
+          <p>In practice, this is easy to solve. Since we can't inherit from both the chicken class and the cow class, we can create a new class and put both the chicken's gliding logic and the cow's milking logic into it. But you should be noticing a problem: we've copied code. Code duplication is a tricky problem, because when we change a piece of code in the future, we also have to change all its copies, making the code harder to maintain. To reduce duplication in an inheritance model, our only option is to abstract the various behaviors into even more classes. Look at the Cow class's inheritance hierarchy, for example: there are many layers of classes between Animal and Mob. But if we think of a mob that doesn't fit any existing class, we have to rearrange the inheritance hierarchy or copy existing code, bringing back the duplication problem. If we could predict the future, we could construct a perfect inheritance hierarchy. But we can't. We either have to reorganize the hierarchy whenever a new requirement comes up, or copy code.</p>
           <div class="image_wrapper"><img src="/images/content/blogs/programming/programming_theory_for_game_development/images/Untitled 2.jpg" alt="Untitled"></div>
-          <p>所以，在继承模型中，我们很难把不同的功能组合在一起。</p>
-          <h1 id="heading1_3" index-text="IV">组合模型大于继承模型</h1>
-          <p>于是人们实践出了组合模型。</p>
-          <p>设想一下如果我们把物体的功能都分散成每一个能力会怎样。对于一只鸡来说，我们可以这样拆分它的行为（需要怎样的能力）：</p>
+          <p>So in an inheritance model, it's hard to combine different capabilities.</p>
+          <h1 id="heading1_3" index-text="IV">Composition over inheritance</h1>
+          <p>This led people to develop the composition model in practice.</p>
+          <p>Imagine breaking an object's functionality down into individual abilities. For a chicken, we could break its behavior down like this (what abilities does it need?):</p>
           <ul>
             <li>
-              <p>生命能力</p>
+              <p>Health</p>
             </li>
             <li>
-              <p>Ai 能力</p>
+              <p>AI</p>
             </li>
             <li>
-              <p>走路能力</p>
+              <p>Walking</p>
             </li>
             <li>
-              <p>缓落能力</p>
+              <p>Slow falling</p>
             </li>
             <li>
-              <p>接受药水效果能力</p>
+              <p>Receiving potion effects</p>
             </li>
             <li>
-              <p>……</p>
+              <p>…</p>
             </li>
           </ul>
-          <p>类似的，对于牛，我们完全可以写一个“产奶能力”；这样先前那个生物的问题就很好解决了，我们只要把“缓落能力”和“产奶能力”组合在一起，都给一个生物就可以了。组合还有很多其它好处，假如我们要写攻击逻辑，我们不用在乎这个物体是什么，只要其存在生命能力，那我们就执行生命能力的受伤逻辑。更简单的，如果一个物体没有生命能力，那它就是无法受伤的物体；没有接受药水效果能力，就是免疫药水效果的物体，因为药水效果不会对其执行。</p>
-          <h2 id="heading2_2">组合模型和继承并不冲突</h2>
-          <p>继承是编程语言的特性，它和组合模型并不冲突。例如：不同生物的 AI 行为是不同的，但是他们有共享的部分，因此它们可以从同一个基类中派生出来。</p>
-          <h2 id="heading2_3">容易接触到的组合模型</h2>
-          <p>现代游戏引擎几乎都是可以使用组合模型的。在 Unity 中，每个物体的行为由各种各样的组件实现的。在 Godot 中，我们可以用 Node 来实现组合。</p>
-          <p></p>
+          <p>Similarly, for a cow, we can write a “milk-producing ability.” This makes the earlier mob problem easy to solve: just combine “slow falling” and “milk production” and give both to one mob. Composition has many other benefits too. If we want to write attack logic, we don't have to care what the object is. As long as it has a health ability, we execute that ability's damage-taking logic. More simply, an object without a health ability can't be hurt. An object without the ability to receive potion effects is immune to them, because potion effects won't be applied to it.</p>
+          <h2 id="heading2_2">Composition and inheritance don't conflict</h2>
+          <p>Inheritance is a programming language feature, and it doesn't conflict with composition. For example, different mobs have different AI behaviors, but they share some parts, so they can be derived from a common base class.</p>
+          <h2 id="heading2_3">Accessible examples of composition</h2>
+          <p>Almost all modern game engines allow composition. In Unity, each object's behavior is implemented through various components. In Godot, we can use Nodes to implement composition.</p>
           <div class="image_wrapper"><img src="/images/content/blogs/programming/programming_theory_for_game_development/images/Untitled 3.jpg" alt="Unity"></div>
           <p>Unity</p>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/programming/programming_theory_for_game_development/images/Untitled 4.jpg" alt="Godot"></div>
           <p>Godot</p>
-          <h1 id="heading1_4" index-text="V">面向对象在游戏开发中的问题</h1>
+          <h1 id="heading1_4" index-text="V">Problems with object-oriented programming in game development</h1>
           <p>@Rasp </p>
-          <p>软件工程里有一句经典的名言：没有银弹，亦即没有通用的解决方案。</p>
-          <p>面向对象在实际的工程实践中同样有很多的问题。首先是性能问题，这主要体现在两个方面：其一是我们在通过类获得我们想要的功能时，一定也不必要地获得了我们不需要的功能，而所有的这些功能都是有开销的；其二是“对象”这个概念对现在的机器并不友好，设想这么一个场景，我们需要获得大量对象的名字，但是为了它们的名字，我们需要将所有的对象都拉进我们的内存中，这通常包括我们在对象里存储所有其它数据。很快，内存里就会充满了我们不需要的数据。</p>
-          <p>实际上，这些数据并没有跟看起来的那样与我们要解决的问题无关，我们实际上将一个具有无法管理的内部状态带进了我们的上下文。我们无法得知某些操作是否跟它承诺的那样无害，因为我们看不到封装的另一头，直到某天一个神秘的内部错误毁了我们写的整段代码。</p>
-          <p>另一个问题与面向对象的思想有关，它总是鼓励程序员构造复杂的封装。类强大的功能总让程序员误以为所有的问题都可以通过构造一个新类来解决。出现新问题？实现新功能？没关系，我们都可以通过构造一个新的类来解决。于是我们将越来越多的类组合成新类，把这个不可控的内部状态变得越来越大，最后我们会为了实现一个简单的功能而写出一大堆没有必要的样板代码。</p>
-          <p>看起来面向对象的范式远远没有它看起来那么清爽无害，有没有能够解决这个问题的方法呢？</p>
-          <h1 id="heading1_5" index-text="VI">什么是数据驱动 Data-Driven</h1>
+          <p>There's a classic saying in software engineering: no silver bullet. In other words, there's no universal solution.</p>
+          <p>Object-oriented programming has plenty of problems in actual engineering practice too. First, there's performance, mainly in two respects. One is that when we use a class to get the functionality we want, we inevitably also get functionality we don't need, and all that functionality has a cost. The other is that the concept of an “object” isn't friendly to modern machines. Imagine that we need the names of a large number of objects. To get their names, we have to pull all the objects into memory, usually including all the other data stored in them. Before long, memory fills up with data we don't need.</p>
+          <p>In fact, this data isn't as unrelated to our problem as it might appear. We've actually brought something with unmanageable internal state into our context. We can't tell whether certain operations are as harmless as they promise, because we can't see the other side of the encapsulation—until one day a mysterious internal error ruins the whole section of code we've written.</p>
+          <p>Another problem comes from object-oriented thinking itself: it keeps encouraging programmers to construct complex encapsulations. The powerful capabilities of classes often lead programmers to believe, mistakenly, that every problem can be solved by constructing a new class. A new problem? A new feature? No worries—we can solve it with a new class. So we combine more and more classes into new classes, making this uncontrollable internal state bigger and bigger. Eventually, we end up writing a lot of unnecessary boilerplate just to implement a simple feature.</p>
+          <p>It seems the object-oriented paradigm is far less clean and harmless than it appears. Is there a way to solve this problem?</p>
+          <h1 id="heading1_5" index-text="VI">What is data-driven programming?</h1>
           <p>@Rasp </p>
           <blockquote>
-            <p>在下面的文章中 “数据驱动” 和 “面向数据” 表示同一个意思，当你看到其中的一个时，请将其换成你喜欢的那一个名词；</p>
+            <p>In the text below, “data-driven” and “data-oriented” mean the same thing. Whenever you see one, feel free to substitute whichever term you prefer.</p>
           </blockquote>
-          <h2 id="heading2_4">在开始介绍新范式之前</h2>
-          <p>我们要再一次地指出：没有通用的解决方案，同时不同的编程范式也并不是互斥的。我们应当做的是在一个编程范式擅长的地方去发挥这个范式的长处，而不是固执地认为某个范式能解决所有的问题。</p>
-          <h2 id="heading2_5">从数据开始</h2>
-          <p>数据驱动的编程依赖与数据的模式，根据不同的模式执行不同的行为。这是一个很简单也很难的描述，它并不能像面向对象那样把程序描述成一个我们都能以直觉去理解的样子。要理解数据的模式，我们先要理解什么是相似的数据。</p>
-          <p>很多时候，其实我们并不是非常关心我们的数据到底是什么，我们其实只关心数据能完成的事情。比如，我们对一组数据做排序时，我们只关心这组数据之间是不是能排序，并不关心他们是否可加、可复制之类的事情。这种都具备一个通用的行为的数据我们可以认为是相似的数据。这给我们另一个提示，我们写下的行为，或者说操作函数，在很多时候是可以用于一大堆种类的数据的。而我们提炼出来的数据间的相似性，很多时候也表明了我们在使用这些数据时我们的关注重心。</p>
+          <h2 id="heading2_4">Before introducing a new paradigm</h2>
+          <p>We need to point this out again: there's no universal solution, and different programming paradigms aren't mutually exclusive. We should use each paradigm's strengths where it excels, rather than stubbornly believing one paradigm can solve every problem.</p>
+          <h2 id="heading2_5">Starting with data</h2>
+          <p>Data-driven programming relies on patterns in data, performing different behaviors based on different patterns. This description is both simple and difficult. Unlike object-oriented programming, it doesn't describe a program in a way we can all understand intuitively. To understand patterns in data, we first need to understand what similar data is.</p>
+          <p>Often, we don't really care what our data actually is; we care only about what it can do. For example, when sorting a collection of data, we care only whether it can be ordered. We don't care whether the values can be added, copied, and so on. We can think of data that shares a common behavior like this as similar data. This gives us another hint: the behaviors we write, or operation functions, can often be used with many kinds of data. The similarities we extract from data also often show where our attention is focused when using that data.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">haskell</div>
@@ -331,27 +321,26 @@ min a b = case compare a b of
   EQ -&gt; a</code></pre>
             </div>
           </div>
-          <p>把相似的数据存储在一起，我们就可以在我们需要的时候只拿取出我们想要的数据，而我们对这些数据执行的操作又是相同的，因为这些数据有共同的特征，这就是数据的模式。</p>
-          <p></p>
+          <p>By storing similar data together, we can retrieve only the data we want when we need it. And because this data shares common characteristics, we perform the same operations on it. This is a pattern in data.</p>
           <div class="image_wrapper"><img src="/images/content/blogs/programming/programming_theory_for_game_development/images/Untitled 5.png" alt="Untitled"></div>
-          <p>因此，数据驱动的编程范式更适合用于处理对大量相似的数据做同类操作的问题，它们天生就有更好的性能，并且能够更方便地使用多线程相关的优化技巧。但并不适合处理对某些特殊数据做某些操作的任务，因为这通常意味着我们得生造出那个特殊数据的“相似性”，并要求其他数据不满足这个特性，而这是反模式的。这种任务天生更适合用面向对象的方法完成。</p>
-          <h1 id="heading1_6" index-text="VII">什么是 ECS</h1>
+          <p>The data-driven paradigm is therefore better suited to problems involving the same kind of operation on large amounts of similar data. It naturally offers better performance and makes it easier to use multithreading-related optimization techniques. But it isn't well suited to tasks that involve certain operations on some special piece of data, because that usually means artificially inventing a “similarity” for that special data and requiring other data not to satisfy it, which is an antipattern. Such tasks are naturally better suited to an object-oriented approach.</p>
+          <h1 id="heading1_6" index-text="VII">What is ECS?</h1>
           <p>@宏楼 Koiro </p>
           <blockquote>
-            <p>本篇介绍的 Component 与 Unity 的 Component 并不相同，类似地 Entity 也并不是 GameObject，它们或许有些类似，但请大家不要带入过往的经验。</p>
+            <p>The Component introduced here isn't the same as Unity's Component. Similarly, Entity isn't GameObject. They may have some similarities, but please don't carry over your past experience.</p>
           </blockquote>
-          <p>ECS 指的是 Entities（实体）| Components（组件）| Systems（系统）模型。实体指一个特殊的单位，它将许多组件打包在一起，组件负责存储数据；而系统则负责处理数据。 </p>
+          <p>ECS stands for the Entities | Components | Systems model. An entity is a special unit that packages many components together. Components store data, while systems process it. </p>
           <blockquote>
-            <p>ECS 是一种用面向数据思想设计的框架，我们下面也会介绍 ECS 系统如何用面向数据思想来实现的。</p>
+            <p>ECS is a framework designed with data-oriented thinking. Below, we'll also introduce how an ECS system is implemented using this approach.</p>
           </blockquote>
-          <p>虽然上面是通俗简练的介绍，但还是很难懂。我们可以根据实际的游戏内容来理解。下面我们依然以 Minecraft 为例。</p>
+          <p>Although that's a plain, concise introduction, it's still hard to understand. We can understand it through actual game content. Once again, we'll use Minecraft as an example.</p>
           <blockquote>
-            <p>注：Minecraft 并不是用 ECS 模型实现的游戏，但我们以 Minecraft 的游戏内容为例来介绍 ECS，或者说如果我们以 ECS 模型来实现 Minecraft，我们会怎样设计。以下的 Entity（实体）定义与我们上面介绍过的 Minecraft 中的 Entity 没有关系。</p>
+            <p>Note: Minecraft isn't implemented using an ECS model. We're using Minecraft's gameplay content to introduce ECS—or, in other words, how we would design Minecraft if we implemented it with ECS. The definition of Entity below has nothing to do with the Entity in Minecraft that we introduced earlier.</p>
           </blockquote>
-          <h2 id="heading2_6">先介绍一下什么是实体和组件</h2>
-          <p>我们的游戏是由大量的物体组成的。以 Minecraft 为例：我们的每一个方块、物品、生物都可以看作一个实体。每个物体都有一个唯一标识符，而实体就是这个唯一标识符，在实现上它就是一个 <code>unsigned int</code>（在大部分机器上这是一个 32 位长无符号整数） 。而我们的数据存在组件中，我们可以声明每个组件属于哪个实体。</p>
-          <p>这样我们创建了一个组合数据的能力。我们将不同的组件，通过实体这个唯一标识符组合在了一起。</p>
-          <p>一个具体的例子，我们可以想一想，对于 Minecraft 中一个掉落在地上的物品来说，它需要有哪些组件：</p>
+          <h2 id="heading2_6">First, entities and components</h2>
+          <p>Our game consists of a large number of objects. In Minecraft, for example, every block, item, and mob can be considered an entity. Each object has a unique identifier, and the entity is that unique identifier. In implementation, it's just an <code>unsigned int</code> (a 32-bit unsigned integer on most machines). Our data lives in components, and we can specify which entity each component belongs to.</p>
+          <p>This gives us a way to compose data. We combine different components through an entity's unique identifier.</p>
+          <p>For a concrete example, let's think about what components an item dropped on the ground in Minecraft would need:</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">kotlin</div>
@@ -363,30 +352,27 @@ min a b = case compare a b of
 ..</code></pre>
             </div>
           </div>
-          <p></p>
           <div class="image_wrapper"><img src="/images/content/blogs/programming/programming_theory_for_game_development/images/Dec-07-2023_22-49-46.gif" alt="Dec-07-2023 22-49-46.gif"></div>
-          <p>各位可能好奇为什么我们不直接创建一个 Item 的组件，把物体相关的参数都放进去。</p>
-          <p>这确实是一种可以用的设计方法，但是，对于 ECS 模型，将组件做小，在 ECS 的 Systems（系统）中有性能优势，下面会介绍。</p>
-          <h2 id="heading2_7">什么是系统（System）</h2>
-          <p>系统是对数据的操作。在编程语言中，我们对数据操作的手段是函数，ECS 中的系统也是类似的，在实现上它们就是各种函数。我们要实现系统有两个问题：</p>
+          <p>You might wonder why we don't just create an Item component and put all the item's related parameters in it.</p>
+          <p>That's certainly a workable design. But in the ECS model, keeping components small has performance advantages in Systems, as we'll explain below.</p>
+          <h2 id="heading2_7">What is a System?</h2>
+          <p>A system is an operation on data. In programming languages, functions are how we operate on data. Systems in ECS are similar: in implementation, they're just various functions. There are two questions to answer when implementing systems:</p>
           <ul>
             <li>
-              <p>我们怎样获取需要的数据（主要为组件）？（了解组件的存储方式）</p>
+              <p>How do we get the data we need (mainly components)? (Understanding how components are stored.)</p>
             </li>
             <li>
-              <p>我们怎样调用我们的系统？（了解系统的存储方式）</p>
+              <p>How do we call our systems? (Understanding how systems are stored.)</p>
             </li>
           </ul>
-          <h3 id="heading3_0">组件是怎样被存储的</h3>
-          <p>我们刚刚说过 ECS 是一种面向数据的架构。在面向数据的思想中，我们会将同一类的数据放在一起。而在 ECS 中，组件就是这样的数据，在实现上我们将同一种组件放在一起存储。</p>
-          <p></p>
+          <h3 id="heading3_0">How components are stored</h3>
+          <p>We just said that ECS is a data-oriented architecture. In data-oriented thinking, we put data of the same kind together. In ECS, components are that data. In implementation, we store components of the same type together.</p>
           <div class="image_wrapper"><img src="/images/content/blogs/programming/programming_theory_for_game_development/images/Untitled 5.png" alt="Untitled"></div>
-          <h3 id="heading3_1">将系统放在一起</h3>
-          <p>基本数据类型可以被存储，函数是也可以被存储的，我们游戏通过循环来更新，系统或者说函数就是在这个过程中被执行的。现在大部分语言都拥有许多函数式编程特性，使得存储函数或者说操作的事情变得并不困难。函数式编程又是另一个天坑，我们未来再聊。大家只需知道我们可以像存储数据一样把函数存储在一起，然后在游戏循环中每帧调用。</p>
-          <h2 id="heading2_8">🌰 例子</h2>
-          <p>我们刚刚了解了如何解决处理数据遇到的两个问题，来看看具体的例子吧！</p>
-          <p>在 Minecraft 中，我们的掉落物会随时间旋转，这需要我们每帧改变所有掉落物的 <code>Transform</code> 组件中的旋转的数据。实现上，我们就是写了一个处理 <code>Transform</code> 组件的函数，然后每帧去执行它。我们的掉落物虽然有非常多，但得益于面向数据的设计，我们可以低成本地获取所有掉落物的 <code>Transform</code> 组件，改变其中的值，实现让所有掉落物都匀速旋转的效果。在这个过程中，我们不会获取每个掉落物的其它不需要的数据，避免了不必要的开销。</p>
-          <p></p>
+          <h3 id="heading3_1">Putting systems together</h3>
+          <p>Primitive data types can be stored, and functions can be stored too. Our game updates through a loop, and systems—or functions—execute during this process. Most languages today have many functional programming features, so storing functions, or operations, isn't difficult. Functional programming is another deep rabbit hole; we'll talk about it another time. All you need to know is that we can store functions together just like data, then call them every frame in the game loop.</p>
+          <h2 id="heading2_8">🌰 Example</h2>
+          <p>We've just learned how to address the two questions that come up when processing data. Let's look at a concrete example!</p>
+          <p>In Minecraft, dropped items rotate over time. This requires changing the rotation data in the <code>Transform</code> components of all dropped items every frame. To implement this, we write a function that processes <code>Transform</code> components and execute it every frame. Although we have a great many dropped items, the data-oriented design lets us retrieve all their <code>Transform</code> components at low cost, change their values, and make all dropped items rotate at a constant speed. In the process, we don't retrieve any other unnecessary data from each dropped item, avoiding unnecessary overhead.</p>
           <div class="image_wrapper"><img src="/images/content/blogs/programming/programming_theory_for_game_development/images/Dec-07-2023_22-49-46.gif" alt="Dec-07-2023 22-49-46.gif"></div>
           <div class="code_block">
             <div class="code_part">
@@ -398,115 +384,115 @@ min a b = case compare a b of
 }</code></pre>
             </div>
           </div>
-          <p>讲完这些这点之后，上面将不同数据分成更多细小的组件的原因也明晰了。假如我们一个组件写的很大，负责的数据多，如我们说过的 <code>ItemStackDorp</code> 。</p>
-          <p>为了获得 <code>Transform</code> ，我们就要获得所有的 <code>ItemStackDrop</code> ，这时那些用不上的数据也一并被获取了（texture, registryName…），这就产生了无用的开销。因此我们会倾向于将每个组件设计得小，使其只承担一个明确的任务。</p>
-          <h2 id="heading2_9">ECS 的应用</h2>
-          <p>ECS 有许多性能上的好处，但缺点也显而易见，它完全不如面向对象组织数据来的直观，在面向对象模型中我们将物体的数据和行为放在一起，而在 ECS 中却要把他们分开。另外，ECS 对编程语言特性也有要求，因此市面上大部分游戏引擎都不是纯 ECS 系统的，有的使用其它的范式，有的是和其它范式混合的 ECS 系统。</p>
+          <p>With that explained, the reason for splitting different data into smaller components above should be clearer. Suppose we make a component large, responsible for lots of data, like the <code>ItemStackDorp</code> we mentioned.</p>
+          <p>To get <code>Transform</code>, we'd have to retrieve all of <code>ItemStackDrop</code>, bringing along data we don't use (texture, registryName…), which creates unnecessary overhead. So we tend to design each component to be small and responsible for one clearly defined task.</p>
+          <h2 id="heading2_9">Applications of ECS</h2>
+          <p>ECS has many performance benefits, but its disadvantages are also obvious. It's nowhere near as intuitive as object-oriented programming for organizing data. In an object-oriented model, we keep an object's data and behavior together, while ECS separates them. ECS also has requirements for programming language features, so most game engines on the market aren't pure ECS systems. Some use other paradigms, and some mix ECS with other paradigms.</p>
           <ul>
             <li>
-              <p>Unreal 的使用的就是混合的 ECS 范式。</p>
+              <p>Unreal uses a hybrid ECS paradigm.</p>
             </li>
           </ul>
-          <p>比较纯粹同时较流行的使用 ECS 范式游戏引擎我知道的有：</p>
+          <p>The relatively pure and popular game engines using the ECS paradigm that I know of are:</p>
           <ul>
             <li>
-              <p>一个是 Bevy，这是一个基于 rust 的纯 ECS 的面向数据的游戏引擎。</p>
+              <p>Bevy, a Rust-based, pure ECS, data-oriented game engine.</p>
             </li>
             <li>
-              <p>另一个就是 Unity 于今年（2023）刚刚更新的 DOTS 框架，Unity 特别强调了该框架 ECS 和面向数据的特性。</p>
+              <p>Unity's DOTS framework, which was just updated this year (2023). Unity particularly emphasizes the framework's ECS and data-oriented features.</p>
             </li>
           </ul>
-          <p>不过，我们了解 ECS 更重要的是了解其中的思想，也就是面向数据的思想。ECS 只是其中的一种实现。我们不断思考架构的原因是为了创造出更好的软件。</p>
-          <p>以上，祝大家玩得愉快。Happy game dev and happy hacking!</p>
-          <h1 id="heading1_7" index-text="VIII">附录</h1>
+          <p>Still, the more important part of learning about ECS is understanding its underlying ideas: data-oriented thinking. ECS is only one implementation. The reason we keep thinking about architecture is to create better software.</p>
+          <p>That's all. Have fun, everyone. Happy game dev and happy hacking!</p>
+          <h1 id="heading1_7" index-text="VIII">Appendix</h1>
           <blockquote>
-            <p>再好的学习资料也不能解决一切问题，学习的过程中希望大家广泛地运用搜索引擎、ChatGPT、New Bing 等来解决自己的问题。
-在开发领域，在国际搜索引擎（Bing 国际版、Google 等）用英文搜索能得到更有帮助的答案。</p>
+            <p>Even the best learning resources can't solve every problem. As you learn, I hope you'll make plenty of use of search engines, ChatGPT, New Bing, and so on to solve your problems.
+In development, searching in English on international search engines (Bing's international version, Google, etc.) can produce more helpful answers.</p>
           </blockquote>
-          <h2 id="heading2_10">程序设计基础方向</h2>
-          <p>CS50: Introduction to Computer Science，Harward University，<a href="https://pll.harvard.edu/course/cs50-introduction-computer-science" class="link">https://pll.harvard.edu/course/cs50-introduction-computer-science</a> 
-（中文版字幕 - CS50：计算机导论，<a href="https://www.bilibili.com/video/BV1DA411Y7jk/" class="link">https://www.bilibili.com/video/BV1DA411Y7jk/</a>）</p>
+          <h2 id="heading2_10">Programming fundamentals</h2>
+          <p>CS50: Introduction to Computer Science, Harward University, <a href="https://pll.harvard.edu/course/cs50-introduction-computer-science" class="link">https://pll.harvard.edu/course/cs50-introduction-computer-science</a> 
+(Chinese subtitles — CS50: Introduction to Computer Science, <a href="https://www.bilibili.com/video/BV1DA411Y7jk/" class="link">https://www.bilibili.com/video/BV1DA411Y7jk/</a>)</p>
           <blockquote>
-            <p>适合的人群：希望了解程序设计基础知识的人；
-你可以从中获得：作为程序员，我们在编程时到底在做什么和应该思考什么。程序设计的基本理念。</p>
+            <p>Who it's for: People who want to learn the fundamentals of programming.
+What you can get from it: What we, as programmers, are actually doing and should be thinking about when we program. The basic ideas of programming.</p>
           </blockquote>
-          <p>*Structure and Interpretation of Computer Programs，*MIT，<a href="https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/6515/sicp.zip/full-text/book/book.html" class="link">https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/6515/sicp.zip/full-text/book/book.html</a> 
-（中文版 -《计算机程序的构造与解释》，<a href="https://www.bilibili.com/video/BV1Xx41117tr/" class="link">https://www.bilibili.com/video/BV1Xx41117tr/</a>）</p>
+          <p><em>Structure and Interpretation of Computer Programs,</em> MIT, <a href="https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/6515/sicp.zip/full-text/book/book.html" class="link">https://mitp-content-server.mit.edu/books/content/sectbyfn/books_pres_0/6515/sicp.zip/full-text/book/book.html</a> 
+(Chinese version — Structure and Interpretation of Computer Programs, <a href="https://www.bilibili.com/video/BV1Xx41117tr/" class="link">https://www.bilibili.com/video/BV1Xx41117tr/</a>)</p>
           <blockquote>
-            <p>适合的人群：希望了解编程语言如何赋予我们组合和抽象的能力，以及希望了解如何设计出良好程序的人群；
-你可以从中获得：Lisp 语言的基础知识，设计良好程序的能力，分析编程语言结构的能力。</p>
+            <p>Who it's for: People who want to understand how programming languages give us composition and abstraction, and how to design good programs.
+What you can get from it: Basic knowledge of Lisp, the ability to design good programs, and the ability to analyze the structure of programming languages.</p>
           </blockquote>
-          <h2 id="heading2_11">面向对象的编程范式方向</h2>
+          <h2 id="heading2_11">The object-oriented programming paradigm</h2>
           <h3 id="heading3_2">C# (C Sharp)</h3>
-          <p>《C# 图解教程》，丹尼尔·索利斯，卡尔·施罗坦博尔，人民邮电出版社</p>
+          <p><em>Illustrated C#</em>, Daniel Solis and Cal Schrotenboer, Posts &amp; Telecom Press</p>
           <blockquote>
-            <p>适合的人群：无编程语言经验的编程入门人群、只有非面向对象编程语言经验的人群；
-你可以从中获得：C# 程序设计语言的基础和进阶知识及实践指导，面向对象基本理论在 C# 编程中的实践。</p>
+            <p>Who it's for: Beginners with no programming language experience, and people whose only experience is with non-object-oriented languages.
+What you can get from it: Basic and advanced knowledge of the C# programming language, practical guidance, and the application of basic object-oriented theory in C# programming.</p>
           </blockquote>
           <h3 id="heading3_3">Java &amp; Kotlin</h3>
           <blockquote>
-            <p>Kotlin 是一个可以用于编写 Java 程序、跨平台应用、Web开发、安卓应用等的编程语言。
-Kotlin 更加现代并且完全兼容 Java，所以越来越多的 Java 项目开始使用 Kotlin 作为主要开发语言（例如安卓系统）。</p>
+            <p>Kotlin is a programming language that can be used to write Java programs, cross-platform applications, web applications, Android apps, and more.
+Kotlin is more modern and fully compatible with Java, so more and more Java projects are adopting Kotlin as their primary development language (for example, Android).</p>
           </blockquote>
           <hr class="divider_block">
-          <p>《Head First Java（中文版）》Kathy Sierra , Bert Bates，中国电力出版社</p>
+          <p><em>Head First Java (Chinese Edition)</em>, Kathy Sierra , Bert Bates, China Electric Power Press</p>
           <blockquote>
-            <p>适合的人群：无编程语言经验的编程入门人群、只有非面向对象编程语言经验的人群，想要学习 Java 的人群；
-你可以从中获得：理解面向对象这种编程范式并学习如何用 Java 语言实践。</p>
+            <p>Who it's for: Beginners with no programming language experience, people whose only experience is with non-object-oriented languages, and people who want to learn Java.
+What you can get from it: An understanding of the object-oriented programming paradigm and how to put it into practice in Java.</p>
           </blockquote>
           <hr class="divider_block">
-          <p>Kotlin 语言中文指南：<a href="https://hltj.gitbooks.io/kotlin-reference-chinese/content/txt/index0.html" class="link">https://hltj.gitbooks.io/kotlin-reference-chinese/content/txt/index0.html</a></p>
+          <p>Kotlin language guide in Chinese: <a href="https://hltj.gitbooks.io/kotlin-reference-chinese/content/txt/index0.html" class="link">https://hltj.gitbooks.io/kotlin-reference-chinese/content/txt/index0.html</a></p>
           <blockquote>
-            <p>适合的人群：有面向对象语言编程经验、想学习 Kotlin 的人群。</p>
+            <p>Who it's for: People with experience programming in an object-oriented language who want to learn Kotlin.</p>
           </blockquote>
-          <h2 id="heading2_12">游戏引擎</h2>
-          <p>GAMES 104 - 现代游戏引擎导论： <a href="https://www.bilibili.com/video/BV1oU4y1R7Km/?vd_source=8e3bac5216c2065ea5e49aa968fbe85a" class="link">https://www.bilibili.com/video/BV1oU4y1R7Km/</a></p>
+          <h2 id="heading2_12">Game engines</h2>
+          <p>GAMES 104 — Introduction to Modern Game Engines: <a href="https://www.bilibili.com/video/BV1oU4y1R7Km/?vd_source=8e3bac5216c2065ea5e49aa968fbe85a" class="link">https://www.bilibili.com/video/BV1oU4y1R7Km/</a></p>
           <blockquote>
-            <p>适合人群：对游戏和游戏引擎如何运作好奇的人群，即使大部分听不懂，也能收获颇多
-你可以从中获得：现代游戏引擎的理论知识</p>
+            <p>Who it's for: People curious about how games and game engines work. Even if you don't understand most of it, there's still a lot to gain.
+What you can get from it: Theoretical knowledge of modern game engines.</p>
           </blockquote>
-          <h2 id="heading2_13">Bevy 引擎</h2>
+          <h2 id="heading2_13">The Bevy engine</h2>
           <blockquote>
-            <p>适合的人群：好奇 Bevy 是如何设计出干净的 ECS 结构的人
-你可以从中获得：使用 Bevy 引擎的能力；ECS 的游戏引擎是如何被实践出来的知识；对数据驱动更深刻的认识。</p>
+            <p>Who it's for: People curious about how Bevy designs a clean ECS structure.
+What you can get from it: The ability to use the Bevy engine; knowledge of how an ECS game engine is put into practice; a deeper understanding of data-driven design.</p>
           </blockquote>
-          <p>Bevy 官网： <a href="https://bevyengine.org/" class="link">https://bevyengine.org/</a></p>
-          <p>Rust Game Development with Bevy： <a href="https://taintedcoders.com/" class="link">https://taintedcoders.com/</a></p>
-          <p>Rust Bevy Entity Component System：<a href="https://blog.logrocket.com/rust-bevy-entity-component-system/" class="link">https://blog.logrocket.com/rust-bevy-entity-component-system/</a></p>
-          <h2 id="heading2_14">进阶</h2>
-          <p>Beau­tiful Racket: an intro­duc­tion to language-oriented program­ming using Racket，<a href="https://beautifulracket.com/" class="link">https://beautifulracket.com/</a> （使用 Racket 设计属于你的编程语言）</p>
+          <p>Bevy website: <a href="https://bevyengine.org/" class="link">https://bevyengine.org/</a></p>
+          <p>Rust Game Development with Bevy: <a href="https://taintedcoders.com/" class="link">https://taintedcoders.com/</a></p>
+          <p>Rust Bevy Entity Component System: <a href="https://blog.logrocket.com/rust-bevy-entity-component-system/" class="link">https://blog.logrocket.com/rust-bevy-entity-component-system/</a></p>
+          <h2 id="heading2_14">Further study</h2>
+          <p>Beau­tiful Racket: an intro­duc­tion to language-oriented program­ming using Racket, <a href="https://beautifulracket.com/" class="link">https://beautifulracket.com/</a> (Design your own programming language using Racket)</p>
         </div>
       </div>
       <div class="sidebar_wrapper_right sidebar_wrapper">
         <div class="catalogue">
           <ul>
-            <li class="h1"><a href="#heading1_0">基础知识</a></li>
-            <li class="h2"><a href="#heading2_0">编程范式</a></li>
-            <li class="h2"><a href="#heading2_1">走近面向对象编程，之前</a></li>
-            <li class="h1"><a href="#heading1_1">什么是面向对象 OOP</a></li>
-            <li class="h1"><a href="#heading1_2">用继承模型实现游戏</a></li>
-            <li class="h1"><a href="#heading1_3">组合模型大于继承模型</a></li>
-            <li class="h2"><a href="#heading2_2">组合模型和继承并不冲突</a></li>
-            <li class="h2"><a href="#heading2_3">容易接触到的组合模型</a></li>
-            <li class="h1"><a href="#heading1_4">面向对象在游戏开发中的问题</a></li>
-            <li class="h1"><a href="#heading1_5">什么是数据驱动 Data-Driven</a></li>
-            <li class="h2"><a href="#heading2_4">在开始介绍新范式之前</a></li>
-            <li class="h2"><a href="#heading2_5">从数据开始</a></li>
-            <li class="h1"><a href="#heading1_6">什么是 ECS</a></li>
-            <li class="h2"><a href="#heading2_6">先介绍一下什么是实体和组件</a></li>
-            <li class="h2"><a href="#heading2_7">什么是系统（System）</a></li>
-            <li class="h3"><a href="#heading3_0">组件是怎样被存储的</a></li>
-            <li class="h3"><a href="#heading3_1">将系统放在一起</a></li>
-            <li class="h2"><a href="#heading2_8">🌰 例子</a></li>
-            <li class="h2"><a href="#heading2_9">ECS 的应用</a></li>
-            <li class="h1"><a href="#heading1_7">附录</a></li>
-            <li class="h2"><a href="#heading2_10">程序设计基础方向</a></li>
-            <li class="h2"><a href="#heading2_11">面向对象的编程范式方向</a></li>
+            <li class="h1"><a href="#heading1_0">Fundamentals</a></li>
+            <li class="h2"><a href="#heading2_0">Programming paradigms</a></li>
+            <li class="h2"><a href="#heading2_1">Before approaching object-oriented programming</a></li>
+            <li class="h1"><a href="#heading1_1">What is object-oriented programming (OOP)?</a></li>
+            <li class="h1"><a href="#heading1_2">Implementing a game with an inheritance model</a></li>
+            <li class="h1"><a href="#heading1_3">Composition over inheritance</a></li>
+            <li class="h2"><a href="#heading2_2">Composition and inheritance don't conflict</a></li>
+            <li class="h2"><a href="#heading2_3">Accessible examples of composition</a></li>
+            <li class="h1"><a href="#heading1_4">Problems with object-oriented programming in game development</a></li>
+            <li class="h1"><a href="#heading1_5">What is data-driven programming?</a></li>
+            <li class="h2"><a href="#heading2_4">Before introducing a new paradigm</a></li>
+            <li class="h2"><a href="#heading2_5">Starting with data</a></li>
+            <li class="h1"><a href="#heading1_6">What is ECS?</a></li>
+            <li class="h2"><a href="#heading2_6">First, entities and components</a></li>
+            <li class="h2"><a href="#heading2_7">What is a System?</a></li>
+            <li class="h3"><a href="#heading3_0">How components are stored</a></li>
+            <li class="h3"><a href="#heading3_1">Putting systems together</a></li>
+            <li class="h2"><a href="#heading2_8">🌰 Example</a></li>
+            <li class="h2"><a href="#heading2_9">Applications of ECS</a></li>
+            <li class="h1"><a href="#heading1_7">Appendix</a></li>
+            <li class="h2"><a href="#heading2_10">Programming fundamentals</a></li>
+            <li class="h2"><a href="#heading2_11">The object-oriented programming paradigm</a></li>
             <li class="h3"><a href="#heading3_2">C# (C Sharp)</a></li>
             <li class="h3"><a href="#heading3_3">Java &amp; Kotlin</a></li>
-            <li class="h2"><a href="#heading2_12">游戏引擎</a></li>
-            <li class="h2"><a href="#heading2_13">Bevy 引擎</a></li>
-            <li class="h2"><a href="#heading2_14">进阶</a></li>
+            <li class="h2"><a href="#heading2_12">Game engines</a></li>
+            <li class="h2"><a href="#heading2_13">The Bevy engine</a></li>
+            <li class="h2"><a href="#heading2_14">Further study</a></li>
           </ul>
         </div>
       </div>

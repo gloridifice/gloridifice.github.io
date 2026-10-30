@@ -25,8 +25,8 @@ init_all();</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&amp;display=swap" rel="stylesheet">
-    <link rel="canonical" href="https://blog.koiro.xyz/zh-CN/pages/blogs/unreal_5_garbage_collection.html">
-    <meta name="robots" content="noindex,follow">
+    <link rel="canonical" href="https://blog.koiro.xyz/en-US/pages/blogs/unreal_5_garbage_collection.html">
+    <link rel="alternate" hreflang="en-US" href="https://blog.koiro.xyz/en-US/pages/blogs/unreal_5_garbage_collection.html">
     <link rel="alternate" hreflang="zh-CN" href="https://blog.koiro.xyz/zh-CN/pages/blogs/unreal_5_garbage_collection.html">
     <script src="/assets/js/highlightjs/highlight.js"></script>
     <link rel="stylesheet" href="/assets/css/layout.css">
@@ -35,81 +35,81 @@ init_all();</script>
     <link rel="stylesheet" href="/assets/css/post.css">
     <link rel="stylesheet" href="/assets/css/color_scheme_v2.dark_mode.css">
     <link rel="stylesheet" href="/assets/css/highlightjs/github-dark.css">
-    <title>Unreal 5 垃圾回收源码梳理</title>
+    <title>Reading the Unreal 5 Garbage Collection Source</title>
   </head>
   <body>
     <script>hljs.highlightAll();</script>
     <div class="post">
       <div class="sidebar_wrapper_left sidebar_wrapper">
-        <div class="navi"><a href="/en-US/home.html" class="navi_link button" aria-label="主页"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" version="1.1" width="21" height="20.999996185302734" viewBox="0 0 21 20.999996185302734"><defs><clipPath id="master_svg0_9_0235"><rect x="0" y="0" width="21" height="20.999996185302734" rx="0"/></clipPath></defs><g clip-path="url(#master_svg0_9_0235)"><g><path d="M9.9628,1.059317C10.27877,0.8135611,10.7212,0.8135611,11.03716,1.059317C11.03716,1.059317,18.9122,7.18432,18.9122,7.18432C19.1253,7.35009,19.25,7.60498,19.25,7.875C19.25,7.875,19.25,17.5,19.25,17.5C19.25,18.1962,18.9734,18.8639,18.4811,19.3561C17.9889,19.8484,17.321199999999997,20.125,16.625,20.125C16.625,20.125,4.375,20.125,4.375,20.125C3.67881,20.125,3.01113,19.8484,2.518845,19.3561C2.026561,18.8639,1.75,18.1962,1.75,17.5C1.75,17.5,1.75,7.875,1.75,7.875C1.75,7.60498,1.874664,7.35009,2.087802,7.18432C2.087802,7.18432,9.9628,1.059317,9.9628,1.059317C9.9628,1.059317,9.9628,1.059317,9.9628,1.059317ZM8.75,18.375C8.75,18.375,12.25,18.375,12.25,18.375C12.25,18.375,12.25,11.375,12.25,11.375C12.25,11.375,8.75,11.375,8.75,11.375C8.75,11.375,8.75,18.375,8.75,18.375C8.75,18.375,8.75,18.375,8.75,18.375ZM14,18.375C14,18.375,14,10.5,14,10.5C14,10.01674,13.6083,9.625,13.125,9.625C13.125,9.625,7.875,9.625,7.875,9.625C7.39176,9.625,7,10.01674,7,10.5C7,10.5,7,18.375,7,18.375C7,18.375,4.375,18.375,4.375,18.375C4.14293,18.375,3.92038,18.2828,3.75628,18.1187C3.59219,17.9547,3.5,17.732,3.5,17.5C3.5,17.5,3.5,8.30295,3.5,8.30295C3.5,8.30295,10.5,2.8585000000000003,10.5,2.8585000000000003C10.5,2.8585000000000003,17.5,8.30295,17.5,8.30295C17.5,8.30295,17.5,17.5,17.5,17.5C17.5,17.732,17.4078,17.9547,17.2437,18.1187C17.0796,18.2828,16.857,18.375,16.625,18.375C16.625,18.375,14,18.375,14,18.375C14,18.375,14,18.375,14,18.375Z" fill-rule="evenodd" fill="#373737" fill-opacity="1"/></g></g></svg></a><a href="/en-US/blogs.html" class="navi_link button" aria-label="博客"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg></a><a href="/en-US/portfolio.html" class="navi_link button" aria-label="项目"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M619-108q-11 11-25.5 17T563-85q-16 0-31-6t-26-17l-56-56q-11-11-16.5-24.5T427-216q-1-14 3.5-28t13.5-26l6-8-326-466 156-156 509 509q11 11 17 25.5t6 30.5q0 16-6 31t-17 26L619-108ZM507-335l113-112-340-340-52 52 279 400Zm56 170 169-169-56-57-170 170 57 56Zm-56-170 113-112-113 112Z"/></svg></a><a href="/en-US/about.html" class="navi_link button" aria-label="关于"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M194-80v-395h80v315h280v-193l105-105q29-29 45-65t16-77q0-40-16.5-76T659-741l-25-26-127 127H347l-43 43-57-56 67-67h160l160-160 82 82q40 40 62 90.5T800-600q0 57-22 107.5T716-402l-82 82v240H194Zm197-187L183-475q-11-11-17-26t-6-31q0-16 6-30.5t17-25.5l84-85 124 123q28 28 43.5 64.5T450-409q0 40-15 76.5T391-267Z"/></svg></a></div>
+        <div class="navi"><a href="/en-US/home.html" class="navi_link button" aria-label="Home"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" version="1.1" width="21" height="20.999996185302734" viewBox="0 0 21 20.999996185302734"><defs><clipPath id="master_svg0_9_0235"><rect x="0" y="0" width="21" height="20.999996185302734" rx="0"/></clipPath></defs><g clip-path="url(#master_svg0_9_0235)"><g><path d="M9.9628,1.059317C10.27877,0.8135611,10.7212,0.8135611,11.03716,1.059317C11.03716,1.059317,18.9122,7.18432,18.9122,7.18432C19.1253,7.35009,19.25,7.60498,19.25,7.875C19.25,7.875,19.25,17.5,19.25,17.5C19.25,18.1962,18.9734,18.8639,18.4811,19.3561C17.9889,19.8484,17.321199999999997,20.125,16.625,20.125C16.625,20.125,4.375,20.125,4.375,20.125C3.67881,20.125,3.01113,19.8484,2.518845,19.3561C2.026561,18.8639,1.75,18.1962,1.75,17.5C1.75,17.5,1.75,7.875,1.75,7.875C1.75,7.60498,1.874664,7.35009,2.087802,7.18432C2.087802,7.18432,9.9628,1.059317,9.9628,1.059317C9.9628,1.059317,9.9628,1.059317,9.9628,1.059317ZM8.75,18.375C8.75,18.375,12.25,18.375,12.25,18.375C12.25,18.375,12.25,11.375,12.25,11.375C12.25,11.375,8.75,11.375,8.75,11.375C8.75,11.375,8.75,18.375,8.75,18.375C8.75,18.375,8.75,18.375,8.75,18.375ZM14,18.375C14,18.375,14,10.5,14,10.5C14,10.01674,13.6083,9.625,13.125,9.625C13.125,9.625,7.875,9.625,7.875,9.625C7.39176,9.625,7,10.01674,7,10.5C7,10.5,7,18.375,7,18.375C7,18.375,4.375,18.375,4.375,18.375C4.14293,18.375,3.92038,18.2828,3.75628,18.1187C3.59219,17.9547,3.5,17.732,3.5,17.5C3.5,17.5,3.5,8.30295,3.5,8.30295C3.5,8.30295,10.5,2.8585000000000003,10.5,2.8585000000000003C10.5,2.8585000000000003,17.5,8.30295,17.5,8.30295C17.5,8.30295,17.5,17.5,17.5,17.5C17.5,17.732,17.4078,17.9547,17.2437,18.1187C17.0796,18.2828,16.857,18.375,16.625,18.375C16.625,18.375,14,18.375,14,18.375C14,18.375,14,18.375,14,18.375Z" fill-rule="evenodd" fill="#373737" fill-opacity="1"/></g></g></svg></a><a href="/en-US/blogs.html" class="navi_link button" aria-label="Blog"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg></a><a href="/en-US/portfolio.html" class="navi_link button" aria-label="Projects"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M619-108q-11 11-25.5 17T563-85q-16 0-31-6t-26-17l-56-56q-11-11-16.5-24.5T427-216q-1-14 3.5-28t13.5-26l6-8-326-466 156-156 509 509q11 11 17 25.5t6 30.5q0 16-6 31t-17 26L619-108ZM507-335l113-112-340-340-52 52 279 400Zm56 170 169-169-56-57-170 170 57 56Zm-56-170 113-112-113 112Z"/></svg></a><a href="/en-US/about.html" class="navi_link button" aria-label="About"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M194-80v-395h80v315h280v-193l105-105q29-29 45-65t16-77q0-40-16.5-76T659-741l-25-26-127 127H347l-43 43-57-56 67-67h160l160-160 82 82q40 40 62 90.5T800-600q0 57-22 107.5T716-402l-82 82v240H194Zm197-187L183-475q-11-11-17-26t-6-31q0-16 6-30.5t17-25.5l84-85 124 123q28 28 43.5 64.5T450-409q0 40-15 76.5T391-267Z"/></svg></a></div>
       </div>
       <div class="contents">
         <div class="top_gap_space"></div>
-        <div class="header"><a href="/en-US/home.html" class="navi_link button" aria-label="主页"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" version="1.1" width="21" height="20.999996185302734" viewBox="0 0 21 20.999996185302734"><defs><clipPath id="master_svg0_9_0235"><rect x="0" y="0" width="21" height="20.999996185302734" rx="0"/></clipPath></defs><g clip-path="url(#master_svg0_9_0235)"><g><path d="M9.9628,1.059317C10.27877,0.8135611,10.7212,0.8135611,11.03716,1.059317C11.03716,1.059317,18.9122,7.18432,18.9122,7.18432C19.1253,7.35009,19.25,7.60498,19.25,7.875C19.25,7.875,19.25,17.5,19.25,17.5C19.25,18.1962,18.9734,18.8639,18.4811,19.3561C17.9889,19.8484,17.321199999999997,20.125,16.625,20.125C16.625,20.125,4.375,20.125,4.375,20.125C3.67881,20.125,3.01113,19.8484,2.518845,19.3561C2.026561,18.8639,1.75,18.1962,1.75,17.5C1.75,17.5,1.75,7.875,1.75,7.875C1.75,7.60498,1.874664,7.35009,2.087802,7.18432C2.087802,7.18432,9.9628,1.059317,9.9628,1.059317C9.9628,1.059317,9.9628,1.059317,9.9628,1.059317ZM8.75,18.375C8.75,18.375,12.25,18.375,12.25,18.375C12.25,18.375,12.25,11.375,12.25,11.375C12.25,11.375,8.75,11.375,8.75,11.375C8.75,11.375,8.75,18.375,8.75,18.375C8.75,18.375,8.75,18.375,8.75,18.375ZM14,18.375C14,18.375,14,10.5,14,10.5C14,10.01674,13.6083,9.625,13.125,9.625C13.125,9.625,7.875,9.625,7.875,9.625C7.39176,9.625,7,10.01674,7,10.5C7,10.5,7,18.375,7,18.375C7,18.375,4.375,18.375,4.375,18.375C4.14293,18.375,3.92038,18.2828,3.75628,18.1187C3.59219,17.9547,3.5,17.732,3.5,17.5C3.5,17.5,3.5,8.30295,3.5,8.30295C3.5,8.30295,10.5,2.8585000000000003,10.5,2.8585000000000003C10.5,2.8585000000000003,17.5,8.30295,17.5,8.30295C17.5,8.30295,17.5,17.5,17.5,17.5C17.5,17.732,17.4078,17.9547,17.2437,18.1187C17.0796,18.2828,16.857,18.375,16.625,18.375C16.625,18.375,14,18.375,14,18.375C14,18.375,14,18.375,14,18.375Z" fill-rule="evenodd" fill="#373737" fill-opacity="1"/></g></g></svg></a><a href="/en-US/blogs.html" class="navi_link button" aria-label="博客"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg></a><a href="/en-US/portfolio.html" class="navi_link button" aria-label="项目"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M619-108q-11 11-25.5 17T563-85q-16 0-31-6t-26-17l-56-56q-11-11-16.5-24.5T427-216q-1-14 3.5-28t13.5-26l6-8-326-466 156-156 509 509q11 11 17 25.5t6 30.5q0 16-6 31t-17 26L619-108ZM507-335l113-112-340-340-52 52 279 400Zm56 170 169-169-56-57-170 170 57 56Zm-56-170 113-112-113 112Z"/></svg></a><a href="/en-US/about.html" class="navi_link button" aria-label="关于"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M194-80v-395h80v315h280v-193l105-105q29-29 45-65t16-77q0-40-16.5-76T659-741l-25-26-127 127H347l-43 43-57-56 67-67h160l160-160 82 82q40 40 62 90.5T800-600q0 57-22 107.5T716-402l-82 82v240H194Zm197-187L183-475q-11-11-17-26t-6-31q0-16 6-30.5t17-25.5l84-85 124 123q28 28 43.5 64.5T450-409q0 40-15 76.5T391-267Z"/></svg></a></div>
+        <div class="header"><a href="/en-US/home.html" class="navi_link button" aria-label="Home"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" version="1.1" width="21" height="20.999996185302734" viewBox="0 0 21 20.999996185302734"><defs><clipPath id="master_svg0_9_0235"><rect x="0" y="0" width="21" height="20.999996185302734" rx="0"/></clipPath></defs><g clip-path="url(#master_svg0_9_0235)"><g><path d="M9.9628,1.059317C10.27877,0.8135611,10.7212,0.8135611,11.03716,1.059317C11.03716,1.059317,18.9122,7.18432,18.9122,7.18432C19.1253,7.35009,19.25,7.60498,19.25,7.875C19.25,7.875,19.25,17.5,19.25,17.5C19.25,18.1962,18.9734,18.8639,18.4811,19.3561C17.9889,19.8484,17.321199999999997,20.125,16.625,20.125C16.625,20.125,4.375,20.125,4.375,20.125C3.67881,20.125,3.01113,19.8484,2.518845,19.3561C2.026561,18.8639,1.75,18.1962,1.75,17.5C1.75,17.5,1.75,7.875,1.75,7.875C1.75,7.60498,1.874664,7.35009,2.087802,7.18432C2.087802,7.18432,9.9628,1.059317,9.9628,1.059317C9.9628,1.059317,9.9628,1.059317,9.9628,1.059317ZM8.75,18.375C8.75,18.375,12.25,18.375,12.25,18.375C12.25,18.375,12.25,11.375,12.25,11.375C12.25,11.375,8.75,11.375,8.75,11.375C8.75,11.375,8.75,18.375,8.75,18.375C8.75,18.375,8.75,18.375,8.75,18.375ZM14,18.375C14,18.375,14,10.5,14,10.5C14,10.01674,13.6083,9.625,13.125,9.625C13.125,9.625,7.875,9.625,7.875,9.625C7.39176,9.625,7,10.01674,7,10.5C7,10.5,7,18.375,7,18.375C7,18.375,4.375,18.375,4.375,18.375C4.14293,18.375,3.92038,18.2828,3.75628,18.1187C3.59219,17.9547,3.5,17.732,3.5,17.5C3.5,17.5,3.5,8.30295,3.5,8.30295C3.5,8.30295,10.5,2.8585000000000003,10.5,2.8585000000000003C10.5,2.8585000000000003,17.5,8.30295,17.5,8.30295C17.5,8.30295,17.5,17.5,17.5,17.5C17.5,17.732,17.4078,17.9547,17.2437,18.1187C17.0796,18.2828,16.857,18.375,16.625,18.375C16.625,18.375,14,18.375,14,18.375C14,18.375,14,18.375,14,18.375Z" fill-rule="evenodd" fill="#373737" fill-opacity="1"/></g></g></svg></a><a href="/en-US/blogs.html" class="navi_link button" aria-label="Blog"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg></a><a href="/en-US/portfolio.html" class="navi_link button" aria-label="Projects"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M619-108q-11 11-25.5 17T563-85q-16 0-31-6t-26-17l-56-56q-11-11-16.5-24.5T427-216q-1-14 3.5-28t13.5-26l6-8-326-466 156-156 509 509q11 11 17 25.5t6 30.5q0 16-6 31t-17 26L619-108ZM507-335l113-112-340-340-52 52 279 400Zm56 170 169-169-56-57-170 170 57 56Zm-56-170 113-112-113 112Z"/></svg></a><a href="/en-US/about.html" class="navi_link button" aria-label="About"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M194-80v-395h80v315h280v-193l105-105q29-29 45-65t16-77q0-40-16.5-76T659-741l-25-26-127 127H347l-43 43-57-56 67-67h160l160-160 82 82q40 40 62 90.5T800-600q0 57-22 107.5T716-402l-82 82v240H194Zm197-187L183-475q-11-11-17-26t-6-31q0-16 6-30.5t17-25.5l84-85 124 123q28 28 43.5 64.5T450-409q0 40-15 76.5T391-267Z"/></svg></a></div>
         <div class="article-language-tools">
-          <div class="sidebar-tools" role="group" aria-label="社交链接与语言"><button type="button" class="sidebar-tool language-trigger" aria-controls="site-language-menu" aria-expanded="false" aria-label="选择语言" title="选择语言"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1m14 20-5-10-5 10M14 18h6"/></svg></button>
-            <div class="language-menu" id="site-language-menu" aria-label="选择语言">
-              <p class="language-caption"><span lang="zh-CN">选择语言</span></p>
+          <div class="sidebar-tools" role="group" aria-label="Social links and language"><button type="button" class="sidebar-tool language-trigger" aria-controls="site-language-menu" aria-expanded="false" aria-label="Choose a language" title="Choose a language"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1m14 20-5-10-5 10M14 18h6"/></svg></button>
+            <div class="language-menu" id="site-language-menu" aria-label="Choose a language">
+              <p class="language-caption"><span lang="en-US">Choose a language</span></p>
 <a href="/en-US/pages/blogs/unreal_5_garbage_collection.html" class="language-choice" data-locale="en-US" aria-current="true"><span lang="en-US">English</span><span class="language-code">en-US</span><span class="language-check" aria-hidden="true">✓</span></a><a href="/zh-CN/pages/blogs/unreal_5_garbage_collection.html" class="language-choice" data-locale="zh-CN"><span lang="zh-CN">简体中文</span><span class="language-code">zh-CN</span><span class="language-check" aria-hidden="true"></span></a></div>
           </div>
         </div>
         <div class="page_description">
-          <h1 class="title" lang="zh-CN">Unreal 5 垃圾回收源码梳理</h1>
+          <h1 class="title" lang="en-US">Reading the Unreal 5 Garbage Collection Source</h1>
           <hr>
           <div class="sub_info">
             <p class="date">2025-05-22</p>
           </div>
         </div>
         <div class="article-translation-notices">
-          <p class="translation-line translation-fallback" lang="zh-CN"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1m14 20-5-10-5 10M14 18h6"/></svg><span>本文章无英语，自动回退到中文。</span></p>
+          <p class="translation-line" lang="en-US"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1m14 20-5-10-5 10M14 18h6"/></svg><span>Auto translated into English by AI.</span></p>
         </div>
-        <div class="page_content" lang="zh-CN">
+        <div class="page_content" lang="en-US">
           <blockquote>
-            <p>为了使代码更加简洁易读，本文出现的 UE 源代码会去除掉输出日志的部分，用 //...log 来表示，除此以外，本文会用 ... 来表示省略的代码。</p>
+            <p>To make the code more concise and readable, logging is removed from the UE source excerpts in this article and represented with //...log. Elsewhere, ... represents omitted code.</p>
           </blockquote>
-          <p>本文使用的 UE 源码版本为 5.5.4。在 UE 5.0，增量回收成为了默认开启的选项，也迎来了包括并行回收在内的垃圾回收更新。如 API 有所出入，请以 5.5.4 为准。</p>
-          <h1 id="heading1_0" index-text="I">前言</h1>
-          <h2 id="heading2_0">垃圾回收概念</h2>
-          <p>UE 5 采用标记清扫的垃圾回收策略，同时支持增量回收和集群优化计数。这一小节会概念性地介绍一下这些名词及其思想。如果读者已经对此熟悉，请直接跳过此小节。</p>
+          <p>The UE source version used in this article is 5.5.4. In UE 5.0, incremental collection became enabled by default, alongside garbage collection updates including parallel collection. If the APIs differ, use 5.5.4 as the reference.</p>
+          <h1 id="heading1_0" index-text="I">Introduction</h1>
+          <h2 id="heading2_0">Garbage collection concepts</h2>
+          <p>UE 5 uses a mark-sweep garbage collection strategy, with support for incremental collection and cluster-based counting optimizations. This section introduces these terms and the ideas behind them at a conceptual level. If you're already familiar with them, feel free to skip this section.</p>
           <ul>
             <li>
-              <p>垃圾回收：垃圾回收或者说垃圾回收器是一段定期运行的程序。它会检查对象的存活状态，并释放死亡对象的内存。所谓“死亡”的对象，就是在程序中永远无法再被访问的对象，也是“垃圾回收”中的“垃圾”。</p>
+              <p>Garbage collection: Garbage collection, or the garbage collector, is a program that runs periodically. It checks whether objects are alive and frees the memory of dead objects. A “dead” object is one that can never be accessed again in the program: the “garbage” in “garbage collection.”</p>
             </li>
             <li>
-              <p>对象图（Objects Graph）：对象图是指对象和对象的引用关系构成的有向图，它描述了对象之间的引用关系。</p>
+              <p>Object graph (Objects Graph): An object graph is a directed graph formed by objects and the references between them. It describes how objects reference one another.</p>
             </li>
             <li>
-              <p>标记清扫（Mark-Sweep）：是现今最常用的垃圾回收策略。它的基本思想是从一些特殊的“根对象”开始，根据对象之间的引用管线，完整地遍历对象图。所有被遍历对象会被打上“可达”标记。接着，再遍历一遍所有对象，如果一个对象没有被打上可达标记，我们认为它是死亡的。再标记清扫中，我们认为对象的“存活性”和“可达性”是等价的。根对象在 UE 中有 <code>UWorld</code> 等，也可以人为指定。</p>
+              <p>Mark-sweep (Mark-Sweep): This is the most commonly used garbage collection strategy today. Its basic idea is to start from some special “root objects” and traverse the entire object graph by following references between objects. All visited objects receive a “reachable” mark. Then, all objects are traversed again. If an object has no reachable mark, we consider it dead. In mark-sweep, we treat an object's “liveness” and “reachability” as equivalent. Root objects in UE include <code>UWorld</code>, and they can also be specified manually.</p>
             </li>
             <li>
-              <p>增量回收（Incremental）：“增量回收”的思想是将一次垃圾回收分成多个小段在不同的时间执行，这样分散了一次垃圾回收的时长，减少了程序卡顿的可能性。增量回收也面临着挑战，例如对象图在运行时是变化的。增量回收需要一些异步安全机制，这些在下文中都会介绍。</p>
+              <p>Incremental collection (Incremental): The idea behind “incremental collection” is to split one garbage collection into smaller pieces executed at different times. This spreads out the time spent on a collection and reduces the possibility of program hitches. Incremental collection also faces challenges, such as the object graph changing at runtime. It needs mechanisms for asynchronous safety, which will be introduced below.</p>
             </li>
             <li>
-              <p>全量回收（Full）：全量回收是为了和增量回收区分而存在的名词，有了增量回收之后，之前的“一次进行全部回收”的行为就是全量回收。</p>
+              <p>Full collection (Full): Full collection is a term used to distinguish it from incremental collection. Once incremental collection exists, the previous behavior of “doing all collection at once” becomes full collection.</p>
             </li>
             <li>
-              <p>对象簇（Cluster）：是一种将强相关的对象放在一起的数据结构，用于减少对象图的遍历次数</p>
+              <p>Object cluster (Cluster): A data structure that groups closely related objects together to reduce the number of object graph traversals.</p>
             </li>
           </ul>
-          <h2 id="heading2_1">章节安排</h2>
-          <p>本文将在第一章中概念性地介绍 UE 5 中垃圾回收的编程范式，提前了解这些思想有助于后续源码的阅读。接着，本文将会分为三个章节，由浅入深的对垃圾回收机制的源码进行解析。</p>
+          <h2 id="heading2_1">Article outline</h2>
+          <p>The first chapter introduces the programming patterns used for garbage collection in UE 5 at a conceptual level. Understanding these ideas in advance will help with reading the source later. The article then analyzes the garbage collection source in three chapters, progressing from the basics to deeper details.</p>
           <ul>
             <li>
-              <p>UE 5 垃圾回收编程范式</p>
+              <p>UE 5 garbage collection programming patterns</p>
             </li>
             <li>
-              <p>垃圾回收的触发机制</p>
+              <p>How garbage collection is triggered</p>
             </li>
             <li>
-              <p>垃圾回收过程</p>
+              <p>The garbage collection process</p>
             </li>
             <li>
-              <p>引用与对象图</p>
+              <p>References and the object graph</p>
             </li>
           </ul>
-          <h1 id="heading1_1" index-text="II">UE 5 垃圾回收编程范式</h1>
-          <h2 id="heading2_2">增量回收</h2>
-          <p>UE 5 的增量回收状态是通过全局的原子变量来管理的。引擎检查增量回收的状态通常会使用 <code>IsIncrementalPurgePending()</code> 函数。</p>
+          <h1 id="heading1_1" index-text="II">UE 5 garbage collection programming patterns</h1>
+          <h2 id="heading2_2">Incremental collection</h2>
+          <p>UE 5 manages the state of incremental collection through global atomic variables. The engine usually uses <code>IsIncrementalPurgePending()</code> to check that state.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -122,8 +122,8 @@ bool IsIncrementalPurgePending()
 }</code></pre>
             </div>
           </div>
-          <p>在增量回收中，引擎往往会在需要跨帧工作的场景中，使用全局变量或者成员变量缓存来存储没有完成的工作，并在下一帧时继续使用。因为有许多工作需要在延迟执行，因此垃圾回收的源代码会大量出现 “Pending” 一词，其表示“待处理的”。</p>
-          <p>此外，UE 5 允许开发者设置垃圾回收在一帧中的时间限制（Time Limit），这个时间限制使用 <code>GIncrementalGatherTimeLimit</code> 存储，默认值为 <code>0.0</code>，代表没有限制。是否超时并没有统一的函数，它会在具体的情景下被计算，例如下面的代码</p>
+          <p>In incremental collection, when work needs to span frames, the engine often caches unfinished work in global or member variables and continues using it in the next frame. Because so much work has to be deferred, the word “Pending,” meaning “awaiting processing,” appears frequently in the garbage collection source.</p>
+          <p>UE 5 also lets developers set a time limit (Time Limit) for garbage collection within a frame. This limit is stored in <code>GIncrementalGatherTimeLimit</code>, with a default value of <code>0.0</code>, meaning no limit. There is no single function for checking whether the limit has been exceeded; it is calculated in each specific context, as in the following code:</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -131,10 +131,10 @@ bool IsIncrementalPurgePending()
 bTimeLimitReached = UnhashUnreachableObjects(bUseTimeLimit, TimeLimit);</code></pre>
             </div>
           </div>
-          <p>在下文中，本文会用“超时”来表述垃圾回收执行的时间已经超过了帧的预算时间。</p>
-          <p>此外，增量回收的代码与全量回收的代码往往混合在一起，一般通过 <code>bFullPurage</code> 类似的字眼来标记。</p>
-          <h2 id="heading2_3">多线程与异步优化</h2>
-          <p>垃圾回收工作发生在游戏线程中。但是在局部的工作中，也会进行多线程优化。UE 5 中垃圾回收使用任务图（Task Graph）系统中的一些功能比如</p>
+          <p>Below, I'll use “timed out” to mean that garbage collection has exceeded the frame's time budget.</p>
+          <p>Incremental and full collection code are also often mixed together, generally distinguished by names like <code>bFullPurage</code>.</p>
+          <h2 id="heading2_3">Multithreading and asynchronous optimizations</h2>
+          <p>Garbage collection runs on the game thread. However, individual parts of the work also use multithreaded optimizations. Garbage collection in UE 5 uses some features of the Task Graph system, such as:</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -142,11 +142,11 @@ bTimeLimitReached = UnhashUnreachableObjects(bUseTimeLimit, TimeLimit);</code></
 ParallelFor( TEXT(&quot;GC.GatherUnreachable&quot;), ...)</code></pre>
             </div>
           </div>
-          <p>也使用了更加底层的专为 GC 设计的程序。比如可达性分析相关的 <code>ReferenceChainSearch.cpp</code> 。</p>
-          <p>此外，UE 使用了一个 <code>FGCCSyncObject</code> 的单例模式的锁来管理异步资源。在使用全局异步资源时需要上锁和解锁。锁里本身不存储任何资源的指针，锁只是起让其它线程等待的作用，资源是以全局变量的形式存在的，因此引擎一定要在使用全局资源时确保手工上锁和解锁。与之相关的两个函数是 <code>AcquireGCLock()</code> 和 <code>ReleaseGCLock()</code>，看到类似字眼说明是上锁或解锁垃圾回收强相关的资源。</p>
-          <h1 id="heading1_2" index-text="III">垃圾回收的触发机制</h1>
-          <h2 id="heading2_4">强制垃圾回收</h2>
-          <p>想要了解垃圾回收从何触发，执行了什么，一个简单的想法是从强制垃圾回收入手。我们先从 <code>ForceGarbageCollection()</code> 函数的源代码开始阅读。</p>
+          <p>It also uses lower-level routines designed specifically for GC, such as <code>ReferenceChainSearch.cpp</code>, which relates to reachability analysis.</p>
+          <p>UE also uses a singleton lock, <code>FGCCSyncObject</code>, to manage asynchronous resources. Global asynchronous resources must be locked and unlocked when used. The lock itself stores no resource pointers; it only makes other threads wait. The resources exist as global variables, so the engine must ensure that it manually locks and unlocks them when using global resources. The two related functions are <code>AcquireGCLock()</code> and <code>ReleaseGCLock()</code>. Names like these indicate locking or unlocking resources closely tied to garbage collection.</p>
+          <h1 id="heading1_2" index-text="III">How garbage collection is triggered</h1>
+          <h2 id="heading2_4">Forced garbage collection</h2>
+          <p>A simple way to understand where garbage collection is triggered and what it does is to start with forced garbage collection. Let's begin with the source of <code>ForceGarbageCollection()</code>.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -161,21 +161,21 @@ void UEngine::ForceGarbageCollection(bool bForcePurge/*=false*/)
           </div>
           <ul>
             <li>
-              <p><code>bForcePurge</code> 表示这次强制回收是否是一次全量回收，与之相对的是增量回收 <code>Incremental Purge</code></p>
+              <p><code>bForcePurge</code> indicates whether this forced collection is a full collection, as opposed to an incremental collection, <code>Incremental Purge</code>.</p>
             </li>
             <li>
-              <p><code>TimeSinceLastPendingKillPurge</code> 私有成员变量的作用是记录距离上一次清除待销毁的对象的时间，用于判断垃圾回收条件</p>
+              <p>The private member variable <code>TimeSinceLastPendingKillPurge</code> records the time since objects pending destruction were last purged. It is used to evaluate the garbage collection conditions.</p>
             </li>
             <li>
-              <p><code>GetTimeBetweenGarbageCollectionPasses()</code> 用于获取两次垃圾回收之间的时间间隔</p>
+              <p><code>GetTimeBetweenGarbageCollectionPasses()</code> gets the interval between two garbage collections.</p>
             </li>
             <li>
-              <p><code>bFullPurgeTriggered</code> 私有成员变量的作用是标记下一次垃圾回收是否是一次全量回收</p>
+              <p>The private member variable <code>bFullPurgeTriggered</code> marks whether the next garbage collection will be a full collection.</p>
             </li>
           </ul>
-          <p>可以发现，代码在执行强制垃圾回收时，将 <code>TimeSinceLastPendingKillPurge</code> 赋值为 <code>GetTimeBetweenGarbageCollectionPasses() + 1.0</code> 。这使得垃圾回收条件将被触发。接下来本文具体介绍一下条件垃圾回收的代码。</p>
-          <h2 id="heading2_5">条件垃圾回收</h2>
-          <p>上文提到了“垃圾回收条件”，这些条件会在每帧都被调用的<code>ConditionalCollectGarbage()</code>函数中被判断，其相关的代码如下：</p>
+          <p>We can see that forced garbage collection assigns <code>GetTimeBetweenGarbageCollectionPasses() + 1.0</code> to <code>TimeSinceLastPendingKillPurge</code>. This causes the garbage collection condition to be met. Next, I'll look at the conditional garbage collection code in detail.</p>
+          <h2 id="heading2_5">Conditional garbage collection</h2>
+          <p>The “garbage collection conditions” mentioned above are evaluated in <code>ConditionalCollectGarbage()</code>, which is called every frame. The relevant code is:</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -195,56 +195,56 @@ void UEngine::ConditionalCollectGarbage()
           </div>
           <ul>
             <li>
-              <p><code>ConditionalCollectGarbage()</code> 函数会在 <code>UWord::Tick</code> 中被每帧调用</p>
+              <p><code>ConditionalCollectGarbage()</code> is called every frame in <code>UWord::Tick</code>.</p>
             </li>
             <li>
-              <p><code>GetTimeBetweenGarbageCollectionPasses()</code> 函数有无参和有一个参的两个重载</p>
+              <p><code>GetTimeBetweenGarbageCollectionPasses()</code> has two overloads: one with no arguments and one with a single argument.</p>
               <ul>
                 <li>
-                  <p>有参的版本需要传入一个是否有玩家连接的布尔值</p>
+                  <p>The version with an argument takes a Boolean indicating whether any players are connected.</p>
                   <ul>
                     <li>
-                      <p>在服务器上，如果没有玩家连接，间隔会乘以 <code>GTimeBetweenPurgingPendingKillObjectsOnIdleServerMultiplier</code>，这是一个静态变量，默认值为 <code>10.0</code></p>
+                      <p>On a server, if no players are connected, the interval is multiplied by <code>GTimeBetweenPurgingPendingKillObjectsOnIdleServerMultiplier</code>, a static variable whose default value is <code>10.0</code>.</p>
                     </li>
                     <li>
-                      <p>这会降低垃圾回收的频率，有助于节约功耗</p>
+                      <p>This lowers the garbage collection frequency and helps save power.</p>
                     </li>
                   </ul>
                 </li>
                 <li>
-                  <p>无参的版本只是增加了一段自动判断是否有玩家在服务器的代码，具体实现是遍历所有 <code>WorldList</code> 里所有的 <code>UWorld</code>，检查每个世界是否有玩家</p>
+                  <p>The no-argument version simply adds code to determine automatically whether any players are on the server. It does this by traversing all <code>UWorld</code> instances in <code>WorldList</code> and checking each world for players.</p>
                 </li>
               </ul>
             </li>
           </ul>
-          <p>到这里，已经可以理解 UE 垃圾回收的大致触发机制。简单来说，垃圾回收系统会进行计时，每经过一定间隔触发一次垃圾回收。垃圾回收计时由 <code>UEngine</code> 的 <code>TimeSinceLastPendingKillPurge</code> 成员变量负责，而间隔则通过 <code>GetTimeBetweenGarbageCollectionPasses()</code> 函数获取：</p>
-          <p>垃圾回收的默认回收间隔为 <code>60.0</code>，由一个静态变量存储。当运行机器为服务器且没有玩家连入时，间隔会乘以默认为 <code>10.0</code> 的一个静态变量。此外，如果当前空余内存少于设定的 <code>GLowMemoryMemoryThresholdMB</code> 值，则会无视上面的规则，使用默认值为 <code>30.0</code> 的静态变量，会增加回收频率（如果默认回收间隔比低内存回收间隔还小，默认回收间隔）。下面是相关变量的表格。</p>
+          <p>At this point, we can understand roughly how UE garbage collection is triggered. In short, the garbage collection system tracks elapsed time and triggers a collection at a set interval. The <code>TimeSinceLastPendingKillPurge</code> member variable of <code>UEngine</code> tracks the time, while <code>GetTimeBetweenGarbageCollectionPasses()</code> provides the interval:</p>
+          <p>The default garbage collection interval is <code>60.0</code>, stored in a static variable. When the machine is running as a server with no players connected, the interval is multiplied by another static variable whose default is <code>10.0</code>. In addition, if the current free memory is below the configured <code>GLowMemoryMemoryThresholdMB</code>, the rules above are ignored and a static variable with a default value of <code>30.0</code> is used, increasing collection frequency (if the default collection interval is shorter than the low-memory interval, the default collection interval). The related variables are listed below.</p>
           <div class="table">
             <table>
               <tr class="table_header">
-                <td class="table_header"> 情况 </td>
-                <td class="table_header"> 回收间隔默认值/s </td>
-                <td class="table_header"> 相关变量名 </td>
+                <td class="table_header"> Situation </td>
+                <td class="table_header"> Default collection interval/s </td>
+                <td class="table_header"> Related variable names </td>
               </tr>
               <tr>
-                <td> 默认情况 </td>
+                <td> Default </td>
                 <td> <code>60.0</code> </td>
                 <td> <code>GTimeBetweenPurgingPendingKillObjects</code> </td>
               </tr>
               <tr>
-                <td> 服务器且没有玩家 </td>
+                <td> Server with no players </td>
                 <td> <code>60.0 * 10.0</code> </td>
-                <td> <code>GTimeBetweenPurgingPendingKillObjectsOnIdleServerMultiplier</code>（无服务器时的间隔系数） </td>
+                <td> <code>GTimeBetweenPurgingPendingKillObjectsOnIdleServerMultiplier</code> (interval multiplier with no server) </td>
               </tr>
               <tr>
-                <td> 低内存 </td>
+                <td> Low memory </td>
                 <td> <code>30.0</code> </td>
-                <td> <code>GLowMemoryMemoryThresholdMB</code>（低内存阈值）, <code>GLowMemoryTimeBetweenPurgingPendingKillObjects</code>（低内存时间隔） </td>
+                <td> <code>GLowMemoryMemoryThresholdMB</code> (low-memory threshold), <code>GLowMemoryTimeBetweenPurgingPendingKillObjects</code> (low-memory interval) </td>
               </tr>
             </table>
           </div>
-          <h3 id="heading3_0"><code>ConditionalCollectGarbage</code> 详解</h3>
-          <p>刚刚本文介绍了 <code>ConditionalCollectGarbage</code> 局部的逻辑和获取间隔的逻辑，接着从整体上来看一下这个函数。</p>
+          <h3 id="heading3_0"><code>ConditionalCollectGarbage</code> in detail</h3>
+          <p>I've just introduced part of the logic in <code>ConditionalCollectGarbage</code> and the logic for obtaining the interval. Now let's look at the function as a whole.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -256,13 +256,13 @@ void UEngine::ConditionalCollectGarbage()
           </div>
           <ul>
             <li>
-              <p><code>GFrameCounter</code> 是引擎的全局帧号</p>
+              <p><code>GFrameCounter</code> is the engine's global frame number.</p>
             </li>
             <li>
-              <p><code>LastGCFrame</code> 是上一次触发垃圾回收的帧号</p>
+              <p><code>LastGCFrame</code> is the frame number when garbage collection was last triggered.</p>
             </li>
           </ul>
-          <p>这个条件判断避免一帧内触发多次垃圾回收。这段 if 的结尾是一个增量回收的条件判断，我们把它插入在此：</p>
+          <p>This condition prevents garbage collection from being triggered multiple times in one frame. At the end of this if statement is a condition for incremental collection, which I'll insert here:</p>
           <hr class="divider_block">
           <div class="code_block">
             <div class="code_part">
@@ -275,12 +275,12 @@ void UEngine::ConditionalCollectGarbage()
           </div>
           <ul>
             <li>
-              <p><code>IsIncrementalReachabilityAnalysisPending()</code> 获取增量垃圾回收是否待执行</p>
+              <p><code>IsIncrementalReachabilityAnalysisPending()</code> checks whether incremental garbage collection is pending.</p>
             </li>
           </ul>
-          <p>意思是如果增量垃圾回收的可达性分析没有完成，继续进行可达性分析。</p>
+          <p>This means that if the reachability analysis for incremental garbage collection has not finished, reachability analysis continues.</p>
           <hr class="divider_block">
-          <p>回到原来代码的位置：</p>
+          <p>Returning to the original position in the code:</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -299,7 +299,7 @@ void UEngine::ConditionalCollectGarbage()
 #endif</code></pre>
             </div>
           </div>
-          <p><code>!(UE_BUILD_SHIPPING || UE_BUILD_TEST)</code> 宏声明这段代码仅在非发布和非测试下启用，这部分代码与压力测试和调试相关。</p>
+          <p>The <code>!(UE_BUILD_SHIPPING || UE_BUILD_TEST)</code> macro specifies that this code is enabled only in non-shipping, non-test builds. This part relates to stress testing and debugging.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -317,24 +317,24 @@ void UEngine::ConditionalCollectGarbage()
       }</code></pre>
             </div>
           </div>
-          <p>这段代码与<strong>强制</strong>垃圾回收有关</p>
+          <p>This code relates to <strong>forced</strong> garbage collection.</p>
           <ul>
             <li>
-              <p><code>EGarbageCollectionType</code> 枚举有三种值</p>
+              <p>The <code>EGarbageCollectionType</code> enum has three values:</p>
               <ul>
                 <li>
-                  <p><code>None</code> 不强制回收</p>
+                  <p><code>None</code>: do not force collection.</p>
                 </li>
                 <li>
-                  <p><code>Incremental</code> 增量强制回收</p>
+                  <p><code>Incremental</code>: force incremental collection.</p>
                 </li>
                 <li>
-                  <p><code>Full</code> 全量强制回收</p>
+                  <p><code>Full</code>: force full collection.</p>
                 </li>
               </ul>
             </li>
           </ul>
-          <p>在 <code>UEngine</code> 中 <code>ShouldForceGarbageCollection()</code> 永远返回 <code>None</code>。只有在使用 <code>VERSE</code> 的情况下，才可能会使用强制增量回收。接下来，就执行正式的垃圾回收代码了。</p>
+          <p>In <code>UEngine</code>, <code>ShouldForceGarbageCollection()</code> always returns <code>None</code>. Forced incremental collection is only possible when using <code>VERSE</code>. Next comes the actual garbage collection code.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -355,10 +355,10 @@ void UEngine::ConditionalCollectGarbage()
           </div>
           <ul>
             <li>
-              <p><code>bFullPurgeTriggered</code> 标记是否使用全量垃圾回收，在执行后被设为 <code>false</code></p>
+              <p><code>bFullPurgeTriggered</code> marks whether to use full garbage collection and is set to <code>false</code> afterward.</p>
             </li>
           </ul>
-          <p>如果使用全量垃圾回收，则会进行垃圾回收行为，即 <code>TryCollectGarbage</code> 和 <code>CleanupActors</code>，这两个函数会在后面的小节进行详细的介绍。如果不进行全量回收，来看下面的部分。</p>
+          <p>If full garbage collection is used, garbage collection runs through <code>TryCollectGarbage</code> and <code>CleanupActors</code>. These two functions will be introduced in detail in later sections. If full collection is not used, we move to the following part.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -389,7 +389,7 @@ void UEngine::ConditionalCollectGarbage()
         }</code></pre>
             </div>
           </div>
-          <p>这段 for 循环用于寻找可能改变 GC 频率的情况，具体来说，和上文描述过的一样，检查服务器的所有世界是否有玩家连接。其得到的结果 <code>bHasPlayersConnected</code>，会用于上文提到过的 <code>GetTimeBetweenGarbageCollectionPasses(bool)</code> 函数。这里没有使用无参版本的 <code>GetTimeBetweenGarbageCollectionPasses()</code> 的主要原因是，在这段逻辑中引擎还需要获得世界的开始状态，也就是 <code>bHasAWorldBegunPlay</code>。下面的代码立刻就会用到：</p>
+          <p>This for loop looks for situations that might change GC frequency. Specifically, as described above, it checks all worlds on the server for connected players. The resulting <code>bHasPlayersConnected</code> is used by the previously mentioned <code>GetTimeBetweenGarbageCollectionPasses(bool)</code>. The main reason the no-argument <code>GetTimeBetweenGarbageCollectionPasses()</code> is not used here is that the engine also needs to know whether a world has begun play, namely <code>bHasAWorldBegunPlay</code>. The code immediately below uses it:</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -426,16 +426,16 @@ void UEngine::ConditionalCollectGarbage()
     }</code></pre>
             </div>
           </div>
-          <p>这段代码的大致逻辑是，只有在至少一个世界开始运行时，引擎才会计时和判断垃圾回收；在有上一帧留下的增量回收的任务时，继续进行增量回收的工作；如果没有增量回收任务，则判断计时是否达到间隔，来确定是否需要开启新一轮的垃圾回收。</p>
+          <p>The general logic is that the engine only tracks time and evaluates garbage collection once at least one world has begun running. If incremental collection tasks remain from the previous frame, it continues that work. If there are no incremental collection tasks, it checks whether the elapsed time has reached the interval to determine whether a new garbage collection cycle should begin.</p>
           <ul>
             <li>
-              <p><code>PerformIncrementalReachabilityAnalysis()</code> 负责执行增量垃圾回收的分步可达性分析</p>
+              <p><code>PerformIncrementalReachabilityAnalysis()</code> performs step-by-step reachability analysis for incremental garbage collection.</p>
             </li>
             <li>
-              <p><code>PerformGarbageCollectionAndCleanupActors()</code> 负责执行全量垃圾回收，内容与上文中介绍的全量垃圾回收的逻辑类似，其也使用了 <code>UEngine::TryCollectGarbage()</code> 和 <code>UWorld::CleanupActors</code> 来回收对象。下文会具体介绍</p>
+              <p><code>PerformGarbageCollectionAndCleanupActors()</code> performs full garbage collection. Its contents resemble the full garbage collection logic introduced above, also using <code>UEngine::TryCollectGarbage()</code> and <code>UWorld::CleanupActors</code> to collect objects. This will be explained in detail below.</p>
             </li>
             <li>
-              <p><code>IncrementalPurgeGarbage()</code> 负责销毁 <code>UObject</code> 和释放内存，这时可达性分析已经完成，后面的章节会具体介绍</p>
+              <p><code>IncrementalPurgeGarbage()</code> destroys <code>UObject</code> instances and frees memory. Reachability analysis is already complete at this point. Later chapters will explain this in detail.</p>
             </li>
           </ul>
           <div class="code_block">
@@ -450,10 +450,10 @@ void UEngine::ConditionalCollectGarbage()
     }</code></pre>
             </div>
           </div>
-          <p>这段代码负责执行控制台变量对垃圾回收强制干预，每隔 <code>Interval</code> 帧强制进行垃圾回收。</p>
+          <p>This code handles forced intervention in garbage collection through a console variable, forcing garbage collection every <code>Interval</code> frames.</p>
           <ul>
             <li>
-              <p><code>CVarCollectGarbageEveryFrame</code> 获取帧间隔</p>
+              <p><code>CVarCollectGarbageEveryFrame</code> provides the frame interval.</p>
             </li>
           </ul>
           <div class="code_block">
@@ -472,7 +472,7 @@ void UEngine::ConditionalCollectGarbage()
           </div>
           <ul>
             <li>
-              <p><code>CVarContinuousIncrementalGC</code> 启用持续增量 GC todo</p>
+              <p><code>CVarContinuousIncrementalGC</code> enables continuous incremental GC. todo</p>
             </li>
           </ul>
           <div class="code_block">
@@ -485,9 +485,9 @@ void UEngine::ConditionalCollectGarbage()
 }</code></pre>
             </div>
           </div>
-          <p>最后，如前文插入的 if 的结尾。如果增量回收的可达性分析还没有完成，进行可达性分析。</p>
+          <p>Finally, we reach the end of the if statement inserted earlier. If reachability analysis for incremental collection has not finished, perform reachability analysis.</p>
           <h3 id="heading3_1"><code>PerformGarbageCollectionAndCleanupActors()</code></h3>
-          <p>上文提到，在执行全量回收时，引擎会调用 <code>PerformGarbageCollectionAndCleanupActors()</code> 函数。其源代码如下：</p>
+          <p>As mentioned above, the engine calls <code>PerformGarbageCollectionAndCleanupActors()</code> when performing full collection. Its source is:</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -511,10 +511,10 @@ void UEngine::ConditionalCollectGarbage()
           </div>
           <ul>
             <li>
-              <p><code>GPerformGCWhileAsyncLoading</code> 表示是否允许在异步加载时执行 GC，其配合 <code>IsAsyncLoading()</code> 进行异步加载时是否触发 GC 的判断</p>
+              <p><code>GPerformGCWhileAsyncLoading</code> indicates whether GC is allowed during asynchronous loading. Together with <code>IsAsyncLoading()</code>, it determines whether to trigger GC during asynchronous loading.</p>
             </li>
             <li>
-              <p><code>bForcePurge</code> 默认为 true，但是一旦发现存在活跃的游戏世界（<code>World != nullptr &amp;&amp; World-&gt;IsGameWorld</code>）那么就取消强制清理。这样有助于减少游戏卡顿，优先保证流畅性。</p>
+              <p><code>bForcePurge</code> defaults to true, but forced purging is canceled as soon as an active game world is found (<code>World != nullptr &amp;&amp; World-&gt;IsGameWorld</code>). This helps reduce game hitches and prioritizes smooth gameplay.</p>
             </li>
           </ul>
           <div class="code_block">
@@ -536,9 +536,9 @@ void UEngine::ConditionalCollectGarbage()
 }</code></pre>
             </div>
           </div>
-          <p>这里就是执行垃圾回收的代码了，与上文中全量强制垃圾回收有十分相似的地方。其中重要的两个函数是 <code>TryCollectGarbage</code> 和 <code>CleanupActors</code>，下面一个小节会对两者进行重点介绍。</p>
-          <h1 id="heading1_3" index-text="IV">垃圾回收的执行过程</h1>
-          <p>上文提到了，在条件垃圾回收中（<code>UEngine::ConditionalCollectGarbage</code>），垃圾回收的过程发生在两处，一处是强制全量垃圾回收（<code>Engine::bFullPurgeTriggered</code>），另一处在 <code>PerformGarbageCollectionAndCleanupActors()</code> 中，两者的核心逻辑是十分相似的，我们先看看两者的代码：</p>
+          <p>Here is the code that performs garbage collection. It closely resembles the forced full garbage collection code above. The two important functions are <code>TryCollectGarbage</code> and <code>CleanupActors</code>, which the next section will focus on.</p>
+          <h1 id="heading1_3" index-text="IV">The garbage collection process</h1>
+          <p>As mentioned above, in conditional garbage collection (<code>UEngine::ConditionalCollectGarbage</code>), collection happens in two places: forced full garbage collection (<code>Engine::bFullPurgeTriggered</code>) and <code>PerformGarbageCollectionAndCleanupActors()</code>. Their core logic is very similar. Let's first look at the code for both:</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -566,34 +566,34 @@ if (TryCollectGarbage(GARBAGE_COLLECTION_KEEPFLAGS, bForcePurge))
 }</code></pre>
             </div>
           </div>
-          <p>如源码中所示，首先会调用 <code>TryCollectGarbage()</code> 函数，接着会遍历所有世界（<code>UWorld</code>），调用其 <code>CleanupActors()</code> 函数，清除 <code>Actor</code>。下文会具体介绍 <code>TryCollectGarbage()</code> 和 <code>CleanupActors()</code> 的工作过程。 需要注意的一点是，强制全量垃圾回收并不会影响正常的垃圾回收帧计数（因为并没有更新<code>LastGCFrame</code>）。</p>
-          <h2 id="heading2_6">回收过程：<code>TryCollectGarbage</code></h2>
-          <p>下文中会时常出现 <code>IsSuspended</code> 这代表是否处于增量回收的挂起（或称暂停）状态。以及，对象簇（Cluster）一词指一系列紧密关联的 <code>UObject</code>，例如一个 Actor 和它的 Sub Objects。显然垃圾回收中使用集群可以减少遍历次数。</p>
-          <p><code>TryCollectGarbage</code> 函数会调用 <code>GarbageColleciton.h</code> 中的 <code>FReachabilityAnalysisState::PerformReachabilityAnalysisAndConditionallyPurgeGarbage</code> 函数，它的大致过程为：</p>
+          <p>As the source shows, <code>TryCollectGarbage()</code> is called first. Then all worlds (<code>UWorld</code>) are traversed, and their <code>CleanupActors()</code> functions are called to clean up <code>Actor</code> instances. Below, I'll explain how <code>TryCollectGarbage()</code> and <code>CleanupActors()</code> work in detail. One point to note is that forced full garbage collection does not affect the normal garbage collection frame count, because it does not update <code>LastGCFrame</code>.</p>
+          <h2 id="heading2_6">Collection process: <code>TryCollectGarbage</code></h2>
+          <p><code>IsSuspended</code> will appear frequently below. It indicates whether incremental collection is suspended (or paused). Also, an object cluster (Cluster) means a series of closely related <code>UObject</code> instances, such as an Actor and its Sub Objects. Clearly, using clusters in garbage collection can reduce the number of traversals.</p>
+          <p><code>TryCollectGarbage</code> calls <code>FReachabilityAnalysisState::PerformReachabilityAnalysisAndConditionallyPurgeGarbage</code> in <code>GarbageColleciton.h</code>. Its general process is:</p>
           <ul>
             <li>
-              <p>进行预回收 <code>UE::GC::PreCollectGarbageImpl&lt;true&gt;(ObjectKeepFlags);</code></p>
+              <p>Perform pre-collection: <code>UE::GC::PreCollectGarbageImpl&lt;true&gt;(ObjectKeepFlags);</code></p>
               <ul>
                 <li>
-                  <p>其中模板中的布尔值作用是标记是否为全量回收</p>
+                  <p>The Boolean template argument indicates whether this is a full collection.</p>
                 </li>
               </ul>
             </li>
             <li>
-              <p>进行可达性分析 <code>PerformReachabilityAnalysis()</code>;</p>
+              <p>Perform reachability analysis: <code>PerformReachabilityAnalysis()</code>;</p>
             </li>
             <li>
-              <p>进行后回收 <code>UE::GC::PostCollectGarbageImpl&lt;true&gt;(ObjectKeepFlags);</code></p>
+              <p>Perform post-collection: <code>UE::GC::PostCollectGarbageImpl&lt;true&gt;(ObjectKeepFlags);</code></p>
               <ul>
                 <li>
-                  <p>这里会执行 <code>UObject::BeginDestroy</code> 和 <code>UObject::FinishDestroy</code> 并回收内存</p>
+                  <p>This executes <code>UObject::BeginDestroy</code> and <code>UObject::FinishDestroy</code> and reclaims memory.</p>
                 </li>
               </ul>
             </li>
           </ul>
-          <p>本小节将<strong>可达性分析</strong>和<strong>清扫分开</strong>讲述。</p>
-          <h3 id="heading3_2">可达性分析</h3>
-          <p>在可达性分析时，存在中间函数，如 <code>FReachabilityAnalysisState</code> 的 <code>PerformReachabilityAnalysis()</code> 函数。但无论中间函数如何，其底层调用的都是 <code>FRealtimeGC::PerformReachabilityAnalysis</code> 函数，所以在此我们着重看这个函数的执行逻辑。下面是对这个函数的分步分析：</p>
+          <p>This section discusses <strong>reachability analysis</strong> and <strong>sweeping separately</strong>.</p>
+          <h3 id="heading3_2">Reachability analysis</h3>
+          <p>Reachability analysis involves intermediate functions, such as <code>PerformReachabilityAnalysis()</code> in <code>FReachabilityAnalysisState</code>. Regardless of these intermediate functions, the underlying call is always to <code>FRealtimeGC::PerformReachabilityAnalysis</code>, so I'll focus on its execution logic here. Below is a step-by-step analysis of this function:</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -628,13 +628,13 @@ void PerformReachabilityAnalysis(EObjectFlags KeepFlags, const EGCOptions Option
   }</code></pre>
             </div>
           </div>
-          <p>这个 while 循环会执行 <code>PerformReachabilityAnalysisPass</code>，这是进行可达性标记的主要函数，它的作用是步进一次可达性分析，下文会对这个函数进行详细介绍。可达性分析是在循环中不断步进完成的，在这两种情况下才会退出循环：</p>
+          <p>This while loop executes <code>PerformReachabilityAnalysisPass</code>, the main function for reachability marking. Its role is to advance reachability analysis by one step. This function will be introduced in detail below. Reachability analysis is completed through repeated steps in the loop, which only exits in these two situations:</p>
           <ul>
             <li>
-              <p>增量模式挂起，一般是执行时间超过一帧的时间预算，这时会等到下一帧处理</p>
+              <p>Incremental mode is suspended, usually because execution has exceeded one frame's time budget. Processing then waits until the next frame.</p>
             </li>
             <li>
-              <p>可达对象或者可达对象簇为空，意味着数据处理完毕</p>
+              <p>The reachable objects or reachable object clusters are empty, meaning the data has been processed.</p>
             </li>
           </ul>
           <div class="code_block">
@@ -653,10 +653,10 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 }</code></pre>
             </div>
           </div>
-          <p>追踪外部物体 todo</p>
+          <p>Tracing external objects. todo</p>
           <hr class="divider_block">
           <h3 id="heading3_3"><code>PerformReachabilityAnalysisPass</code></h3>
-          <p><code>PerformReachabilityAnalysisPass</code> 是这里的核心，它在一个 While 循环中被使用，这个循环过程会逐步标记所有的对象。下面是对这个函数的分步解析：</p>
+          <p><code>PerformReachabilityAnalysisPass</code> is the core here. It is used in a While loop that gradually marks all objects. Below is a step-by-step analysis of this function:</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -677,7 +677,7 @@ void PerformReachabilityAnalysisPass(const EGCOptions Options)
   }</code></pre>
             </div>
           </div>
-          <p>首先，创建上下文，即 <code>FWorkContext</code>，这个上下文包含了本地线程中的初始对象和引用信息。如果增量回收被暂停，那么直接使用增量回收的上一个上下文，如果增量回收没有被暂停，则会创建新的工作上下文。另一个会使用到的重要变量，是缓存的可达对象的列表 <code>GReachableObjects</code>（下文称“可达对象缓存”），这是一个静态对象，里面存储着 <code>UObject*</code>。它的作用是缓存增量垃圾回收挂起时未被处理完的对象，如果增量回收被挂起，这些对象会在下一次增量回收中被处理。</p>
+          <p>First, a context, <code>FWorkContext</code>, is created. This context contains the initial objects and reference information for the local thread. If incremental collection is paused, the previous incremental collection context is used directly. If it is not paused, a new work context is created. Another important variable used here is the cached list of reachable objects, <code>GReachableObjects</code> (called the “reachable object cache” below). This is a static object that stores <code>UObject*</code> pointers. It caches objects left unprocessed when incremental garbage collection is suspended. If incremental collection is suspended, these objects will be processed in the next incremental collection.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -691,7 +691,7 @@ void PerformReachabilityAnalysisPass(const EGCOptions Options)
   }</code></pre>
             </div>
           </div>
-          <p>接着，函数将 <code>GReachableObjects</code> 的缓存的对象转移到 <code>InitialObjects</code> 中，在后续进行处理。</p>
+          <p>Next, the function moves the objects cached in <code>GReachableObjects</code> to <code>InitialObjects</code> for later processing.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -701,7 +701,7 @@ void PerformReachabilityAnalysisPass(const EGCOptions Options)
   }</code></pre>
             </div>
           </div>
-          <p>如果可达对象缓存为空，则初始化工作上下文中的初始引用 <code>InitialNativeRefernces</code>。todo</p>
+          <p>If the reachable object cache is empty, initialize the initial references, <code>InitialNativeRefernces</code>, in the work context. todo</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -718,7 +718,7 @@ void PerformReachabilityAnalysisPass(const EGCOptions Options)
   }</code></pre>
             </div>
           </div>
-          <p>在这里，可达集群缓存会被处理和上面的可达对象缓存类似（todo）。在上面这段代码中会将所有的可达集群所引用的集群标记为可达。</p>
+          <p>Here, the reachable cluster cache is processed similarly to the reachable object cache above (todo). The code above marks all clusters referenced by reachable clusters as reachable.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -732,7 +732,7 @@ void PerformReachabilityAnalysisPass(const EGCOptions Options)
               <pre><code class="language-cpp">  PerformReachabilityAnalysisOnObjects(Context, Options);</code></pre>
             </div>
           </div>
-          <p>这个函数是可达性分析的重点，它会根据当前的配置调用可达性分析函数：
+          <p>This function is a key part of reachability analysis. It calls the reachability analysis function according to the current configuration:
 <code>(this-&gt;*ReachabilityAnalysisFunctions[GetGCFunctionIndex(Options)])(*Context);</code></p>
           <div class="code_block">
             <div class="code_part">
@@ -747,21 +747,21 @@ void PerformReachabilityAnalysisPass(const EGCOptions Options)
 }</code></pre>
             </div>
           </div>
-          <p>最后，如果增量回收未被挂起，那么进行增量回收的收尾工作。todo!</p>
+          <p>Finally, if incremental collection is not suspended, perform the wrap-up work for incremental collection. todo!</p>
           <ul>
             <li>
-              <p>重置工作线程</p>
+              <p>Reset the worker threads.</p>
             </li>
             <li>
-              <p>合并统计信息</p>
+              <p>Merge statistics.</p>
             </li>
             <li>
-              <p>归还上下文到对象池</p>
+              <p>Return the context to the object pool.</p>
             </li>
           </ul>
-          <h3 id="heading3_4">清除垃圾</h3>
+          <h3 id="heading3_4">Cleaning up garbage</h3>
           <p><code>TryCollectGarbage/PostCollectGarbageImpl()</code></p>
-          <p>清除垃圾的过程主要发生在 <code>PostCollectGarbageImpl()</code> 函数中。其主要负责清理标记的不可达对象。</p>
+          <p>Garbage cleanup mainly takes place in <code>PostCollectGarbageImpl()</code>. Its main responsibility is to clean up objects marked as unreachable.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -789,7 +789,7 @@ void PostCollectGarbageImpl(EObjectFlags KeepFlags)
     DissolveUnreachableClusters(GatherOptions);</code></pre>
             </div>
           </div>
-          <p>上面这段逻辑主要负责解开不可达的对象簇，这里不深入介绍。</p>
+          <p>The logic above is mainly responsible for dissolving unreachable object clusters. I won't go into detail here.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -809,7 +809,7 @@ void PostCollectGarbageImpl(EObjectFlags KeepFlags)
   }</code></pre>
             </div>
           </div>
-          <p>标记对象为不可达并添加到 <code>GUnreachableObjects</code> 中。</p>
+          <p>Mark objects as unreachable and add them to <code>GUnreachableObjects</code>.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -822,7 +822,7 @@ void PostCollectGarbageImpl(EObjectFlags KeepFlags)
   ReleaseGCLock();</code></pre>
             </div>
           </div>
-          <p>至此，可达性分析才全部完成。上面的过程都在主 GC 线程中完成，此处将 GC 的锁释放，供后面的工作并行执行。</p>
+          <p>Only now is reachability analysis fully complete. The process above runs on the main GC thread. Here, the GC lock is released so that subsequent work can run in parallel.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -840,14 +840,14 @@ void PostCollectGarbageImpl(EObjectFlags KeepFlags)
 }</code></pre>
             </div>
           </div>
-          <p>这里省略了大部分代码，留下了核心的部分。</p>
+          <p>Most of the code is omitted here, leaving the core portion.</p>
           <ul>
             <li>
-              <p><code>IncrementalPurgeGarbage()</code> 函数是回收内存的核心函数，在 <code>PostCollectGarbageImpl</code> 中只会进行全量回收。但是这个函数也会在<code>UEngine::ConditionalCollectGarbage()</code> 中被调用</p>
+              <p><code>IncrementalPurgeGarbage()</code> is the core function for reclaiming memory. In <code>PostCollectGarbageImpl</code>, it only performs full collection. However, this function is also called in <code>UEngine::ConditionalCollectGarbage()</code>.</p>
             </li>
           </ul>
           <h3 id="heading3_5"><code>GatherUnreachableObjects</code></h3>
-          <p><code>GatherUnreachableObjects</code> 会并行地遍历所有对象，判断其可达性，核心代码如下：</p>
+          <p><code>GatherUnreachableObjects</code> traverses all objects in parallel and checks their reachability. The core code is:</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -869,15 +869,15 @@ void PostCollectGarbageImpl(EObjectFlags KeepFlags)
           </div>
           <ul>
             <li>
-              <p><code>FGCFlags::IsMaybeUnreachable_ForGC</code> 检查对象是否有 <code>MaybeUnreachableObjectFlag</code></p>
+              <p><code>FGCFlags::IsMaybeUnreachable_ForGC</code> checks whether the object has <code>MaybeUnreachableObjectFlag</code>.</p>
             </li>
             <li>
-              <p><code>Iterator.Payload.Add({ ObjectItem })</code> 将不可达对象添加到一个临时集合，在后续使用</p>
+              <p><code>Iterator.Payload.Add({ ObjectItem })</code> adds an unreachable object to a temporary collection for later use.</p>
             </li>
           </ul>
-          <p>每个线程的迭代器预先被分配好，然后被迭代。<code>FUObjectItem</code> 除了包含了一个 <code>UObjectBase*</code> 裸指针外，还存储了一个 <code>FGCFlags</code> 位标记。一个不可达的对象将会被打上 <code>EInternalObjectFlags::Unreachabl</code> 的标记。</p>
+          <p>Each thread's iterator is allocated in advance and then iterated. Besides a raw <code>UObjectBase*</code> pointer, <code>FUObjectItem</code> also stores an <code>FGCFlags</code> bit flag. An unreachable object receives the <code>EInternalObjectFlags::Unreachabl</code> flag.</p>
           <h3 id="heading3_6"><code>IncrementalDestroyGarbage</code></h3>
-          <p>在 <code>IncrementalPurgeGarbage</code> 的函数中这个函数的核心部分如下。</p>
+          <p>Within <code>IncrementalPurgeGarbage</code>, the core part involving this function is as follows.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -895,19 +895,19 @@ void PostCollectGarbageImpl(EObjectFlags KeepFlags)
     }</code></pre>
             </div>
           </div>
-          <p>在这段待代码中，引擎会调用 <code>UnhashUnreachableObjects()</code> 函数，这个函数的主要功能是</p>
+          <p>In this code, the engine calls <code>UnhashUnreachableObjects()</code>. Its main functions are to:</p>
           <ul>
             <li>
-              <p>将不可达对象从全局哈希表删除。全局哈希表用于快速定位对象如 <code>StaticFindObject</code>；也用于按路径索引资源</p>
+              <p>Remove unreachable objects from the global hash tables. The global hash tables are used to locate objects quickly, as in <code>StaticFindObject</code>, and to index resources by path.</p>
             </li>
             <li>
-              <p>执行所有不可达对象的<code>BeginDestroy()</code> 函数</p>
+              <p>Execute <code>BeginDestroy()</code> on all unreachable objects.</p>
             </li>
             <li>
-              <p>返回一个是否超时的布尔值</p>
+              <p>Return a Boolean indicating whether the time limit has been exceeded.</p>
             </li>
           </ul>
-          <p>如果调用完 <code>BeginDestory()</code> 已经超时了，那么剩下的部分会到下帧执行。接着，该函数最终会调用 <code>IncrementalDestroyGarbage()</code></p>
+          <p>If the time limit has already been exceeded after calling <code>BeginDestory()</code>, the remaining work is deferred to the next frame. Next, the function eventually calls <code>IncrementalDestroyGarbage()</code>.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -939,19 +939,19 @@ void PostCollectGarbageImpl(EObjectFlags KeepFlags)
         }</code></pre>
             </div>
           </div>
-          <p>这一部分旨在遍历 <code>GUnreachableObjects</code> 中的所有不可达对象，调用它们的 <code>FinishDestory()</code> 方法，如果 <code>IsReadyForFinishDestroy()</code> 不满足，就会被延迟处理（<code>GGCObjectsPendingDestruction</code>）。需要注意的是，此时不将对象从 <code>GUnreachableObjects</code> 中删除，也并不释放内存。内存将在所有对象都执行完 <code>FinishDestroy</code> 后被释放。</p>
+          <p>This part traverses all unreachable objects in <code>GUnreachableObjects</code> and calls their <code>FinishDestory()</code> methods. If <code>IsReadyForFinishDestroy()</code> is not satisfied, processing is deferred (<code>GGCObjectsPendingDestruction</code>). Note that objects are not removed from <code>GUnreachableObjects</code> at this point, nor is their memory freed. Memory will be freed after all objects have executed <code>FinishDestroy</code>.</p>
           <ul>
             <li>
-              <p>Destruction（下文写作“毁灭”）：根据源码可以观察到，Destruction 在这里的语义指调用 <code>FinishDestroy()</code>，不包含释放内存</p>
+              <p>Destruction (called “destruction” below): From the source, we can see that Destruction here means calling <code>FinishDestroy()</code>, not freeing memory.</p>
             </li>
             <li>
-              <p><code>IsReadyForFinishDestroy()</code> 是一个 <code>UObject</code> 的公共虚函数，<code>UObject</code> 的默认实现是返回 <code>true</code>，通常被覆写，例如 <code>AActor</code> 中会在渲染结束时才为 <code>true</code></p>
+              <p><code>IsReadyForFinishDestroy()</code> is a public virtual function of <code>UObject</code>. The default <code>UObject</code> implementation returns <code>true</code>. It is commonly overridden; for example, in <code>AActor</code>, it only becomes <code>true</code> once rendering has finished.</p>
             </li>
             <li>
-              <p><code>ConditionalFinishDestroy()</code> 会执行 <code>FinishDestroy()</code> 函数</p>
+              <p><code>ConditionalFinishDestroy()</code> executes <code>FinishDestroy()</code>.</p>
             </li>
             <li>
-              <p><code>GGCObjectsPendingDestruction</code> 缓存了待销毁的对象的指针，这个变量是全局的，如果当帧没有处理完里面的内容（如超过了时限），会在下一帧处理。下文将这个对象称为“待销毁对象数组”</p>
+              <p><code>GGCObjectsPendingDestruction</code> caches pointers to objects pending destruction. This variable is global. If its contents are not fully processed in the current frame, for example because the time limit is exceeded, they will be processed in the next frame. I'll call this object the “pending destruction array” below.</p>
             </li>
           </ul>
           <div class="code_block">
@@ -969,7 +969,7 @@ void PostCollectGarbageImpl(EObjectFlags KeepFlags)
     }</code></pre>
             </div>
           </div>
-          <p>接着，引擎会检查垃圾回收有没有超时，如果超时，则跳出 while 循环。此时所有垃圾的 <code>FinishDestroy()</code> 并没有被调用完成。下面会有很长一段代码用来处理 <code>GGCObjectsPendingDestruction</code> 里延迟处理的对象。</p>
+          <p>Next, the engine checks whether garbage collection has timed out. If so, it exits the while loop. At this point, <code>FinishDestroy()</code> has not yet been called on all garbage objects. A long stretch of code below handles objects whose processing was deferred in <code>GGCObjectsPendingDestruction</code>.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -986,8 +986,8 @@ void PostCollectGarbageImpl(EObjectFlags KeepFlags)
         }</code></pre>
             </div>
           </div>
-          <p>外面的 while 会进行对 <code>GGCObjectsPendingDestruction</code> 进行不断地轮询，直到超出时间限制或待销毁对象为空，为空代表着所有工作已经完成，会进入内存释放阶段。</p>
-          <p>在一次轮询中，内部的 while 循环首先会遍历一遍 <code>GGCObjectsPendingDestruction</code>，尝试对其进行毁灭并从 <code>GGCObjectsPendingDestruction</code> 中移除。如果还是不能毁灭，则把它保留在 <code>GGCObjectsPendingDestruction</code>。等待下一次轮询。</p>
+          <p>The outer while loop repeatedly polls <code>GGCObjectsPendingDestruction</code> until the time limit is exceeded or no objects remain pending destruction. An empty array means all work is complete, and the process will enter the memory release phase.</p>
+          <p>During one polling pass, the inner while loop first traverses <code>GGCObjectsPendingDestruction</code>, attempting to destroy its objects and remove them from <code>GGCObjectsPendingDestruction</code>. If an object still cannot be destroyed, it remains in <code>GGCObjectsPendingDestruction</code> until the next polling pass.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -997,7 +997,7 @@ void PostCollectGarbageImpl(EObjectFlags KeepFlags)
         }</code></pre>
             </div>
           </div>
-          <p>如果设置了 CG 一帧的时间限制，并且我们已经对所有剩余对象完成了一次完整的迭代处理，那么即使还有剩余时间或未处理的对象，也直接退出循环。此时很可能是在等待渲染线程（如资源释放）。没有完成的工作会在下一帧继续。</p>
+          <p>If a per-frame time limit for CG is set and we have completed one full iteration over all remaining objects, the loop exits immediately, even if time or unprocessed objects remain. At this point, it is likely waiting for the render thread, for example to release resources. Unfinished work continues in the next frame.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -1010,7 +1010,7 @@ void PostCollectGarbageImpl(EObjectFlags KeepFlags)
       }</code></pre>
             </div>
           </div>
-          <p>如果没有设置时间限制，引擎会在一次循环的结束检查一下用时，并在认为时间过长的时候打印日志，提醒开发者。</p>
+          <p>If no time limit is set, the engine checks elapsed time at the end of a loop and prints a log message to alert the developer if it considers the duration too long.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -1029,7 +1029,7 @@ void PostCollectGarbageImpl(EObjectFlags KeepFlags)
   }</code></pre>
             </div>
           </div>
-          <p>在离开循环后，会再检查一次执行 <code>FinishDestroy</code> 的完成状态。如果待销毁对象数组不为空，它会在下一帧的这个函数被处理；如果为空，说明所有销毁工作完成了，可以释放内存了！那么函数会设置 <code>GObjFinishDestroyHasBeenRoutedToAllObjects</code> 为 <code>true</code>，这个布尔值很快就会被用到。请看接下来的代码，这部分代码是真正释放内存的地方。</p>
+          <p>After leaving the loop, it checks once more whether <code>FinishDestroy</code> has completed. If the pending destruction array is not empty, it will be processed in this function in the next frame. If it is empty, all destruction work is complete, and memory can be freed! The function then sets <code>GObjFinishDestroyHasBeenRoutedToAllObjects</code> to <code>true</code>. This Boolean will be used shortly. The following code is where memory is actually freed.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -1047,7 +1047,7 @@ void PostCollectGarbageImpl(EObjectFlags KeepFlags)
   //...log</code></pre>
             </div>
           </div>
-          <p>本文只保留了核心调用，这里的核心是 <code>DestroyObjects()</code> 函数，这个函数会遍历 <code>GUnreachableObjects</code>，并释放其内存。内存释放的部分在这里不深入介绍。在所有对象都释放完后，<code>bCompleted</code> 会设置为 <code>true</code>，并在最后被返回。</p>
+          <p>I've kept only the core call here. The key is <code>DestroyObjects()</code>, which traverses <code>GUnreachableObjects</code> and frees their memory. I won't go deeper into memory release here. After all objects have been freed, <code>bCompleted</code> is set to <code>true</code> and returned at the end.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -1055,23 +1055,23 @@ void PostCollectGarbageImpl(EObjectFlags KeepFlags)
 }</code></pre>
             </div>
           </div>
-          <p>至此，对 <code>IncrementalDestroyGarbage()</code> 函数的解析已经结束了。这个函数的作用是 <code>FinishDestroy()</code> 函数和释放内存。它通过一个<strong>待销毁对象数组</strong>来实现对工作的跨帧缓存，依此来实现增量回收；通过 while 循环来等待每一个待销毁对象执行完 <code>FinishDestroy()</code> 函数。</p>
+          <p>That concludes the analysis of <code>IncrementalDestroyGarbage()</code>. Its job is to call <code>FinishDestroy()</code> and free memory. It uses a <strong>pending destruction array</strong> to cache work across frames, enabling incremental collection, and a while loop to wait for each object pending destruction to finish executing <code>FinishDestroy()</code>.</p>
           <h2 id="heading2_7"><code>UWorld::CleanupActors()</code></h2>
-          <p>在执行 <code>TryCollectGarbage</code> 后 <code>CleanupActors</code> 会被执行。因为 Actor 往往是采用手动地 <code>Destroy</code> 来删除的，<code>Destroy</code> 并不会将 Actor 的内存释放，而是但是标记为待销毁，等待垃圾回收系统来处理。下面是触发 <code>Destroy()</code> 会执行的事情：</p>
+          <p><code>CleanupActors</code> runs after <code>TryCollectGarbage</code>. Actors are often deleted by manually calling <code>Destroy</code>. <code>Destroy</code> does not free an Actor's memory; it only marks it as pending destruction for the garbage collection system to handle. Here's what happens when <code>Destroy()</code> is triggered:</p>
           <ul>
             <li>
-              <p>触发 <code>OnDestroy</code> 事件和蓝图逻辑</p>
+              <p>Trigger the <code>OnDestroy</code> event and Blueprint logic.</p>
             </li>
             <li>
-              <p>标记 <code>Actor</code> 为待销毁（包括了将其从 <code>ULevel</code> 的 Actor 数组中设置为 <code>nullptr</code> 等，<code>MarkAsGarbage()</code> 等）</p>
+              <p>Mark the <code>Actor</code> as pending destruction (including setting its entry in the <code>ULevel</code> Actor array to <code>nullptr</code>, calling <code>MarkAsGarbage()</code>, and so on).</p>
             </li>
             <li>
-              <p>从游戏逻辑中移除，不参与渲染、物理计算</p>
+              <p>Remove it from game logic so it no longer participates in rendering or physics calculations.</p>
             </li>
           </ul>
-          <p>使用 <code>MarkAsGarbage()</code> 将一个 <code>UObjectBaseUtility</code>（<code>UObject</code> 的基类） 标记为垃圾。 这个函数会为这个对象添加一个名为 <code>RF_MirroredGarbage</code> 的 <code>Flag</code>。
-直接检查一个 <code>UObjet</code> 是否垃圾的办法是使用 <code>IsValidChecked()</code> 函数，这个函数实际上会检查 <code>Flag</code>，返回 <code>false</code> 意味着这个对象是垃圾。在垃圾回收时，这样直接被标记为垃圾的对象会被标记为不可达。进而在垃圾回收时被释放。</p>
-          <p><code>CleanupActors</code> 清除的是关卡的 Actor 列表中的空指针，过程并不复杂，本文直接以注释的方式解释：</p>
+          <p><code>MarkAsGarbage()</code> marks a <code>UObjectBaseUtility</code> (a base class of <code>UObject</code>) as garbage. This function adds a <code>Flag</code> named <code>RF_MirroredGarbage</code> to the object.
+The way to check directly whether a <code>UObjet</code> is garbage is to use <code>IsValidChecked()</code>. This function actually checks the <code>Flag</code>; a return value of <code>false</code> means the object is garbage. During garbage collection, objects directly marked as garbage this way are marked as unreachable, and then freed during garbage collection.</p>
+          <p><code>CleanupActors</code> removes null pointers from a level's Actor list. The process is not complicated, so I'll explain it directly through comments:</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -1111,20 +1111,20 @@ void PostCollectGarbageImpl(EObjectFlags KeepFlags)
 }</code></pre>
             </div>
           </div>
-          <h1 id="heading1_4" index-text="V">引用与对象图</h1>
-          <p>对象图由所有 <code>UObject</code> 的引用关系逻辑表示，并没有一个直接的显式的对象图数据结构。运行时的引用收集逻辑大致如下：</p>
+          <h1 id="heading1_4" index-text="V">References and the object graph</h1>
+          <p>The object graph is represented logically by the reference relationships among all <code>UObject</code> instances. There is no direct, explicit object graph data structure. Runtime reference collection works roughly as follows:</p>
           <ul>
             <li>
-              <p>自动收集 <code>UPROPERTY</code> 引用，这部分主要配合反射系统完成</p>
+              <p>Automatically collect <code>UPROPERTY</code> references, primarily in cooperation with the reflection system.</p>
             </li>
             <li>
-              <p>对于非 <code>UPROPERTY</code> 引用，可以通过 <code>UGCObject</code> 和重写 <code>UObject::AddReferencedObjects</code> 方法来添加自定义引用添加行为（该函数默认在运行时没有行为）</p>
+              <p>For non-<code>UPROPERTY</code> references, use <code>UGCObject</code> and override <code>UObject::AddReferencedObjects</code> to add custom reference-adding behavior (this function does nothing at runtime by default).</p>
             </li>
           </ul>
-          <p>特殊名词
-<code>ARO</code>：<code>AddReferencedObjects</code> 的简写</p>
-          <h2 id="heading2_8">自动引用生成与遍历</h2>
-          <p>在上一章，我们已经知道，进行可达性分析的过程发生在 <code>ReachabilityAnalysisFunctions[]</code> 中。这个数组存储的是函数指针。</p>
+          <p>Special terminology
+<code>ARO</code>: short for <code>AddReferencedObjects</code>.</p>
+          <h2 id="heading2_8">Automatic reference generation and traversal</h2>
+          <p>In the previous chapter, we learned that reachability analysis takes place in <code>ReachabilityAnalysisFunctions[]</code>. This array stores function pointers.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -1133,7 +1133,7 @@ void PostCollectGarbageImpl(EObjectFlags KeepFlags)
   ReachabilityAnalysisFn ReachabilityAnalysisFunctions[8];</code></pre>
             </div>
           </div>
-          <p>这个函数指针的数组在 <code>FRealtimeGC</code> 的构造函数中被初始化，这里展示 <code>EGCOptions::None</code> 的初始化代码：</p>
+          <p>This array of function pointers is initialized in the constructor of <code>FRealtimeGC</code>. Here is the initialization code for <code>EGCOptions::None</code>:</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -1144,7 +1144,7 @@ void PostCollectGarbageImpl(EObjectFlags KeepFlags)
 }</code></pre>
             </div>
           </div>
-          <p>实际上，所有 <code>EGCOptions</code> 的变体执行的都是 <code>FRealtimeGC::PerformReachabilityAnalysisOnObjectsInternal</code> 函数，只是它们被传入了不同的模板参数。可以说，<code>FRealtimeGC::PerformReachabilityAnalysisOnObjectsInternal</code> 是可达性分析的起点。下面是它的代码：</p>
+          <p>In fact, all <code>EGCOptions</code> variants execute <code>FRealtimeGC::PerformReachabilityAnalysisOnObjectsInternal</code>, just with different template arguments. We can say that <code>FRealtimeGC::PerformReachabilityAnalysisOnObjectsInternal</code> is the starting point of reachability analysis. Here is its code:</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -1160,10 +1160,10 @@ void PostCollectGarbageImpl(EObjectFlags KeepFlags)
           </div>
           <ul>
             <li>
-              <p><code>TReachabilityProcessor</code> 是实现可达性分析的核心逻辑的类，下文中我们会具体介绍。</p>
+              <p><code>TReachabilityProcessor</code> is the class implementing the core reachability analysis logic. We'll introduce it in detail below.</p>
             </li>
           </ul>
-          <p>我们来具体看一看 <code>CollectReferencesForGC</code>：</p>
+          <p>Let's take a closer look at <code>CollectReferencesForGC</code>:</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -1186,14 +1186,14 @@ FORCEINLINE void CollectReferencesForGC(ProcessorType&amp; Processor, UE::GC::FW
     }}</code></pre>
             </div>
           </div>
-          <p>其中，执行核心逻辑是这句：</p>
+          <p>The line that executes the core logic is:</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
               <pre><code class="language-cpp">FastReferenceCollector(Processor).ProcessObjectArray(Context);</code></pre>
             </div>
           </div>
-          <p><code>ProcessObjectArray()</code> 函数的作用是递归地遍历对象引用链，标记所有可达对象。下面是对它的具体分析：</p>
+          <p><code>ProcessObjectArray()</code> recursively traverses the object reference chain and marks all reachable objects. Below is a detailed analysis:</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -1207,13 +1207,13 @@ FORCEINLINE void CollectReferencesForGC(ProcessorType&amp; Processor, UE::GC::FW
     decltype(GetDispatcher(Collector, Processor, Context)) Dispatcher = GetDispatcher(Collector, Processor, Context);</code></pre>
             </div>
           </div>
-          <p>首先函数会初始化工作上下文，同时创建收集器和分发器：</p>
+          <p>First, the function initializes the work context and creates a collector and a dispatcher:</p>
           <ul>
             <li>
-              <p>收集器（<code>Collector</code>）负责收集引用</p>
+              <p>The collector (<code>Collector</code>) collects references.</p>
             </li>
             <li>
-              <p>分发器（<code>Dispatcher</code>）根据（单/多线程）选择任务分发策略，对当前工作物体们进行一次引用遍历步进（Process）得到的引用首先会存储在分发器中，接着会通过块（Block）的方式分发给各个线程具体，下文会详细讲述这个过程</p>
+              <p>The dispatcher (<code>Dispatcher</code>) chooses a task dispatch strategy based on whether execution is single-threaded or multithreaded. References obtained by one reference traversal step (Process) over the current work objects are first stored in the dispatcher, then distributed to individual threads in blocks (Block). This process will be explained in detail below.</p>
             </li>
           </ul>
           <div class="code_block">
@@ -1229,10 +1229,10 @@ FORCEINLINE void CollectReferencesForGC(ProcessorType&amp; Processor, UE::GC::FW
     TConstArrayView&lt;UObject*&gt; CurrentObjects = Context.InitialObjects;</code></pre>
             </div>
           </div>
-          <p>这段代码的工作是从上下文获得根对象</p>
+          <p>This code obtains the root objects from the context.</p>
           <ul>
             <li>
-              <p><code>FGCObject::GGCObjectReferencer</code> 是全局的根引对象引用管理器</p>
+              <p><code>FGCObject::GGCObjectReferencer</code> is the global root object reference manager.</p>
             </li>
           </ul>
           <div class="code_block">
@@ -1246,10 +1246,10 @@ FORCEINLINE void CollectReferencesForGC(ProcessorType&amp; Processor, UE::GC::FW
           </div>
           <ul>
             <li>
-              <p><code>CurrentObjects</code> 是一个 UObject 指针的数组，存储着当前的待处理的对象</p>
+              <p><code>CurrentObjects</code> is an array of UObject pointers storing the objects currently awaiting processing.</p>
             </li>
             <li>
-              <p><code>ProcessObjects</code> 就是遍历对象的引用的地方，它会将遍历到引用暂时存储在分发器 <code>Dispatcher</code> 中，本文会在之后会具体介绍这个函数，在此可以暂时认为我们已经得到了当前对象的引用关系在分发器中</p>
+              <p><code>ProcessObjects</code> is where object references are traversed. It temporarily stores the references it visits in the dispatcher, <code>Dispatcher</code>. I'll introduce this function in detail later. For now, we can assume that the references of the current objects have been obtained and stored in the dispatcher.</p>
             </li>
           </ul>
           <div class="code_block">
@@ -1262,7 +1262,7 @@ FORCEINLINE void CollectReferencesForGC(ProcessorType&amp; Processor, UE::GC::FW
       }</code></pre>
             </div>
           </div>
-          <p>遍历完 <code>CurrentObjects</code> 后，它其实已经不被需要了，所以在这里就将它释放掉。（当然，初始对象列表是不能释放的，所以要进行一个条件判断）</p>
+          <p>Once <code>CurrentObjects</code> has been traversed, it is no longer needed, so it is freed here. (Of course, the initial object list cannot be freed, which is why the condition is necessary.)</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -1275,19 +1275,19 @@ FORCEINLINE void CollectReferencesForGC(ProcessorType&amp; Processor, UE::GC::FW
       }</code></pre>
             </div>
           </div>
-          <p>这段代码的作用是，检查是否超过增量回收的一帧的时间预算。如果已经超时了，就暂停回收，在下一帧继续回收。</p>
+          <p>This code checks whether incremental collection has exceeded its time budget for one frame. If it has timed out, collection is paused and resumes in the next frame.</p>
           <ul>
             <li>
-              <p><code>Processor.IsTimeLimitExceeded()</code> 检查是否超过增量式回收的每帧预算</p>
+              <p><code>Processor.IsTimeLimitExceeded()</code> checks whether incremental collection has exceeded its per-frame budget.</p>
             </li>
             <li>
-              <p><code>FlushWork</code> 将 <code>Dispatcher</code> 中的工作转移出来，暂存到 <code>TFastReferenceCollector</code> 中</p>
+              <p><code>FlushWork</code> moves work out of <code>Dispatcher</code> and temporarily stores it in <code>TFastReferenceCollector</code>.</p>
             </li>
           </ul>
-          <p>到此，一次遍历步进的工作已经完成了，之后的代码是分配新的遍历工作。分配的方式是以工作块 <code>FWorkBlock</code> 为单位的。</p>
+          <p>At this point, one traversal step is complete. The code that follows allocates new traversal work. Work is allocated in units of work blocks, <code>FWorkBlock</code>.</p>
           <ul>
             <li>
-              <p><code>FWorkBlock</code> 是一组固定数量的对象的集合。分块目的是将可达性分析的任务分割成多个快，有助于并行优化和增量式回收；同时 <code>FWorkBlock</code> 被设计成缓存友好的数据结构，有很好的性能表现。</p>
+              <p><code>FWorkBlock</code> is a collection of a fixed number of objects. Splitting work into blocks divides reachability analysis tasks into multiple pieces, helping with parallel optimization and incremental collection. <code>FWorkBlock</code> is also designed as a cache-friendly data structure with good performance.</p>
             </li>
           </ul>
           <div class="code_block">
@@ -1298,7 +1298,7 @@ FORCEINLINE void CollectReferencesForGC(ProcessorType&amp; Processor, UE::GC::FW
       FWorkBlock* Block = RemainingObjects.PopFullBlock&lt;Options&gt;();</code></pre>
             </div>
           </div>
-          <p>这段代码就是将当前的待处理对象中获取一个完整大小的工作块（<code>FWorkBlock</code>），如果无法获取一个完整的工作块（待处理数量大于工作块容量），则进行更细致的工作分配：</p>
+          <p>This code takes a full-sized work block (<code>FWorkBlock</code>) from the objects currently awaiting processing. If a full work block cannot be obtained (the pending count is greater than the block capacity), more fine-grained work allocation follows:</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -1312,7 +1312,7 @@ StoleARO:
         FlushWork(Dispatcher);</code></pre>
             </div>
           </div>
-          <p><code>FlushWork(Dispatcher)</code> 会将本地线程的任务结果合并到共享的 <code>RemainingObjects</code> 中。  这会增加 <code>RemainingObjects</code> 的数量，然后在下面引擎会再尝试获取工作块：</p>
+          <p><code>FlushWork(Dispatcher)</code> merges the local thread's task results into the shared <code>RemainingObjects</code>. This increases the number of objects in <code>RemainingObjects</code>, and the engine then tries to obtain a work block again below:</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -1320,13 +1320,13 @@ StoleARO:
         else if (Block = RemainingObjects.PopPartialBlock(/* out if successful */ BlockSize); Block);</code></pre>
             </div>
           </div>
-          <p>如果还是无法取出一个工作块，则只取出一个工作块。如果一个都取不出来，说明该线程的工作已经结束了。</p>
+          <p>If it still cannot take out a work block, it takes just one work block. If it cannot take even one, this thread's work is finished.</p>
           <ul>
             <li>
-              <p><code>BlockSize</code> 在上面的代码中出现过，是一个工作块的容量</p>
+              <p><code>BlockSize</code>, seen in the code above, is the capacity of one work block.</p>
             </li>
             <li>
-              <p><code>RemainingObjects.PopPartialBlock</code> 必须是原子性的，因为有多个线程可能会请求进行此操作</p>
+              <p><code>RemainingObjects.PopPartialBlock</code> must be atomic, because multiple threads may request this operation.</p>
             </li>
           </ul>
           <div class="code_block">
@@ -1344,22 +1344,22 @@ StoleARO:
         }</code></pre>
             </div>
           </div>
-          <p>既然这个线程没有了工作。<code>StealWork()</code> 函数会尝试获取其它线程没有做完的工作，它根据当前上下文返回一个 <code>ELoot</code> 枚举，这个枚举表示当前任务可以窃取的状态。<code>StealWork()</code>同时也会直接赋值传入的工作上下文。</p>
+          <p>Now that this thread has no work left, <code>StealWork()</code> attempts to obtain unfinished work from other threads. Based on the current context, it returns an <code>ELoot</code> enum indicating the kind of work the current task can steal. <code>StealWork()</code> also directly assigns to the work context passed in.</p>
           <ul>
             <li>
-              <p><code>Nothing</code>：什么都不干等到下面执行结束</p>
+              <p><code>Nothing</code>: Do nothing and wait for execution to end below.</p>
             </li>
             <li>
-              <p><code>Block</code>：上文中已经判断过了（实际上这个线程也不会执行到这里），直接获取一个完整的块，在下一次循环工作</p>
+              <p><code>Block</code>: This was already checked above (in fact, this thread will not reach here either). Obtain a full block directly and work on it in the next iteration.</p>
             </li>
             <li>
-              <p><code>ARO (AddReferencedObjects)</code>：窃取到其它线程未处理的手动引用工作，此时 <code>Block</code> 已经被替换成其它线程未处理的工作块，<code>goto</code> 到上面的 <code>StoleARO</code> 直接工作即可</p>
+              <p><code>ARO (AddReferencedObjects)</code>: Steal manual reference work left unprocessed by another thread. At this point, <code>Block</code> has already been replaced with the other thread's unprocessed work block. Use <code>goto</code> to jump to <code>StoleARO</code> above and start working directly.</p>
             </li>
             <li>
-              <p><code>Context</code>：窃取到其它线程未完成的上下文任务，此时上下问 <code>Context</code> 变量已经被替换成了其它上下文的工作，<code>goto</code> 到上面的 <code>StoleContext</code> 直接工作即可</p>
+              <p><code>Context</code>: Steal an unfinished context task from another thread. At this point, the <code>Context</code> variable has been replaced with work from another context. Use <code>goto</code> to jump to <code>StoleContext</code> above and start working directly.</p>
             </li>
           </ul>
-          <p>可以发现，利用 <code>goto</code>，一个线程会在自己工作完成后，不断检查是否有其它没完成的工作，直到所有线程的所有工作都被完成，每个线程才会结束这段代码。</p>
+          <p>We can see that, by using <code>goto</code>, a thread continually checks for other unfinished work after completing its own. Each thread only exits this code once all work on all threads is complete.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -1370,7 +1370,7 @@ StoleARO:
       }</code></pre>
             </div>
           </div>
-          <p>Block 为空意味着 <code>RemainingObjects</code> 和其它线程都没有工作要做了。所以退出 while 循环，意味遍历结束。</p>
+          <p>An empty Block means neither <code>RemainingObjects</code> nor the other threads have any work left to do. The while loop therefore exits, ending the traversal.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -1378,7 +1378,7 @@ StoleARO:
     } // while (true)</code></pre>
             </div>
           </div>
-          <p>如果工作没有结束（取出了工作块），则将当前工作对象们设置为工作块中的对象。在下次循环进行工作。</p>
+          <p>If work is not finished (a work block was obtained), set the current work objects to the objects in that block. They will be processed in the next iteration.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -1387,7 +1387,7 @@ StoleARO:
             </div>
           </div>
           <hr class="divider_block">
-          <p>真正执行可达性分析的函数是 <code>ProcessObjects</code>，在上文中，它在 while 循环内被循环调用，我们来具体看一下它的内容：</p>
+          <p>The function that actually performs reachability analysis is <code>ProcessObjects</code>. Above, it was called repeatedly inside a while loop. Let's look at its contents in detail:</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -1400,13 +1400,13 @@ StoleARO:
     UObject* Outer = CurrentObject-&gt;GetOuter();</code></pre>
             </div>
           </div>
-          <p>首先它会对在 for 循环中对 <code>CurrentObjects</code> 进行迭代。并获取对象和对象的类的信息。</p>
+          <p>First, it iterates over <code>CurrentObjects</code> in a for loop and obtains information about each object and its class.</p>
           <ul>
             <li>
-              <p><code>UClass</code> 是反射类，记录了一个类的反射信息，在下文中获取类的引用关系时会用到。<code>UClass</code> 的元数据在编译时生成，运行时只读</p>
+              <p><code>UClass</code> is a reflection class that records a class's reflection information. It will be used below when obtaining the class's reference relationships. <code>UClass</code> metadata is generated at compile time and is read-only at runtime.</p>
             </li>
             <li>
-              <p><code>Outer</code> 变量是当前对象所在的父容器，在 UE 中，对象的父容器只存在一个，这也意味着一个对象有一条唯一的引用路径</p>
+              <p>The <code>Outer</code> variable is the current object's parent container. In UE, an object has only one parent container, which also means it has a unique reference path.</p>
             </li>
           </ul>
           <div class="code_block">
@@ -1422,7 +1422,7 @@ StoleARO:
           </div>
           <ul>
             <li>
-              <p><code>FSchemaView</code> 类描述了一个类的所有强引用关系</p>
+              <p><code>FSchemaView</code> describes all strong reference relationships of a class.</p>
             </li>
           </ul>
           <div class="code_block">
@@ -1440,11 +1440,11 @@ StoleARO:
           </div>
           <ul>
             <li>
-              <p><code>HandleImmutableReference</code> 会在内部调用 <code>HandleReferenceDirectly</code>，它会将物体指针推到 <code>ImmutableBatcher</code> 中，确保不会被回收</p>
+              <p><code>HandleImmutableReference</code> internally calls <code>HandleReferenceDirectly</code>, which pushes the object pointer into <code>ImmutableBatcher</code> to ensure it is not collected.</p>
             </li>
           </ul>
-          <p>因为 <code>UClass</code> 和 <code>Outer</code> 都继承自 <code>UObject</code>，它们都有被回收的可能。但是一个对象如果可达，那么其父容器和对象和反射信息一定不能被回收，所以引擎通过增加不可变引用的方式来实现这个效果。</p>
-          <p>引擎之所以让一个反射类 <code>UClass</code> 继承自 <code>UObject</code>，参与到垃圾回收中，是因为这样可以动态加载和卸载类的反射信息（仅蓝图类）。例如，在一个关卡中，一个蓝图类可能永远不会被使用，那么就可以不加载以优化性能。此外，对于已经加载的蓝图类反射信息，在使用结束后回也会被垃圾回收回收收掉。相对的，引擎也需要提供保护机制来确保一个 <code>UClass</code> 不会被错误回收。上文提到的就是其一。</p>
+          <p>Because <code>UClass</code> and <code>Outer</code> both inherit from <code>UObject</code>, both can be collected. However, if an object is reachable, its parent container and reflection information must not be collected. The engine achieves this by adding immutable references.</p>
+          <p>The engine makes the reflection class <code>UClass</code> inherit from <code>UObject</code> and participate in garbage collection so that class reflection information can be loaded and unloaded dynamically (Blueprint classes only). For example, a Blueprint class might never be used in a level, so leaving it unloaded can improve performance. Reflection information for Blueprint classes that have already been loaded can also be garbage-collected once they are no longer used. In turn, the engine needs protective mechanisms to ensure that a <code>UClass</code> is not collected incorrectly. The mechanism mentioned above is one of them.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">cpp</div>
@@ -1457,42 +1457,42 @@ StoleARO:
     }}}</code></pre>
             </div>
           </div>
-          <p>接下来这段代码中，判断如果这个类相关的对象的图不是空的，就执行遍历的逻辑。</p>
+          <p>The next part of the code checks whether the object graph associated with this class is nonempty and, if so, executes the traversal logic.</p>
           <ul>
             <li>
-              <p><code>BeginTimingObject</code> 和 <code>UpdateDetailedStats</code> 用于计时和性能分析</p>
+              <p><code>BeginTimingObject</code> and <code>UpdateDetailedStats</code> are used for timing and performance analysis.</p>
             </li>
             <li>
-              <p><code>VisitMembers</code> 执行遍历类图的地方，它会将物体收集到 <code>Dispatcher</code> 的 <code>KillableBatcher</code> 和 <code>ImmutableBatcher</code> 中</p>
+              <p><code>VisitMembers</code> is where the class graph is traversed. It collects objects into <code>Dispatcher</code>'s <code>KillableBatcher</code> and <code>ImmutableBatcher</code>.</p>
             </li>
           </ul>
-          <p>上文提到过，<code>Dispacher</code> 中的物体最终会被合并到工作对象数组中。至此 <code>ProcessObjects</code> 完成了它进行一次可达性分析的步进的任务。</p>
+          <p>As mentioned above, objects in <code>Dispacher</code> are eventually merged into the work object array. At this point, <code>ProcessObjects</code> has completed its task of advancing reachability analysis by one step.</p>
         </div>
       </div>
       <div class="sidebar_wrapper_right sidebar_wrapper">
         <div class="catalogue">
           <ul>
-            <li class="h1"><a href="#heading1_0">前言</a></li>
-            <li class="h2"><a href="#heading2_0">垃圾回收概念</a></li>
-            <li class="h2"><a href="#heading2_1">章节安排</a></li>
-            <li class="h1"><a href="#heading1_1">UE 5 垃圾回收编程范式</a></li>
-            <li class="h2"><a href="#heading2_2">增量回收</a></li>
-            <li class="h2"><a href="#heading2_3">多线程与异步优化</a></li>
-            <li class="h1"><a href="#heading1_2">垃圾回收的触发机制</a></li>
-            <li class="h2"><a href="#heading2_4">强制垃圾回收</a></li>
-            <li class="h2"><a href="#heading2_5">条件垃圾回收</a></li>
-            <li class="h3"><a href="#heading3_0">ConditionalCollectGarbage 详解</a></li>
+            <li class="h1"><a href="#heading1_0">Introduction</a></li>
+            <li class="h2"><a href="#heading2_0">Garbage collection concepts</a></li>
+            <li class="h2"><a href="#heading2_1">Article outline</a></li>
+            <li class="h1"><a href="#heading1_1">UE 5 garbage collection programming patterns</a></li>
+            <li class="h2"><a href="#heading2_2">Incremental collection</a></li>
+            <li class="h2"><a href="#heading2_3">Multithreading and asynchronous optimizations</a></li>
+            <li class="h1"><a href="#heading1_2">How garbage collection is triggered</a></li>
+            <li class="h2"><a href="#heading2_4">Forced garbage collection</a></li>
+            <li class="h2"><a href="#heading2_5">Conditional garbage collection</a></li>
+            <li class="h3"><a href="#heading3_0">ConditionalCollectGarbage in detail</a></li>
             <li class="h3"><a href="#heading3_1">PerformGarbageCollectionAndCleanupActors()</a></li>
-            <li class="h1"><a href="#heading1_3">垃圾回收的执行过程</a></li>
-            <li class="h2"><a href="#heading2_6">回收过程：TryCollectGarbage</a></li>
-            <li class="h3"><a href="#heading3_2">可达性分析</a></li>
+            <li class="h1"><a href="#heading1_3">The garbage collection process</a></li>
+            <li class="h2"><a href="#heading2_6">Collection process: TryCollectGarbage</a></li>
+            <li class="h3"><a href="#heading3_2">Reachability analysis</a></li>
             <li class="h3"><a href="#heading3_3">PerformReachabilityAnalysisPass</a></li>
-            <li class="h3"><a href="#heading3_4">清除垃圾</a></li>
+            <li class="h3"><a href="#heading3_4">Cleaning up garbage</a></li>
             <li class="h3"><a href="#heading3_5">GatherUnreachableObjects</a></li>
             <li class="h3"><a href="#heading3_6">IncrementalDestroyGarbage</a></li>
             <li class="h2"><a href="#heading2_7">UWorld::CleanupActors()</a></li>
-            <li class="h1"><a href="#heading1_4">引用与对象图</a></li>
-            <li class="h2"><a href="#heading2_8">自动引用生成与遍历</a></li>
+            <li class="h1"><a href="#heading1_4">References and the object graph</a></li>
+            <li class="h2"><a href="#heading2_8">Automatic reference generation and traversal</a></li>
           </ul>
         </div>
       </div>

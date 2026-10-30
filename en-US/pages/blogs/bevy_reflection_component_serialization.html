@@ -25,8 +25,8 @@ init_all();</script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&amp;display=swap" rel="stylesheet">
-    <link rel="canonical" href="https://blog.koiro.xyz/zh-CN/pages/blogs/bevy_reflection_component_serialization.html">
-    <meta name="robots" content="noindex,follow">
+    <link rel="canonical" href="https://blog.koiro.xyz/en-US/pages/blogs/bevy_reflection_component_serialization.html">
+    <link rel="alternate" hreflang="en-US" href="https://blog.koiro.xyz/en-US/pages/blogs/bevy_reflection_component_serialization.html">
     <link rel="alternate" hreflang="zh-CN" href="https://blog.koiro.xyz/zh-CN/pages/blogs/bevy_reflection_component_serialization.html">
     <script src="/assets/js/highlightjs/highlight.js"></script>
     <link rel="stylesheet" href="/assets/css/layout.css">
@@ -35,37 +35,37 @@ init_all();</script>
     <link rel="stylesheet" href="/assets/css/post.css">
     <link rel="stylesheet" href="/assets/css/color_scheme_v2.dark_mode.css">
     <link rel="stylesheet" href="/assets/css/highlightjs/github-dark.css">
-    <title>使用 Bevy 反射序列化组件</title>
+    <title>Serializing Components with Bevy Reflection</title>
   </head>
   <body>
     <script>hljs.highlightAll();</script>
     <div class="post">
       <div class="sidebar_wrapper_left sidebar_wrapper">
-        <div class="navi"><a href="/en-US/home.html" class="navi_link button" aria-label="主页"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" version="1.1" width="21" height="20.999996185302734" viewBox="0 0 21 20.999996185302734"><defs><clipPath id="master_svg0_9_0235"><rect x="0" y="0" width="21" height="20.999996185302734" rx="0"/></clipPath></defs><g clip-path="url(#master_svg0_9_0235)"><g><path d="M9.9628,1.059317C10.27877,0.8135611,10.7212,0.8135611,11.03716,1.059317C11.03716,1.059317,18.9122,7.18432,18.9122,7.18432C19.1253,7.35009,19.25,7.60498,19.25,7.875C19.25,7.875,19.25,17.5,19.25,17.5C19.25,18.1962,18.9734,18.8639,18.4811,19.3561C17.9889,19.8484,17.321199999999997,20.125,16.625,20.125C16.625,20.125,4.375,20.125,4.375,20.125C3.67881,20.125,3.01113,19.8484,2.518845,19.3561C2.026561,18.8639,1.75,18.1962,1.75,17.5C1.75,17.5,1.75,7.875,1.75,7.875C1.75,7.60498,1.874664,7.35009,2.087802,7.18432C2.087802,7.18432,9.9628,1.059317,9.9628,1.059317C9.9628,1.059317,9.9628,1.059317,9.9628,1.059317ZM8.75,18.375C8.75,18.375,12.25,18.375,12.25,18.375C12.25,18.375,12.25,11.375,12.25,11.375C12.25,11.375,8.75,11.375,8.75,11.375C8.75,11.375,8.75,18.375,8.75,18.375C8.75,18.375,8.75,18.375,8.75,18.375ZM14,18.375C14,18.375,14,10.5,14,10.5C14,10.01674,13.6083,9.625,13.125,9.625C13.125,9.625,7.875,9.625,7.875,9.625C7.39176,9.625,7,10.01674,7,10.5C7,10.5,7,18.375,7,18.375C7,18.375,4.375,18.375,4.375,18.375C4.14293,18.375,3.92038,18.2828,3.75628,18.1187C3.59219,17.9547,3.5,17.732,3.5,17.5C3.5,17.5,3.5,8.30295,3.5,8.30295C3.5,8.30295,10.5,2.8585000000000003,10.5,2.8585000000000003C10.5,2.8585000000000003,17.5,8.30295,17.5,8.30295C17.5,8.30295,17.5,17.5,17.5,17.5C17.5,17.732,17.4078,17.9547,17.2437,18.1187C17.0796,18.2828,16.857,18.375,16.625,18.375C16.625,18.375,14,18.375,14,18.375C14,18.375,14,18.375,14,18.375Z" fill-rule="evenodd" fill="#373737" fill-opacity="1"/></g></g></svg></a><a href="/en-US/blogs.html" class="navi_link button" aria-label="博客"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg></a><a href="/en-US/portfolio.html" class="navi_link button" aria-label="项目"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M619-108q-11 11-25.5 17T563-85q-16 0-31-6t-26-17l-56-56q-11-11-16.5-24.5T427-216q-1-14 3.5-28t13.5-26l6-8-326-466 156-156 509 509q11 11 17 25.5t6 30.5q0 16-6 31t-17 26L619-108ZM507-335l113-112-340-340-52 52 279 400Zm56 170 169-169-56-57-170 170 57 56Zm-56-170 113-112-113 112Z"/></svg></a><a href="/en-US/about.html" class="navi_link button" aria-label="关于"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M194-80v-395h80v315h280v-193l105-105q29-29 45-65t16-77q0-40-16.5-76T659-741l-25-26-127 127H347l-43 43-57-56 67-67h160l160-160 82 82q40 40 62 90.5T800-600q0 57-22 107.5T716-402l-82 82v240H194Zm197-187L183-475q-11-11-17-26t-6-31q0-16 6-30.5t17-25.5l84-85 124 123q28 28 43.5 64.5T450-409q0 40-15 76.5T391-267Z"/></svg></a></div>
+        <div class="navi"><a href="/en-US/home.html" class="navi_link button" aria-label="Home"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" version="1.1" width="21" height="20.999996185302734" viewBox="0 0 21 20.999996185302734"><defs><clipPath id="master_svg0_9_0235"><rect x="0" y="0" width="21" height="20.999996185302734" rx="0"/></clipPath></defs><g clip-path="url(#master_svg0_9_0235)"><g><path d="M9.9628,1.059317C10.27877,0.8135611,10.7212,0.8135611,11.03716,1.059317C11.03716,1.059317,18.9122,7.18432,18.9122,7.18432C19.1253,7.35009,19.25,7.60498,19.25,7.875C19.25,7.875,19.25,17.5,19.25,17.5C19.25,18.1962,18.9734,18.8639,18.4811,19.3561C17.9889,19.8484,17.321199999999997,20.125,16.625,20.125C16.625,20.125,4.375,20.125,4.375,20.125C3.67881,20.125,3.01113,19.8484,2.518845,19.3561C2.026561,18.8639,1.75,18.1962,1.75,17.5C1.75,17.5,1.75,7.875,1.75,7.875C1.75,7.60498,1.874664,7.35009,2.087802,7.18432C2.087802,7.18432,9.9628,1.059317,9.9628,1.059317C9.9628,1.059317,9.9628,1.059317,9.9628,1.059317ZM8.75,18.375C8.75,18.375,12.25,18.375,12.25,18.375C12.25,18.375,12.25,11.375,12.25,11.375C12.25,11.375,8.75,11.375,8.75,11.375C8.75,11.375,8.75,18.375,8.75,18.375C8.75,18.375,8.75,18.375,8.75,18.375ZM14,18.375C14,18.375,14,10.5,14,10.5C14,10.01674,13.6083,9.625,13.125,9.625C13.125,9.625,7.875,9.625,7.875,9.625C7.39176,9.625,7,10.01674,7,10.5C7,10.5,7,18.375,7,18.375C7,18.375,4.375,18.375,4.375,18.375C4.14293,18.375,3.92038,18.2828,3.75628,18.1187C3.59219,17.9547,3.5,17.732,3.5,17.5C3.5,17.5,3.5,8.30295,3.5,8.30295C3.5,8.30295,10.5,2.8585000000000003,10.5,2.8585000000000003C10.5,2.8585000000000003,17.5,8.30295,17.5,8.30295C17.5,8.30295,17.5,17.5,17.5,17.5C17.5,17.732,17.4078,17.9547,17.2437,18.1187C17.0796,18.2828,16.857,18.375,16.625,18.375C16.625,18.375,14,18.375,14,18.375C14,18.375,14,18.375,14,18.375Z" fill-rule="evenodd" fill="#373737" fill-opacity="1"/></g></g></svg></a><a href="/en-US/blogs.html" class="navi_link button" aria-label="Blog"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg></a><a href="/en-US/portfolio.html" class="navi_link button" aria-label="Projects"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M619-108q-11 11-25.5 17T563-85q-16 0-31-6t-26-17l-56-56q-11-11-16.5-24.5T427-216q-1-14 3.5-28t13.5-26l6-8-326-466 156-156 509 509q11 11 17 25.5t6 30.5q0 16-6 31t-17 26L619-108ZM507-335l113-112-340-340-52 52 279 400Zm56 170 169-169-56-57-170 170 57 56Zm-56-170 113-112-113 112Z"/></svg></a><a href="/en-US/about.html" class="navi_link button" aria-label="About"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M194-80v-395h80v315h280v-193l105-105q29-29 45-65t16-77q0-40-16.5-76T659-741l-25-26-127 127H347l-43 43-57-56 67-67h160l160-160 82 82q40 40 62 90.5T800-600q0 57-22 107.5T716-402l-82 82v240H194Zm197-187L183-475q-11-11-17-26t-6-31q0-16 6-30.5t17-25.5l84-85 124 123q28 28 43.5 64.5T450-409q0 40-15 76.5T391-267Z"/></svg></a></div>
       </div>
       <div class="contents">
         <div class="top_gap_space"></div>
-        <div class="header"><a href="/en-US/home.html" class="navi_link button" aria-label="主页"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" version="1.1" width="21" height="20.999996185302734" viewBox="0 0 21 20.999996185302734"><defs><clipPath id="master_svg0_9_0235"><rect x="0" y="0" width="21" height="20.999996185302734" rx="0"/></clipPath></defs><g clip-path="url(#master_svg0_9_0235)"><g><path d="M9.9628,1.059317C10.27877,0.8135611,10.7212,0.8135611,11.03716,1.059317C11.03716,1.059317,18.9122,7.18432,18.9122,7.18432C19.1253,7.35009,19.25,7.60498,19.25,7.875C19.25,7.875,19.25,17.5,19.25,17.5C19.25,18.1962,18.9734,18.8639,18.4811,19.3561C17.9889,19.8484,17.321199999999997,20.125,16.625,20.125C16.625,20.125,4.375,20.125,4.375,20.125C3.67881,20.125,3.01113,19.8484,2.518845,19.3561C2.026561,18.8639,1.75,18.1962,1.75,17.5C1.75,17.5,1.75,7.875,1.75,7.875C1.75,7.60498,1.874664,7.35009,2.087802,7.18432C2.087802,7.18432,9.9628,1.059317,9.9628,1.059317C9.9628,1.059317,9.9628,1.059317,9.9628,1.059317ZM8.75,18.375C8.75,18.375,12.25,18.375,12.25,18.375C12.25,18.375,12.25,11.375,12.25,11.375C12.25,11.375,8.75,11.375,8.75,11.375C8.75,11.375,8.75,18.375,8.75,18.375C8.75,18.375,8.75,18.375,8.75,18.375ZM14,18.375C14,18.375,14,10.5,14,10.5C14,10.01674,13.6083,9.625,13.125,9.625C13.125,9.625,7.875,9.625,7.875,9.625C7.39176,9.625,7,10.01674,7,10.5C7,10.5,7,18.375,7,18.375C7,18.375,4.375,18.375,4.375,18.375C4.14293,18.375,3.92038,18.2828,3.75628,18.1187C3.59219,17.9547,3.5,17.732,3.5,17.5C3.5,17.5,3.5,8.30295,3.5,8.30295C3.5,8.30295,10.5,2.8585000000000003,10.5,2.8585000000000003C10.5,2.8585000000000003,17.5,8.30295,17.5,8.30295C17.5,8.30295,17.5,17.5,17.5,17.5C17.5,17.732,17.4078,17.9547,17.2437,18.1187C17.0796,18.2828,16.857,18.375,16.625,18.375C16.625,18.375,14,18.375,14,18.375C14,18.375,14,18.375,14,18.375Z" fill-rule="evenodd" fill="#373737" fill-opacity="1"/></g></g></svg></a><a href="/en-US/blogs.html" class="navi_link button" aria-label="博客"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg></a><a href="/en-US/portfolio.html" class="navi_link button" aria-label="项目"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M619-108q-11 11-25.5 17T563-85q-16 0-31-6t-26-17l-56-56q-11-11-16.5-24.5T427-216q-1-14 3.5-28t13.5-26l6-8-326-466 156-156 509 509q11 11 17 25.5t6 30.5q0 16-6 31t-17 26L619-108ZM507-335l113-112-340-340-52 52 279 400Zm56 170 169-169-56-57-170 170 57 56Zm-56-170 113-112-113 112Z"/></svg></a><a href="/en-US/about.html" class="navi_link button" aria-label="关于"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M194-80v-395h80v315h280v-193l105-105q29-29 45-65t16-77q0-40-16.5-76T659-741l-25-26-127 127H347l-43 43-57-56 67-67h160l160-160 82 82q40 40 62 90.5T800-600q0 57-22 107.5T716-402l-82 82v240H194Zm197-187L183-475q-11-11-17-26t-6-31q0-16 6-30.5t17-25.5l84-85 124 123q28 28 43.5 64.5T450-409q0 40-15 76.5T391-267Z"/></svg></a></div>
+        <div class="header"><a href="/en-US/home.html" class="navi_link button" aria-label="Home"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" version="1.1" width="21" height="20.999996185302734" viewBox="0 0 21 20.999996185302734"><defs><clipPath id="master_svg0_9_0235"><rect x="0" y="0" width="21" height="20.999996185302734" rx="0"/></clipPath></defs><g clip-path="url(#master_svg0_9_0235)"><g><path d="M9.9628,1.059317C10.27877,0.8135611,10.7212,0.8135611,11.03716,1.059317C11.03716,1.059317,18.9122,7.18432,18.9122,7.18432C19.1253,7.35009,19.25,7.60498,19.25,7.875C19.25,7.875,19.25,17.5,19.25,17.5C19.25,18.1962,18.9734,18.8639,18.4811,19.3561C17.9889,19.8484,17.321199999999997,20.125,16.625,20.125C16.625,20.125,4.375,20.125,4.375,20.125C3.67881,20.125,3.01113,19.8484,2.518845,19.3561C2.026561,18.8639,1.75,18.1962,1.75,17.5C1.75,17.5,1.75,7.875,1.75,7.875C1.75,7.60498,1.874664,7.35009,2.087802,7.18432C2.087802,7.18432,9.9628,1.059317,9.9628,1.059317C9.9628,1.059317,9.9628,1.059317,9.9628,1.059317ZM8.75,18.375C8.75,18.375,12.25,18.375,12.25,18.375C12.25,18.375,12.25,11.375,12.25,11.375C12.25,11.375,8.75,11.375,8.75,11.375C8.75,11.375,8.75,18.375,8.75,18.375C8.75,18.375,8.75,18.375,8.75,18.375ZM14,18.375C14,18.375,14,10.5,14,10.5C14,10.01674,13.6083,9.625,13.125,9.625C13.125,9.625,7.875,9.625,7.875,9.625C7.39176,9.625,7,10.01674,7,10.5C7,10.5,7,18.375,7,18.375C7,18.375,4.375,18.375,4.375,18.375C4.14293,18.375,3.92038,18.2828,3.75628,18.1187C3.59219,17.9547,3.5,17.732,3.5,17.5C3.5,17.5,3.5,8.30295,3.5,8.30295C3.5,8.30295,10.5,2.8585000000000003,10.5,2.8585000000000003C10.5,2.8585000000000003,17.5,8.30295,17.5,8.30295C17.5,8.30295,17.5,17.5,17.5,17.5C17.5,17.732,17.4078,17.9547,17.2437,18.1187C17.0796,18.2828,16.857,18.375,16.625,18.375C16.625,18.375,14,18.375,14,18.375C14,18.375,14,18.375,14,18.375Z" fill-rule="evenodd" fill="#373737" fill-opacity="1"/></g></g></svg></a><a href="/en-US/blogs.html" class="navi_link button" aria-label="Blog"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg></a><a href="/en-US/portfolio.html" class="navi_link button" aria-label="Projects"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M619-108q-11 11-25.5 17T563-85q-16 0-31-6t-26-17l-56-56q-11-11-16.5-24.5T427-216q-1-14 3.5-28t13.5-26l6-8-326-466 156-156 509 509q11 11 17 25.5t6 30.5q0 16-6 31t-17 26L619-108ZM507-335l113-112-340-340-52 52 279 400Zm56 170 169-169-56-57-170 170 57 56Zm-56-170 113-112-113 112Z"/></svg></a><a href="/en-US/about.html" class="navi_link button" aria-label="About"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M194-80v-395h80v315h280v-193l105-105q29-29 45-65t16-77q0-40-16.5-76T659-741l-25-26-127 127H347l-43 43-57-56 67-67h160l160-160 82 82q40 40 62 90.5T800-600q0 57-22 107.5T716-402l-82 82v240H194Zm197-187L183-475q-11-11-17-26t-6-31q0-16 6-30.5t17-25.5l84-85 124 123q28 28 43.5 64.5T450-409q0 40-15 76.5T391-267Z"/></svg></a></div>
         <div class="article-language-tools">
-          <div class="sidebar-tools" role="group" aria-label="社交链接与语言"><button type="button" class="sidebar-tool language-trigger" aria-controls="site-language-menu" aria-expanded="false" aria-label="选择语言" title="选择语言"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1m14 20-5-10-5 10M14 18h6"/></svg></button>
-            <div class="language-menu" id="site-language-menu" aria-label="选择语言">
-              <p class="language-caption"><span lang="zh-CN">选择语言</span></p>
+          <div class="sidebar-tools" role="group" aria-label="Social links and language"><button type="button" class="sidebar-tool language-trigger" aria-controls="site-language-menu" aria-expanded="false" aria-label="Choose a language" title="Choose a language"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1m14 20-5-10-5 10M14 18h6"/></svg></button>
+            <div class="language-menu" id="site-language-menu" aria-label="Choose a language">
+              <p class="language-caption"><span lang="en-US">Choose a language</span></p>
 <a href="/en-US/pages/blogs/bevy_reflection_component_serialization.html" class="language-choice" data-locale="en-US" aria-current="true"><span lang="en-US">English</span><span class="language-code">en-US</span><span class="language-check" aria-hidden="true">✓</span></a><a href="/zh-CN/pages/blogs/bevy_reflection_component_serialization.html" class="language-choice" data-locale="zh-CN"><span lang="zh-CN">简体中文</span><span class="language-code">zh-CN</span><span class="language-check" aria-hidden="true"></span></a></div>
           </div>
         </div>
         <div class="page_description">
-          <h1 class="title" lang="zh-CN">使用 Bevy 反射序列化组件</h1>
+          <h1 class="title" lang="en-US">Serializing Components with Bevy Reflection</h1>
           <hr>
           <div class="sub_info">
             <p class="date">2025-03-26</p>
           </div>
         </div>
         <div class="article-translation-notices">
-          <p class="translation-line translation-fallback" lang="zh-CN"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1m14 20-5-10-5 10M14 18h6"/></svg><span>本文章无英语，自动回退到中文。</span></p>
+          <p class="translation-line" lang="en-US"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1m14 20-5-10-5 10M14 18h6"/></svg><span>Auto translated into English by AI.</span></p>
         </div>
-        <div class="page_content" lang="zh-CN">
-          <h1 id="heading1_0" index-text="I">(反/)序列化 Entity 的所有 Component</h1>
-          <p>只是为了方便，本文在一个 test 来学习和测试 reflect 功能。方便测试和打印。</p>
+        <div class="page_content" lang="en-US">
+          <h1 id="heading1_0" index-text="I">(De)serializing All Components of an Entity</h1>
+          <p>For convenience, I'll use a test to learn about and try out reflection in this article. It makes testing and printing things easier.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">rust</div>
@@ -77,8 +77,8 @@ mod test {
 }</code></pre>
             </div>
           </div>
-          <h2 id="heading2_0">获得 Entity 的 Component 信息</h2>
-          <p>反射的类型信息由 <code>TypeRegistry</code> 管理。我们的 App 类型注册信息存储在 <code>AppTypeRegistry</code> 中。这是一个<a href="https://doc.rust-lang.org/beta/std/sync/struct.RwLock.html" class="link">读写锁</a>。这里我们以声明一个类型 <code>Foo</code>，然后注册它为例。</p>
+          <h2 id="heading2_0">Getting an Entity's Component Information</h2>
+          <p>Reflected type information is managed by <code>TypeRegistry</code>. Our App's type registration information is stored in <code>AppTypeRegistry</code>. This is a <a href="https://doc.rust-lang.org/beta/std/sync/struct.RwLock.html" class="link">read-write lock</a>. Here, we'll declare a type called <code>Foo</code> and register it as an example.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">rust</div>
@@ -105,11 +105,11 @@ mod test {
           </div>
           <ul>
             <li>
-              <p><code>AppTypeRegistry # 0</code> 是一个原子引用计数，所以我们可以克隆它来避免占用世界的所有权</p>
+              <p><code>AppTypeRegistry # 0</code> is an atomically reference-counted value, so we can clone it to avoid tying up ownership of the world.</p>
             </li>
           </ul>
           <blockquote>
-            <p>我们声明一个 App 是为了后续 <code>Component</code> 的测试。如果只想测试反射，不需要用到 <code>World</code>，也可以使用构造函数实例化一个 <code>TypeRegistry</code> 。如：</p>
+            <p>We declare an App for the <code>Component</code> tests later on. If you only want to test reflection and don't need a <code>World</code>, you can also instantiate a <code>TypeRegistry</code> using its constructor. For example:</p>
           </blockquote>
           <ul>
             <li>
@@ -117,7 +117,7 @@ mod test {
             </li>
           </ul>
           <blockquote></blockquote>
-          <p>接着，要想获得一个 Entity 的所有 Component 的信息，可以使用 <code>World # inspect_entity</code>，它会返回一个 <code>&amp;ComponentInfo</code> 的迭代器。注意，如果 Entity 不存在，<code>inspect_entity</code> 会直接 panic. 在实际使用前最好检查一下 Entity 是否还存在。</p>
+          <p>Next, to get information about all of an Entity's Components, we can use <code>World # inspect_entity</code>, which returns an iterator of <code>&amp;ComponentInfo</code>. Note that if the Entity doesn't exist, <code>inspect_entity</code> will panic immediately. It's best to check whether the Entity still exists before using it in practice.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">rust</div>
@@ -130,8 +130,8 @@ if world.entities().contains(id) { // 检查实体存在
 }</code></pre>
             </div>
           </div>
-          <h2 id="heading2_1">序列化反射</h2>
-          <p>接着我们通过 <code>World # get_reflect</code>获得某个实体的某个组件的反射。</p>
+          <h2 id="heading2_1">Serializing Reflected Values</h2>
+          <p>Next, we use <code>World # get_reflect</code> to get the reflected value of a particular component on an entity.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">rust</div>
@@ -145,13 +145,13 @@ println!(&quot;{}&quot;, &amp;str); // Debug</code></pre>
           </div>
           <ul>
             <li>
-              <p><code>ReflectSerializer</code> 反射内容的序列化器，可以被各类基于 serde 的序列化方法序列化</p>
+              <p><code>ReflectSerializer</code> is a serializer for reflected contents. It can be serialized by various serde-based serialization methods.</p>
             </li>
             <li>
-              <p>在 toml 中，反射的 <code>Foo</code> 的序列化的结果是一个 <code>toml::Table</code> 里包含了一个键值，其键是 <code>Foo</code> 的类型路径，值还是一个 <code>Table</code>，包含了 <code>Foo</code> 的字段。</p>
+              <p>In TOML, the serialized reflected <code>Foo</code> is a <code>toml::Table</code> containing one key-value pair. The key is the type path of <code>Foo</code>, and the value is another <code>Table</code> containing the fields of <code>Foo</code>.</p>
             </li>
           </ul>
-          <h2 id="heading2_2">反序列化反射</h2>
+          <h2 id="heading2_2">Deserializing Reflected Values</h2>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">rust</div>
@@ -168,13 +168,13 @@ assert!(partial_reflect.represents::&lt;Foo&gt;()); // 检查部分反射代表�
           </div>
           <ul>
             <li>
-              <p><code>key</code>：这里获得的 key 是 <code>Foo</code> 的完整类型路径。后面插入 Component 时会用到。</p>
+              <p><code>key</code>: The key obtained here is the full type path of <code>Foo</code>. We'll use it later when inserting the Component.</p>
             </li>
             <li>
-              <p><code>ReflectDeserializer</code>：反序列化器，其 <code># deserialize</code> 方法来自对 serde 的 <code>DeserializeSeed</code> trait 实现，如果 rust analyzer 无法找到 <code># deserialize</code> 方法，需要手动 <code>use DeserializeSeed</code> .</p>
+              <p><code>ReflectDeserializer</code>: The deserializer. Its <code># deserialize</code> method comes from its implementation of serde's <code>DeserializeSeed</code> trait. If rust-analyzer can't find the <code># deserialize</code> method, you'll need to add <code>use DeserializeSeed</code> manually.</p>
             </li>
           </ul>
-          <h1 id="heading1_1" index-text="II">插入反射组件到实体中</h1>
+          <h1 id="heading1_1" index-text="II">Inserting a Reflected Component into an Entity</h1>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">rust</div>
@@ -184,13 +184,13 @@ let type_id: TypeId = TypeRegistration::type_id(type_registration);</code></pre>
           </div>
           <ul>
             <li>
-              <p><code>type_registration</code>：我们使用上面得到的类型路径（key）获取类型的注册信息，为了获取类型的 <code>TypeId</code></p>
+              <p><code>type_registration</code>: We use the type path (key) obtained above to get the type's registration information, so we can obtain its <code>TypeId</code>.</p>
             </li>
             <li>
-              <p><code>type_id</code>：通过 <code>TypeRegistration # type_id</code> 来获取注册类型的 TypeId，这里使用显式的方法调用是为了与标准库原有的 <code>Any # type_id</code> 函数区分。</p>
+              <p><code>type_id</code>: We get the registered type's TypeId through <code>TypeRegistration # type_id</code>. The explicit method call here distinguishes it from the standard library's existing <code>Any # type_id</code> function.</p>
             </li>
           </ul>
-          <p>后续会用到地，为了让可以组件的反射可以执行 <code>Component</code> 的 trait 的行为，需要为我们的 <code>Foo</code>  类型标记 <code>reflect</code> 宏。</p>
+          <p>For what comes next, we need to annotate our <code>Foo</code> type with the <code>reflect</code> macro so that its reflected component can perform the behaviors of the <code>Component</code> trait.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">rust</div>
@@ -202,7 +202,7 @@ struct Foo {
 }</code></pre>
             </div>
           </div>
-          <p>接着可以通过 <code>get_type_data::&lt;ReflectComponent&gt;</code> 将反射作为组件插入实体。<a href="https://docs.rs/bevy/0.15.3/bevy/ecs/prelude/struct.ReflectComponent.html" class="link">ReflectComponent</a> 可以操作实现了 Component trait 的类型的反射。需要我们对类型使用 <code>#[reflect(Component)]</code> 宏才能被记录到 <code>TypeRegistry</code> 中。</p>
+          <p>We can then use <code>get_type_data::&lt;ReflectComponent&gt;</code> to insert the reflected value into the entity as a component. <a href="https://docs.rs/bevy/0.15.3/bevy/ecs/prelude/struct.ReflectComponent.html" class="link">ReflectComponent</a> can operate on reflected values of types that implement the Component trait. We need to use the <code>#[reflect(Component)]</code> macro on the type for this to be recorded in the <code>TypeRegistry</code>.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">rust</div>
@@ -218,15 +218,15 @@ struct Foo {
 }</code></pre>
             </div>
           </div>
-          <p>也可以直接使用 <code>TypeRegistration</code> 来获取 <code>Foo</code> 类型的 <code>ReflectComponent</code> 数据。</p>
+          <p>We can also use <code>TypeRegistration</code> directly to get the <code>ReflectComponent</code> data for the <code>Foo</code> type.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">rust</div>
               <pre><code class="language-rust">type_registration.data::&lt;ReflectComponent&gt;(); // -&gt; Option&lt;&amp;ReflectComponent&gt;</code></pre>
             </div>
           </div>
-          <h1 id="heading1_2" index-text="III">运行时检查类型是否实现了某个 trait</h1>
-          <p>上文中我们看到了，一个类型的 trait 数据以 data 的形式存储在 <code>TypeRegistry</code> 中。如果我们想记录类型实现的我们自己的 trait，也可以通过 <code>reflect</code> 宏来实现。<code>reflect</code> 宏会自动注册 trait 的反射数据。</p>
+          <h1 id="heading1_2" index-text="III">Checking at Runtime Whether a Type Implements a Trait</h1>
+          <p>Above, we saw that a type's trait data is stored as data in the <code>TypeRegistry</code>. If we want to record a type's implementation of our own trait, we can do that with the <code>reflect</code> macro too. The <code>reflect</code> macro automatically registers the trait's reflection data.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">rust</div>
@@ -241,13 +241,13 @@ trait FooTrait {}
 impl FooTrait for Foo {}</code></pre>
             </div>
           </div>
-          <p>我们需要为想要被记录反射信息的 <code>FooTrait</code> 打上 <code>reflect_trait</code> 宏，它会生成一个结构体叫做 <code>ReflectFooTrait</code>.于此同时，我们还需要在 <code>Foo</code> 类型的 <code>reflect</code> 宏中加上 <code>FooTrait</code> .</p>
+          <p>We need to annotate <code>FooTrait</code>, whose reflection information we want to record, with the <code>reflect_trait</code> macro. It generates a struct called <code>ReflectFooTrait</code>. At the same time, we also need to add <code>FooTrait</code> to the <code>reflect</code> macro on the <code>Foo</code> type.</p>
           <ul>
             <li>
-              <p><a href="https://docs.rs/bevy/latest/bevy/prelude/attr.reflect_trait.html" class="link">reflect_trait</a> 宏会自动生成 trait 的数据，既 <code>Reflect{trait_ident}</code> 结构体。</p>
+              <p>The <a href="https://docs.rs/bevy/latest/bevy/prelude/attr.reflect_trait.html" class="link">reflect_trait</a> macro automatically generates the trait's data: the <code>Reflect{trait_ident}</code> struct.</p>
             </li>
           </ul>
-          <p>经过以上行为后，我们就可以像获取 <code>ReflectComponent</code> 一样获取 <code>ReflectFooTrait</code>，以此来判断一个类型是否实现了某个 trait.</p>
+          <p>After doing this, we can retrieve <code>ReflectFooTrait</code> just as we retrieve <code>ReflectComponent</code>, and use it to determine whether a type implements a particular trait.</p>
           <div class="code_block">
             <div class="code_part">
               <div class="code_lang rss-ignore">rust</div>
@@ -262,12 +262,12 @@ impl FooTrait for Foo {}</code></pre>
       <div class="sidebar_wrapper_right sidebar_wrapper">
         <div class="catalogue">
           <ul>
-            <li class="h1"><a href="#heading1_0">(反/)序列化 Entity 的所有 Component</a></li>
-            <li class="h2"><a href="#heading2_0">获得 Entity 的 Component 信息</a></li>
-            <li class="h2"><a href="#heading2_1">序列化反射</a></li>
-            <li class="h2"><a href="#heading2_2">反序列化反射</a></li>
-            <li class="h1"><a href="#heading1_1">插入反射组件到实体中</a></li>
-            <li class="h1"><a href="#heading1_2">运行时检查类型是否实现了某个 trait</a></li>
+            <li class="h1"><a href="#heading1_0">(De)serializing All Components of an Entity</a></li>
+            <li class="h2"><a href="#heading2_0">Getting an Entity's Component Information</a></li>
+            <li class="h2"><a href="#heading2_1">Serializing Reflected Values</a></li>
+            <li class="h2"><a href="#heading2_2">Deserializing Reflected Values</a></li>
+            <li class="h1"><a href="#heading1_1">Inserting a Reflected Component into an Entity</a></li>
+            <li class="h1"><a href="#heading1_2">Checking at Runtime Whether a Type Implements a Trait</a></li>
           </ul>
         </div>
       </div>
