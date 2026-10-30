@@ -1,8 +1,8 @@
 /* tslint:disable */
 /* eslint-disable */
 export const memory: WebAssembly.Memory;
-export const init_image_stack: () => [number, number];
 export const init_all: () => [number, number];
+export const init_image_stack: () => [number, number];
 export const init_type_buttons: () => [number, number];
 export const init_visual_mode: () => [number, number];
 export const init_visual_mode_all: () => [number, number];

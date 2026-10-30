@@ -7,7 +7,8 @@
 export function init_all(): void;
 
 /**
- * Initialize all `.stack-container` galleries.
+ * Initialize all `.stack-container` galleries. CSS owns image sizing so mixed
+ * aspect ratios, lazy loading and viewport changes share the same layout.
  */
 export function init_image_stack(): void;
 
@@ -46,8 +47,8 @@ export type InitInput = RequestInfo | URL | Response | BufferSource | WebAssembl
 
 export interface InitOutput {
     readonly memory: WebAssembly.Memory;
-    readonly init_image_stack: () => [number, number];
     readonly init_all: () => [number, number];
+    readonly init_image_stack: () => [number, number];
     readonly init_type_buttons: () => [number, number];
     readonly init_visual_mode: () => [number, number];
     readonly init_visual_mode_all: () => [number, number];
