@@ -9,15 +9,8 @@
 await init();
 init_all();</script>
     <script src="/assets/katex/katex.js"></script>
-    <script src="/assets/katex/auto-render.min.js" defer="defer" onload="renderMathInElement(document.body);"></script>
-    <script>document.addEventListener("DOMContentLoaded", function() {
-    renderMathInElement(document.body, {
-      delimiters: [
-          {left: '$$', right: '$$', display: false},
-      ],
-      throwOnError : false
-    });
-});</script>
+    <script src="/assets/katex/auto-render.min.js" defer="defer"></script>
+    <script src="/assets/js/article-math.js" defer="defer"></script>
     <link rel="stylesheet" href="/assets/katex/katex.css">
     <link rel="stylesheet" href="/assets/css/reset.css">
     <link rel="stylesheet" href="/assets/css/root.css">
@@ -141,6 +134,7 @@ init_all();</script>
         </div>
       </div>
     </div>
+    <script src="/assets/js/article-components.js" defer="defer"></script>
     <script type="application/json" id="site-language-config">{"root":false,"default":"en-US","locales":[{"tag":"en-US","language":"en","matchDefault":true,"url":"/en-US/portfolio.html"},{"tag":"zh-CN","language":"zh","script":"Hans","matchDefault":true,"url":"/zh-CN/portfolio.html"}]}</script>
     <script src="/assets/js/site-language.js" defer="defer"></script>
   </body>
