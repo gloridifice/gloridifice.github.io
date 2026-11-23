@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta name="darkreader-lock" content="true">
+    <link rel="alternate" type="application/rss+xml" title="Koiro's Cat Café" href="/zh-CN/rss.xml">
+    <meta http-equiv="Content-Type" content="charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module">import init, { init_all } from '/pkg/rs_wasm_script.js';
+await init();
+init_all();</script>
+    <script src="/assets/katex/katex.js"></script>
+    <script src="/assets/katex/auto-render.min.js" defer="defer"></script>
+    <script src="/assets/js/article-math.js" defer="defer"></script>
+    <link rel="stylesheet" href="/assets/katex/katex.css">
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <link rel="stylesheet" href="/assets/css/root.css">
+    <link rel="stylesheet" href="/assets/css/color_scheme_v2.dark_mode.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&amp;display=swap" rel="stylesheet">
+    <link rel="canonical" href="https://blog.koiro.xyz/zh-CN/pages/blogs/swe_shallow_water_and_foam.html">
+    <link rel="alternate" hreflang="zh-CN" href="https://blog.koiro.xyz/zh-CN/pages/blogs/swe_shallow_water_and_foam.html">
+    <script src="/assets/js/highlightjs/highlight.js"></script>
+    <link rel="stylesheet" href="/assets/css/layout.css">
+    <link rel="stylesheet" href="/assets/css/page_content.css">
+    <link rel="stylesheet" href="/assets/css/language.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/color_scheme_v2.dark_mode.css">
+    <link rel="stylesheet" href="/assets/css/highlightjs/github-dark.css">
+    <title>快速物理模拟水：浅水方程与泡沫渲染 | 实时水体渲染 vol.1</title>
+  </head>
+  <body>
+    <script>hljs.highlightAll();</script>
+    <div class="post">
+      <div class="sidebar_wrapper_left sidebar_wrapper"></div>
+      <div class="contents">
+        <div class="top_gap_space"></div>
+        <div class="header"><a href="/zh-CN/home.html" class="navi_link button" aria-label="主页"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" version="1.1" width="21" height="20.999996185302734" viewBox="0 0 21 20.999996185302734"><defs><clipPath id="master_svg0_9_0235"><rect x="0" y="0" width="21" height="20.999996185302734" rx="0"/></clipPath></defs><g clip-path="url(#master_svg0_9_0235)"><g><path d="M9.9628,1.059317C10.27877,0.8135611,10.7212,0.8135611,11.03716,1.059317C11.03716,1.059317,18.9122,7.18432,18.9122,7.18432C19.1253,7.35009,19.25,7.60498,19.25,7.875C19.25,7.875,19.25,17.5,19.25,17.5C19.25,18.1962,18.9734,18.8639,18.4811,19.3561C17.9889,19.8484,17.321199999999997,20.125,16.625,20.125C16.625,20.125,4.375,20.125,4.375,20.125C3.67881,20.125,3.01113,19.8484,2.518845,19.3561C2.026561,18.8639,1.75,18.1962,1.75,17.5C1.75,17.5,1.75,7.875,1.75,7.875C1.75,7.60498,1.874664,7.35009,2.087802,7.18432C2.087802,7.18432,9.9628,1.059317,9.9628,1.059317C9.9628,1.059317,9.9628,1.059317,9.9628,1.059317ZM8.75,18.375C8.75,18.375,12.25,18.375,12.25,18.375C12.25,18.375,12.25,11.375,12.25,11.375C12.25,11.375,8.75,11.375,8.75,11.375C8.75,11.375,8.75,18.375,8.75,18.375C8.75,18.375,8.75,18.375,8.75,18.375ZM14,18.375C14,18.375,14,10.5,14,10.5C14,10.01674,13.6083,9.625,13.125,9.625C13.125,9.625,7.875,9.625,7.875,9.625C7.39176,9.625,7,10.01674,7,10.5C7,10.5,7,18.375,7,18.375C7,18.375,4.375,18.375,4.375,18.375C4.14293,18.375,3.92038,18.2828,3.75628,18.1187C3.59219,17.9547,3.5,17.732,3.5,17.5C3.5,17.5,3.5,8.30295,3.5,8.30295C3.5,8.30295,10.5,2.8585000000000003,10.5,2.8585000000000003C10.5,2.8585000000000003,17.5,8.30295,17.5,8.30295C17.5,8.30295,17.5,17.5,17.5,17.5C17.5,17.732,17.4078,17.9547,17.2437,18.1187C17.0796,18.2828,16.857,18.375,16.625,18.375C16.625,18.375,14,18.375,14,18.375C14,18.375,14,18.375,14,18.375Z" fill-rule="evenodd" fill="#373737" fill-opacity="1"/></g></g></svg></a><a href="/zh-CN/blogs.html" class="navi_link button" aria-label="博客"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg></a><a href="/zh-CN/portfolio.html" class="navi_link button" aria-label="项目"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M619-108q-11 11-25.5 17T563-85q-16 0-31-6t-26-17l-56-56q-11-11-16.5-24.5T427-216q-1-14 3.5-28t13.5-26l6-8-326-466 156-156 509 509q11 11 17 25.5t6 30.5q0 16-6 31t-17 26L619-108ZM507-335l113-112-340-340-52 52 279 400Zm56 170 169-169-56-57-170 170 57 56Zm-56-170 113-112-113 112Z"/></svg></a><a href="/zh-CN/about.html" class="navi_link button" aria-label="关于"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M194-80v-395h80v315h280v-193l105-105q29-29 45-65t16-77q0-40-16.5-76T659-741l-25-26-127 127H347l-43 43-57-56 67-67h160l160-160 82 82q40 40 62 90.5T800-600q0 57-22 107.5T716-402l-82 82v240H194Zm197-187L183-475q-11-11-17-26t-6-31q0-16 6-30.5t17-25.5l84-85 124 123q28 28 43.5 64.5T450-409q0 40-15 76.5T391-267Z"/></svg></a>
+          <div class="sidebar-tools" role="group" aria-label="社交链接与语言"><button type="button" class="sidebar-tool language-trigger" aria-controls="site-language-menu-header" aria-expanded="false" aria-label="选择语言" title="选择语言"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1m14 20-5-10-5 10M14 18h6"/></svg></button>
+            <div class="language-menu" id="site-language-menu-header" aria-label="选择语言">
+              <p class="language-caption"><span lang="zh-CN">选择语言</span></p>
+<a href="/en-US/pages/blogs/swe_shallow_water_and_foam.html" class="language-choice" data-locale="en-US"><span lang="en-US">English</span><span class="language-code">en-US</span><span class="language-check" aria-hidden="true"></span></a><a href="/zh-CN/pages/blogs/swe_shallow_water_and_foam.html" class="language-choice" data-locale="zh-CN" aria-current="true"><span lang="zh-CN">简体中文</span><span class="language-code">zh-CN</span><span class="language-check" aria-hidden="true">✓</span></a></div>
+          </div>
+        </div>
+        <div class="page_description">
+          <h1 class="title" lang="zh-CN">快速物理模拟水：浅水方程与泡沫渲染 | 实时水体渲染 vol.1</h1>
+          <hr>
+          <div class="sub_info">
+            <p class="date">2026-11-03</p>
+          </div>
+        </div>
+        <div class="page_content" lang="zh-CN">
+          <p>本博文有 rust + wgpu 实现，源码看这里哦：
+<a href="https://github.com/gloridifice/wgpu-water-simulation" class="link" data-link-icon="github">https://github.com/gloridifice/wgpu-water-simulation</a></p>
+          <div class="image_wrapper"><img src="/images/content/blogs/graphics/water/swe_shallow_water_and_foam/images/with-flow-wraped.jpg" alt="foam"></div>
+          <h1 id="heading1_0" index-text="I">前言</h1>
+          <p>流体有两种描述方式，一种是欧拉描述，关注固定空间位置上的流体状态。模拟时，我们可以用空间网格来记录这些物理量。另一种流体描述方式为拉格朗日描述，其将流体视为无数个小微团，每个微团是一个粒子，粒子之间相互作用产生流体演变。由于通过后者模拟真实水体的计算量很大，实时渲染的物理水方案通常使用前者。</p>
+          <p>本文不会具体介绍欧拉方程。我们需要知道的是：欧拉方程指忽略粘性的流体运动方程。这里把水视为不可压缩的流体，也就是三维流速的散度为 0：
+<span class="equation">\nabla\cdot\mathbf v=0</span>
+从欧拉方程推导到浅水方程的过程较为枯燥，因此本文不会涉及。本文会涉及实践上的公式，这些公式最终会被写到代码中。</p>
+          <h1 id="heading1_1" index-text="II">一、水体 - 浅水方程（SWE）</h1>
+          <h3 id="heading3_0">1. 浅水方程一阶求解器</h3>
+          <p>浅水方程是欧拉方程的一种简化近似。原本要记录三维空间的流体场，在浅水方程中，我们只记录水深和沿水深平均的水平流速。可以从直觉上来想象：把水体划分成二维网格，每个格子里都有一柱水。每格的水量和动量怎么变，就看四周网格面上的通量。</p>
+<iframe class="article-component" title="一阶浅水方程求解器" sandbox="allow-scripts" referrerpolicy="no-referrer" style="display:block;width:100%;height:150px;border:0;background:transparent;color-scheme:normal" srcdoc="&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt;&lt;style&gt;html{height:auto}html,body{background:transparent}body{margin:0;display:flow-root}&lt;/style&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;/component/component.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;/component/image-compare.css&quot;&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;title&gt;一阶浅水方程求解器&lt;/title&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;script src=&quot;/component/image-compare.js&quot; defer&gt;&lt;/script&gt;&lt;script src=&quot;/component/range.js&quot; defer&gt;&lt;/script&gt;&lt;script src=&quot;/assets/js/article-component-frame.js&quot; defer&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt;&lt;section class=&quot;kc-root kc-panel&quot;&gt;
+  &lt;figure class=&quot;kc-figure&quot; style=&quot;margin:0;padding-block:12px&quot;&gt;
+    &lt;svg viewBox=&quot;0 0 384 170&quot; style=&quot;max-width:520px;margin-inline:auto&quot; role=&quot;img&quot; aria-label=&quot;一阶空间重构，格内为分片常数&quot;&gt;
+      &lt;rect x=&quot;132&quot; y=&quot;16&quot; width=&quot;120&quot; height=&quot;120&quot; fill=&quot;var(--kc-surface)&quot; /&gt;
+      &lt;path d=&quot;M12 16H372V136H12Z M132 16V136&quot; stroke=&quot;var(--kc-control-line)&quot; fill=&quot;none&quot; /&gt;
+      &lt;path d=&quot;M252 16V136&quot; stroke=&quot;var(--kc-muted)&quot; stroke-dasharray=&quot;4 4&quot; /&gt;
+      &lt;path d=&quot;M12 102H132 M132 83H252 M252 40H372&quot; stroke=&quot;var(--kc-accent)&quot; stroke-width=&quot;2&quot; fill=&quot;none&quot; /&gt;
+      &lt;g fill=&quot;var(--kc-ink)&quot;&gt;
+        &lt;circle cx=&quot;72&quot; cy=&quot;102&quot; r=&quot;3&quot; /&gt;
+        &lt;circle cx=&quot;192&quot; cy=&quot;83&quot; r=&quot;3&quot; /&gt;
+        &lt;circle cx=&quot;312&quot; cy=&quot;40&quot; r=&quot;3&quot; /&gt;
+      &lt;/g&gt;
+      &lt;g fill=&quot;var(--kc-canvas)&quot; stroke=&quot;var(--kc-ink)&quot; stroke-width=&quot;1.4&quot;&gt;
+        &lt;circle cx=&quot;252&quot; cy=&quot;83&quot; r=&quot;3.3&quot; /&gt;
+        &lt;circle cx=&quot;252&quot; cy=&quot;40&quot; r=&quot;3.3&quot; /&gt;
+      &lt;/g&gt;
+      &lt;g fill=&quot;var(--kc-ink)&quot; font-size=&quot;17&quot; text-anchor=&quot;middle&quot;&gt;
+        &lt;text x=&quot;72&quot; y=&quot;159&quot;&gt;格 i−1&lt;/text&gt;
+        &lt;text x=&quot;192&quot; y=&quot;159&quot;&gt;格 i&lt;/text&gt;
+        &lt;text x=&quot;312&quot; y=&quot;159&quot;&gt;格 i+1&lt;/text&gt;
+      &lt;/g&gt;
+    &lt;/svg&gt;
+  &lt;/figure&gt;
+&lt;/section&gt;
+&lt;/body&gt;&lt;/html&gt;"></iframe>
+          <p>该方法的珍贵之处在于，我们只用对上一个子步的数据进行少量采样，就能算出这个子步的状态。每个网格可以并行计算，十分 GPU 友好。</p>
+          <p>来看看具体怎么实现吧！我们的更新思想是：新水深 = 旧水深 + 流入的水 - 流出的水。我们在每个格子保存两个物理量水深 <span class="inline_math">h</span> 和水深与流速乘积 <span class="inline_math">hu</span>，其中 <span class="inline_math">u</span> 是此处的液体水平流速，所以 <span class="inline_math">hu</span> 代表单位宽度上的水流量。对于第 <span class="inline_math">i</span> 个格子，更新深度的公式为：
+<span class="equation">h_i^{\,t_0+\Delta t} = h_i^{\,t_0} + \frac{\Delta t}{\Delta x} \left(q_{\text{left}}-q_{\text{right}}\right)</span>
+其中 <span class="inline_math">q</span> 为对应网格面上单位宽度的流量，<span class="inline_math">t_0</span> 和 <span class="inline_math">t_0+\Delta t</span> 分别是这次更新的起止时刻。</p>
+          <p>动量的更新和水深类似：
+<span class="equation">(hu)_i^{\,t_0+\Delta t} = (hu)_i^{\,t_0} + \frac{\Delta t}{\Delta x} \left(P_{\text{left}}-P_{\text{right}}\right) + \Delta t S_i</span>
+这里 <span class="inline_math">P</span> 是网格面上的动量通量，<span class="inline_math">S_i</span> 为地形源项。怎么求 <span class="inline_math">q</span> 和 <span class="inline_math">P</span> 呢？一维状态 <span class="inline_math">U=(h,hu)^\mathsf{T}</span> 的物理通量是：
+<span class="equation">F(U)=\begin{pmatrix}hu\\ hu^2+\tfrac12gh^2\end{pmatrix}</span>
+其中 <span class="inline_math">hu^2</span> 来自水流携带的动量，<span class="inline_math">\tfrac12gh^2</span> 是静水压力的贡献。网格面有左右两个状态 <span class="inline_math">U_L,U_R</span>，我们用 Rusanov 数值通量把两侧都算进去：
+<span class="equation">\widehat F=\tfrac12\big[F(U_L)+F(U_R)\big]-\tfrac12 a(U_R-U_L)</span>
+<span class="inline_math">a</span> 取两侧 <span class="inline_math">|u|+\sqrt{gh}</span> 的最大值。同一个面上的 <span class="inline_math">q</span> 和 <span class="inline_math">P</span> 就是 <span class="inline_math">\widehat F</span> 的第一、第二个分量。项目中还做了静水重构和压力修正，以处理起伏的底床。</p>
+          <p>这样，我们就可以更新缓冲区存储的 <span class="inline_math">h</span> 和 <span class="inline_math">hu</span> 了！</p>
+          <p>刚刚是一维坐标系的情况。如果迁移到二维网格，我们用 <span class="inline_math">u,v</span> 分别表示 X、Z 方向的流速。那每格需要存储的是 <span class="inline_math">h</span>, <span class="inline_math">hu</span>, <span class="inline_math">hv</span> 三个变量。我们将它们统写为一个向量 <span class="inline_math">U</span>。
+<span class="equation">U= \begin{bmatrix} h \\ hu\\ hv \end{bmatrix}</span>
+我们把 <span class="inline_math">U</span> 叫做守恒状态向量（Conserved State Vector），因为它存储了需要守恒的状态：水深 <span class="inline_math">h</span>（质量守恒），和动量 <span class="inline_math">hu</span>, <span class="inline_math">hv</span>（动量守恒）。</p>
+          <p>好吧，什么守恒状态根本不符合图形工程师的记忆习惯！在实际存储上，我们使用 <code>array&lt;vec4&lt;f32&gt;&gt;</code> 来存储守恒状态向量，<code>x, y, z</code> 分量分别存储 <code>h, hu, hv</code>。我并没有测试用数组更好还是用纹理更好。由于 SWE 没有双线性插值的需要，因此并没有必须选择纹理的倾向。</p>
+          <p>好了，回到 SWE 原理，我们称上述的一次更新为一个子步。为了保证模拟质量，我们不能只每帧更新一次浅水场。因为如果更新间隔过长，水面的扰动有可能跳过一个网格。要根据网格间距和传播速度来限制子步时长。CFL（Courant–Friedrichs–Lewy）条件可以帮助我们。这里不展开介绍该条件。直接来算下，我们一帧要更新几个子步吧！</p>
+          <p>先看一维：库朗数表示扰动在一个子步走了多少格，0.1 就是 0.1 格宽。我们用常数 <code>C</code> 表示选定的库朗数上限。设最大传播速度是 <code>a</code>，一格网格宽度是 <code>dx</code>，那么一个子步的最大时间间隔  <code>max_dt</code> 就是：</p>
+          <div class="code_block">
+            <div class="code_part">
+              <pre><code>max_dt = C * dx / a;</code></pre>
+            </div>
+          </div>
+          <p>可以发现，<code>C</code> 越小，每帧模拟的子步数就更多。调参时可以在 C=0.1 ~ 2.0 之间做扫描，看看性能和质量怎么取舍。这个范围不代表稳定范围，能否稳定还取决于离散格式和波速估计。最大传播速度 a 是水流的最大速度 + 重力因素波速度 <span class="inline_math">\sqrt{gh}</span> ，我的项目中水流最大速度为 12m/s，h 估计上界根据游戏场景决定。
+<span class="equation">a=u_{max}+\sqrt{gh_{\text{估计上界}}}</span>
+到了二维，X、Z 两个方向都要算进去。下面以 C=0.2 为例，每帧根据实际推进时间计算子步数 <code>n</code>：</p>
+          <div class="code_block">
+            <div class="code_part">
+              <div class="code_lang rss-ignore">rust</div>
+              <pre><code class="language-rust">let a = 12.0 + (9.81 * depth_bound).sqrt();
+let max_dt = 0.2 / (a / dx + a / dz);
+// 把单帧推进时间限制在 100ms 和 128 个稳定子步内
+let elapsed = frame_interval.min(0.1).min(max_dt * 128.0);
+let n = (elapsed / max_dt).ceil().max(1.0) as u32;
+let dt = elapsed / n as f32;</code></pre>
+            </div>
+          </div>
+          <p><img src="/images/content/blogs/graphics/water/swe_shallow_water_and_foam/images/Pasted image 20261118123557.jpg" alt="">
+C=0.2 60FPS 每帧 19 子步 ~2.36ms</p>
+          <p><img src="/images/content/blogs/graphics/water/swe_shallow_water_and_foam/images/Pasted image 20261118123651.jpg" alt="">
+C=1.1 60FPS 每帧 4 子步 ~0.43ms</p>
+          <p>可以看到，对于该场景，C = 1.1 的效果和 0.2 的效果是相近的，但开销低很多。（旁边充满细节的是 FFT 海洋，较为平缓的区域是 SWE 模拟区域）</p>
+          <p>在一阶求解器中，我们把每格里的水深看作常数。一阶格式的数值扩散会抹去高频细节，网格又不够密，来自 FFT 水域的短波几乎消失了，水面看起来就平缓得多。</p>
+          <p><img src="/images/content/blogs/graphics/water/swe_shallow_water_and_foam/images/Pasted image 20261118124929.jpg" alt="">
+没有加入短波法线的样子。</p>
+          <p>好在，这并不是大问题，短波可以使用法线模拟的方式在浅水模拟区域进行模拟。</p>
+          <h3 id="heading3_1">2. 用法线模拟短波</h3>
+          <p>来看看怎么计算短波法线吧！远海和浅水需要有平滑的过渡。长波已经传给了 SWE，短波细节则留到着色时再补。</p>
+          <p>我们使用的方法是，对于一个点，我们先从 FFT 高度场采样，获取一个点的小范围坡度，和大范围坡度，大范围坡度是长波影响的近似，小范围坡度包含这段影响。小范围坡度减去大范围坡度就是为了减去长波的影响，估算短波的影响。将这个坡度差加权后叠加到 SWE 的水面坡度上，再重建法线。</p>
+<iframe class="article-component" title="短波法线计算" sandbox="allow-scripts" referrerpolicy="no-referrer" style="display:block;width:100%;height:150px;border:0;background:transparent;color-scheme:normal" srcdoc="&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt;&lt;style&gt;html{height:auto}html,body{background:transparent}body{margin:0;display:flow-root}&lt;/style&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;/component/component.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;/component/image-compare.css&quot;&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;title&gt;短波法线计算&lt;/title&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;script src=&quot;/component/image-compare.js&quot; defer&gt;&lt;/script&gt;&lt;script src=&quot;/component/range.js&quot; defer&gt;&lt;/script&gt;&lt;script src=&quot;/assets/js/article-component-frame.js&quot; defer&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt;&lt;section class=&quot;kc-root kc-panel&quot;&gt;
+  &lt;figure class=&quot;kc-figure&quot; style=&quot;margin:0;padding-block:12px&quot;&gt;
+    &lt;svg viewBox=&quot;0 0 400 290&quot; style=&quot;max-width:560px;margin-inline:auto&quot; role=&quot;img&quot; aria-label=&quot;从 FFT 高度采样计算短波法线&quot;&gt;
+      &lt;desc&gt;
+        沿 X 轴在中心两侧各取相距一格和四格的高度样本，分别计算两条割线的坡度。
+        Z 轴同样计算。用小跨度坡度减去大跨度坡度，乘以权重后修正原法线。
+      &lt;/desc&gt;
+
+      &lt;!-- FFT height and sample positions in an X-axis slice. --&gt;
+      &lt;g fill=&quot;none&quot; stroke=&quot;var(--kc-control-line)&quot;&gt;
+        &lt;path d=&quot;M36 36V135H364&quot; /&gt;
+        &lt;path d=&quot;M72 108V135 M168 105V135 M200 43V135 M232 68V135 M328 74V135&quot; stroke-dasharray=&quot;3 4&quot; /&gt;
+      &lt;/g&gt;
+      &lt;path d=&quot;M36 116 C48 114 60 109 72 108
+               C112 101 139 121 168 105
+               C190 93 208 75 232 68
+               C265 58 294 77 328 74
+               C343 73 353 69 364 66&quot; fill=&quot;none&quot; stroke=&quot;var(--kc-ink)&quot; stroke-width=&quot;2&quot; /&gt;
+
+      &lt;!-- Two centered differences, drawn as secants. --&gt;
+      &lt;path d=&quot;M72 108L328 74&quot; fill=&quot;none&quot; stroke=&quot;var(--kc-muted)&quot; stroke-width=&quot;2&quot; stroke-dasharray=&quot;6 4&quot; /&gt;
+      &lt;path d=&quot;M168 105L232 68&quot; fill=&quot;none&quot; stroke=&quot;var(--kc-accent)&quot; stroke-width=&quot;3&quot; /&gt;
+      &lt;g fill=&quot;var(--kc-canvas)&quot; stroke=&quot;var(--kc-muted)&quot; stroke-width=&quot;2&quot;&gt;
+        &lt;circle cx=&quot;72&quot; cy=&quot;108&quot; r=&quot;4&quot; /&gt;
+        &lt;circle cx=&quot;328&quot; cy=&quot;74&quot; r=&quot;4&quot; /&gt;
+      &lt;/g&gt;
+      &lt;g fill=&quot;var(--kc-accent)&quot;&gt;
+        &lt;circle cx=&quot;168&quot; cy=&quot;105&quot; r=&quot;4&quot; /&gt;
+        &lt;circle cx=&quot;232&quot; cy=&quot;68&quot; r=&quot;4&quot; /&gt;
+      &lt;/g&gt;
+
+      &lt;g fill=&quot;var(--kc-ink)&quot; font-family=&quot;var(--kc-font)&quot; font-size=&quot;17&quot;&gt;
+        &lt;text x=&quot;36&quot; y=&quot;27&quot;&gt;FFT 高度 H&lt;/text&gt;
+        &lt;text x=&quot;245&quot; y=&quot;50&quot;&gt;gₓ⁽¹⁾&lt;/text&gt;
+        &lt;text x=&quot;317&quot; y=&quot;101&quot;&gt;gₓ⁽⁴⁾&lt;/text&gt;
+      &lt;/g&gt;
+      &lt;g fill=&quot;var(--kc-muted)&quot; font-family=&quot;var(--kc-mono)&quot; font-size=&quot;16&quot; text-anchor=&quot;middle&quot;&gt;
+        &lt;text x=&quot;72&quot; y=&quot;157&quot;&gt;x−4Δ&lt;/text&gt;
+        &lt;text x=&quot;157&quot; y=&quot;157&quot;&gt;x−Δ&lt;/text&gt;
+        &lt;text x=&quot;200&quot; y=&quot;157&quot;&gt;x&lt;/text&gt;
+        &lt;text x=&quot;243&quot; y=&quot;157&quot;&gt;x+Δ&lt;/text&gt;
+        &lt;text x=&quot;328&quot; y=&quot;157&quot;&gt;x+4Δ&lt;/text&gt;
+      &lt;/g&gt;
+
+      &lt;path d=&quot;M20 176H380&quot; stroke=&quot;var(--kc-control-line)&quot; /&gt;
+
+      &lt;!-- Apply the weighted slope to the original normal. --&gt;
+      &lt;g fill=&quot;var(--kc-ink)&quot; font-family=&quot;var(--kc-font)&quot; font-size=&quot;17&quot;&gt;
+        &lt;text x=&quot;24&quot; y=&quot;217&quot;&gt;
+          &lt;tspan&gt;g&lt;/tspan&gt;&lt;tspan baseline-shift=&quot;sub&quot; font-size=&quot;12&quot;&gt;detail&lt;/tspan&gt;
+          &lt;tspan&gt; = g⁽¹⁾ − g⁽⁴⁾&lt;/tspan&gt;
+        &lt;/text&gt;
+        &lt;text x=&quot;24&quot; y=&quot;246&quot;&gt;δg = g&lt;tspan baseline-shift=&quot;sub&quot; font-size=&quot;12&quot;&gt;detail&lt;/tspan&gt;
+          &lt;tspan&gt; × 总权重&lt;/tspan&gt;
+        &lt;/text&gt;
+        &lt;text x=&quot;310&quot; y=&quot;211&quot;&gt;n₀&lt;/text&gt;
+        &lt;text x=&quot;270&quot; y=&quot;220&quot;&gt;n&lt;/text&gt;
+      &lt;/g&gt;
+      &lt;g fill=&quot;none&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;
+        &lt;path d=&quot;M246 261H360&quot; stroke=&quot;var(--kc-muted)&quot; stroke-dasharray=&quot;4 4&quot; /&gt;
+        &lt;path d=&quot;M248 277L358 245&quot; stroke=&quot;var(--kc-control-line)&quot; stroke-width=&quot;2&quot; /&gt;
+        &lt;path d=&quot;M303 261V216 M298 222L303 216L308 222&quot; stroke=&quot;var(--kc-muted)&quot; stroke-width=&quot;2&quot; stroke-dasharray=&quot;4 3&quot; /&gt;
+        &lt;path d=&quot;M303 261L290 216 M287 224L290 216L297 221&quot; stroke=&quot;var(--kc-accent)&quot; stroke-width=&quot;2.5&quot; /&gt;
+      &lt;/g&gt;
+      &lt;circle cx=&quot;303&quot; cy=&quot;261&quot; r=&quot;3&quot; fill=&quot;var(--kc-ink)&quot; /&gt;
+    &lt;/svg&gt;
+  &lt;/figure&gt;
+&lt;/section&gt;
+&lt;/body&gt;&lt;/html&gt;"></iframe>
+          <p>x 方向的坡度计算如下：
+<span class="equation">g_x^{(s)} = A\frac{H(x+s\Delta,z)-H(x-s\Delta,z)} {2s\Delta}</span></p>
+          <ul>
+            <li>
+              <p><span class="inline_math">\Delta</span> 网格间距</p>
+            </li>
+            <li>
+              <p><span class="inline_math">H</span> 逆 FFT 后的空间高度</p>
+            </li>
+            <li>
+              <p><span class="inline_math">A</span> 是 FFT 高度增益</p>
+            </li>
+            <li>
+              <p><span class="inline_math">s</span> 是以格数计的采样步长，中心到采样点的距离是 <span class="inline_math">s\Delta</span></p>
+            </li>
+          </ul>
+          <p>同理计算 z 方向，和 x 方向组成一个坡度向量 <span class="inline_math">g</span></p>
+          <ul>
+            <li>
+              <p>s = 1 表示局部的坡度，s = 4 表示较大跨度的坡度，两者相减得到坡度差异。
+<span class="equation">\mathbf g_{\text{detail}} = \mathbf g^{(1)}-\mathbf g^{(4)}</span>
+坡度增量：</p>
+            </li>
+          </ul>
+          <p><span class="equation">\delta\mathbf g = \mathbf g_{\text{detail}} \cdot \underbrace{S(1-W_{\text{FFT}})W_{\text{depth}}W_{\text{pixel}}}_{\text{总权重}}</span></p>
+          <div class="table">
+            <table>
+              <tr class="table_header">
+                <td class="table_header"> 权重                 </td>
+                <td class="table_header"> 作用                                  </td>
+              </tr>
+              <tr>
+                <td> <span class="inline_math">S</span>                </td>
+                <td> 面板中的 <code>Normal detail strength</code>，0 为关闭 </td>
+              </tr>
+              <tr>
+                <td> <span class="inline_math">1-W_{\text{FFT}}</span> </td>
+                <td> 远海不补，越进入 SWE 区域补得越多，避免在远海重复叠加       </td>
+              </tr>
+              <tr>
+                <td> <span class="inline_math">W_{\text{depth}}</span> </td>
+                <td> 实际水深 ≤2 厘米时关闭，≥25 厘米时完全开启，中间平滑过渡    </td>
+              </tr>
+              <tr>
+                <td> <span class="inline_math">W_{\text{pixel}}</span> </td>
+                <td> 当一个屏幕像素覆盖过多 FFT 网格时淡出细节，减少远处闪烁      </td>
+              </tr>
+            </table>
+          </div>
+          <p>对于原法线 <span class="inline_math">n_0</span>，新法线的计算结果是：
+<span class="equation">\mathbf n= \operatorname{normalize} \begin{pmatrix} n_{0x}-n_{0y}\delta g_x\\ n_{0y}\\ n_{0z}-n_{0y}\delta g_z \end{pmatrix}</span></p>
+          <p>来看一下结果吧。</p>
+          <p><img src="/images/content/blogs/graphics/water/swe_shallow_water_and_foam/images/Pasted image 20261118125017.jpg" alt="">
+加入短波法线后的样子</p>
+          <h3 id="heading3_2">3. SWE 与碰撞体求解</h3>
+          <p>碰撞体使用模拟高地的方式来求解，我们用碰撞体的顶面来抬高所在格子的有效底床：</p>
+          <ul>
+            <li>
+              <p><code>有效底床高度 = max(原地形高度, 覆盖该格的各碰撞体顶面高度)</code> 
+这里改的是底床，不是水深。这种方式适合静态物体；换成动态物体，底床突然抬高时，被挤占的水量还需要随更新重新分配。</p>
+            </li>
+          </ul>
+          <h3 id="heading3_3">4. 二阶求解器</h3>
+          <p>二阶求解器分为空间和时间。</p>
+          <p>空间上，较好理解，二阶求解器将水面认为是有最大斜度的斜面，通过 MUSCL 方法计算。改成斜面后，边界的高度也就改变了，但还是用同一个数值通量公式。下面用 <span class="inline_math">U</span> 的一个分量举例。</p>
+          <p>一阶的边界估算：
+<span class="equation">U_L=U_i,\qquad U_R=U_{i+1}</span>
+二阶的边界估算：
+<span class="equation">\begin{aligned}
+\delta_i&amp;=\operatorname{minmod}(U_i-U_{i-1},U_{i+1}-U_i) \\
+U_L&amp;=U_i+\tfrac12\delta_i,\qquad U_R=U_{i+1}-\tfrac12\delta_{i+1}
+\end{aligned}</span>
+<span class="inline_math">\operatorname{minmod}</span> 是斜率限制器：同号时保留符号，取绝对值较小的那个；异号或有零时返回零。这样可以防止斜率过大，产生振荡。项目里重构的是水面高程和水平流速，底床单独重构，用的是带 1.3 系数的广义 minmod。</p>
+<iframe class="article-component" title="二阶浅水方程求解器" sandbox="allow-scripts" referrerpolicy="no-referrer" style="display:block;width:100%;height:150px;border:0;background:transparent;color-scheme:normal" srcdoc="&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt;&lt;style&gt;html{height:auto}html,body{background:transparent}body{margin:0;display:flow-root}&lt;/style&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;/component/component.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;/component/image-compare.css&quot;&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;title&gt;二阶浅水方程求解器&lt;/title&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;script src=&quot;/component/image-compare.js&quot; defer&gt;&lt;/script&gt;&lt;script src=&quot;/component/range.js&quot; defer&gt;&lt;/script&gt;&lt;script src=&quot;/assets/js/article-component-frame.js&quot; defer&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt;&lt;section class=&quot;kc-root kc-panel&quot;&gt;
+  &lt;figure class=&quot;kc-figure&quot; style=&quot;margin:0;padding-block:12px&quot;&gt;
+    &lt;svg viewBox=&quot;0 0 384 170&quot; style=&quot;max-width:520px;margin-inline:auto&quot; role=&quot;img&quot; aria-label=&quot;二阶空间重构，格内沿受限斜率线性变化&quot;&gt;
+      &lt;rect x=&quot;132&quot; y=&quot;16&quot; width=&quot;120&quot; height=&quot;120&quot; fill=&quot;var(--kc-surface)&quot; /&gt;
+      &lt;path d=&quot;M12 16H372V136H12Z M132 16V136&quot; stroke=&quot;var(--kc-control-line)&quot; fill=&quot;none&quot; /&gt;
+      &lt;path d=&quot;M252 16V136&quot; stroke=&quot;var(--kc-muted)&quot; stroke-dasharray=&quot;4 4&quot; /&gt;
+      &lt;path d=&quot;M12 112L132 92 M132 95.35L252 70.65 M252 57.5L372 22.5&quot; stroke=&quot;var(--kc-accent)&quot; stroke-width=&quot;2&quot; fill=&quot;none&quot; /&gt;
+      &lt;g fill=&quot;var(--kc-ink)&quot;&gt;
+        &lt;circle cx=&quot;72&quot; cy=&quot;102&quot; r=&quot;3&quot; /&gt;
+        &lt;circle cx=&quot;192&quot; cy=&quot;83&quot; r=&quot;3&quot; /&gt;
+        &lt;circle cx=&quot;312&quot; cy=&quot;40&quot; r=&quot;3&quot; /&gt;
+      &lt;/g&gt;
+      &lt;g fill=&quot;var(--kc-canvas)&quot; stroke=&quot;var(--kc-ink)&quot; stroke-width=&quot;1.4&quot;&gt;
+        &lt;circle cx=&quot;252&quot; cy=&quot;70.65&quot; r=&quot;3.3&quot; /&gt;
+        &lt;circle cx=&quot;252&quot; cy=&quot;57.5&quot; r=&quot;3.3&quot; /&gt;
+      &lt;/g&gt;
+      &lt;g fill=&quot;var(--kc-ink)&quot; font-size=&quot;17&quot; text-anchor=&quot;middle&quot;&gt;
+        &lt;text x=&quot;72&quot; y=&quot;159&quot;&gt;格 i−1&lt;/text&gt;
+        &lt;text x=&quot;192&quot; y=&quot;159&quot;&gt;格 i&lt;/text&gt;
+        &lt;text x=&quot;312&quot; y=&quot;159&quot;&gt;格 i+1&lt;/text&gt;
+      &lt;/g&gt;
+    &lt;/svg&gt;
+  &lt;/figure&gt;
+&lt;/section&gt;
+&lt;/body&gt;&lt;/html&gt;"></iframe>
+          <p>二阶求解器还会使用 SSP-RK2 时间积分方法来提高模拟精度。</p>
+          <blockquote>
+            <p>RK2 的全称是 Second-Order Runge-Kutta，译名为二阶龙格-库塔法（好中二的中文译名，喜欢）</p>
+          </blockquote>
+          <p>在一阶求解中，显式欧拉用起点的变化率来近似整个子步。SSP-RK2 则取起点和预测终点的变化率，两者的平均值乘以子步时长，就是状态的增量。</p>
+          <p>拿水深举例，图里连成直线的是水深变化率 <span class="inline_math">dh/dt</span>。线下的梯形面积才是这个子步的水深增量：</p>
+<iframe class="article-component" title="RK2 时间积分示意" sandbox="allow-scripts" referrerpolicy="no-referrer" style="display:block;width:100%;height:150px;border:0;background:transparent;color-scheme:normal" srcdoc="&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt;&lt;style&gt;html{height:auto}html,body{background:transparent}body{margin:0;display:flow-root}&lt;/style&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;/component/component.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;/component/image-compare.css&quot;&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;title&gt;RK2 时间积分示意&lt;/title&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;script src=&quot;/component/image-compare.js&quot; defer&gt;&lt;/script&gt;&lt;script src=&quot;/component/range.js&quot; defer&gt;&lt;/script&gt;&lt;script src=&quot;/assets/js/article-component-frame.js&quot; defer&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt;&lt;section class=&quot;kc-root kc-panel&quot;&gt;
+  &lt;figure class=&quot;kc-figure&quot; style=&quot;margin:0;padding:12px 8px&quot;&gt;
+    &lt;svg viewBox=&quot;0 0 560 336&quot; style=&quot;max-width:720px;margin-inline:auto&quot; role=&quot;img&quot; aria-label=&quot;线性变化率在一个子步内的积分&quot;&gt;
+      &lt;desc&gt;
+        变化率 dh/dt 从 a 线性升至 a+bΔt。灰色矩形面积为 aΔt，
+        朱红色三角形面积为 ½bΔt²。
+      &lt;/desc&gt;
+
+      &lt;path d=&quot;M108 190H500V290H108Z&quot; fill=&quot;var(--kc-surface)&quot; /&gt;
+      &lt;path d=&quot;M108 190L500 62V190Z&quot; fill=&quot;var(--kc-accent)&quot; fill-opacity=&quot;.24&quot; /&gt;
+
+      &lt;path d=&quot;M500 62V290&quot; fill=&quot;none&quot; stroke=&quot;var(--kc-muted)&quot; stroke-opacity=&quot;.55&quot; stroke-width=&quot;1.5&quot; stroke-dasharray=&quot;6 6&quot; /&gt;
+      &lt;path d=&quot;M108 190H500&quot; fill=&quot;none&quot; stroke=&quot;var(--kc-muted)&quot; stroke-width=&quot;2&quot; stroke-dasharray=&quot;8 6&quot; /&gt;
+      &lt;path d=&quot;M108 34V290H543&quot; fill=&quot;none&quot; stroke=&quot;var(--kc-ink)&quot; stroke-width=&quot;2.5&quot; /&gt;
+      &lt;path d=&quot;M108 190L500 62&quot; fill=&quot;none&quot; stroke=&quot;var(--kc-accent)&quot; stroke-width=&quot;4&quot; /&gt;
+
+      &lt;g fill=&quot;var(--kc-ink)&quot; font-family=&quot;var(--kc-font)&quot; font-size=&quot;21&quot;&gt;
+        &lt;g text-anchor=&quot;end&quot;&gt;
+          &lt;text x=&quot;96&quot; y=&quot;34&quot;&gt;dh/dt&lt;/text&gt;
+          &lt;text x=&quot;96&quot; y=&quot;69&quot;&gt;a+bΔt&lt;/text&gt;
+          &lt;text x=&quot;96&quot; y=&quot;197&quot;&gt;a&lt;/text&gt;
+          &lt;text x=&quot;96&quot; y=&quot;319&quot;&gt;0&lt;/text&gt;
+          &lt;text x=&quot;543&quot; y=&quot;319&quot;&gt;t&lt;/text&gt;
+        &lt;/g&gt;
+        &lt;text x=&quot;500&quot; y=&quot;319&quot; text-anchor=&quot;middle&quot;&gt;Δt&lt;/text&gt;
+      &lt;/g&gt;
+
+      &lt;g font-family=&quot;var(--kc-font)&quot; font-size=&quot;24&quot; text-anchor=&quot;middle&quot;&gt;
+        &lt;text x=&quot;366&quot; y=&quot;165&quot; fill=&quot;var(--kc-ink)&quot;&gt;½bΔt²&lt;/text&gt;
+        &lt;text x=&quot;304&quot; y=&quot;248&quot; fill=&quot;var(--kc-muted)&quot;&gt;aΔt&lt;/text&gt;
+      &lt;/g&gt;
+    &lt;/svg&gt;
+  &lt;/figure&gt;
+&lt;/section&gt;
+&lt;/body&gt;&lt;/html&gt;"></iframe>
+          <p>但是，在 SWE 中，子步开始时我们只知道起点状态 <span class="inline_math">U^n</span>。终点的变化率从哪里来？先用显式欧拉预测终点状态 <span class="inline_math">U^*</span>，再用它算一次变化率就可以了。</p>
+          <p>斜率用 <span class="inline_math">k</span> 来表达，<span class="inline_math">k=L(U)</span>，<span class="inline_math">L(U)</span> 从直觉上理解，就是根据当前水体状态，计算水深和动量随时间的变化率。 </p>
+          <p><span class="equation">L(U)= \begin{bmatrix} \text{水深变化率}\\ \text{X 动量变化率}\\ \text{Z 动量变化率} \end{bmatrix}</span>
+起点变化率是 <span class="inline_math">k_1=L(U^n)</span>，预测状态是 <span class="inline_math">U^*=U^n+\Delta t\,k_1</span>，预测终点的变化率就是 <span class="inline_math">k_2=L(U^*)</span>。最终守恒状态为：
+<span class="equation">U^{n+1}=U^n + \frac{k_1+k_2}{2}\Delta t</span></p>
+          <h1 id="heading1_2" index-text="III">二、浅水泡沫</h1>
+          <p>现实海洋中，海浪破碎时会卷入空气，在水面形成泡沫。</p>
+          <p>看岸边的浪：前方的海水减速、回退时，会和后方前进的海水挤在一起。泡沫也会随水前进，在水流汇聚的地方变浓。此外，水里的气泡还会不断上浮，补充水面的泡沫。不同大小和运动状态的泡沫，消散的速度也不一样。</p>
+          <p>这么看来，我们无法从物理上实时模拟气泡。使用务实的思路，我们可以将气泡简化为随 SWE 水流移动的泡沫浓度。浓度越高的地方，我们用看起来更密实的纹理来着色；更稀疏的地方，则使用有明显空隙的网格纹理来着色。这样可以模拟出现实中的两种气泡视觉效果。</p>
+          <div class="image_wrapper"><img src="/images/content/blogs/graphics/water/swe_shallow_water_and_foam/images/ocean_foam_patterns.jpg" alt=""></div>
+          <p>图为现实中的泡沫，一个大浪会形成许多小浪，两者都会卷入空气形成泡沫。大浪会形成厚实的泡沫，数个小浪则形成数个湾状泡沫。紫色部分同时有大浪和小浪贡献，而网纹状的泡沫（绿色）主要来自于小浪流动和汇聚。</p>
+          <div class="image_wrapper"><img src="/images/content/blogs/graphics/water/swe_shallow_water_and_foam/images/shoreline_foam_front.jpg" alt=""></div>
+          <p>海浪最前端常能看到一条泡沫前沿。前方水流慢下来，后面的泡沫还在继续向前汇聚，这样前沿就能维持较高的泡沫浓度。</p>
+          <p>经过观察，我们用下面四个特征来更新“泡沫浓度”：</p>
+          <div class="table">
+            <table>
+              <tr class="table_header">
+                <td class="table_header"> 效果   </td>
+                <td class="table_header"> 随水移动   </td>
+                <td class="table_header"> 汇聚变浓   </td>
+                <td class="table_header"> 泡沫生成        </td>
+                <td class="table_header"> 逐渐消失       </td>
+              </tr>
+              <tr>
+                <td> 实现方式 </td>
+                <td> 泡沫流体模拟 </td>
+                <td> 泡沫流体模拟 </td>
+                <td> 根据 SWE 状态实现 </td>
+                <td> 使用指数衰减降低浓度 </td>
+              </tr>
+            </table>
+          </div>
+          <p>我们用两个标量场分别表示新鲜泡沫浓度 <span class="inline_math">N</span>（New）和残余泡沫浓度 <span class="inline_math">R</span>（Rest）。它们随同一股水流移动，但有各自的着色方式和衰减参数，衰减的新鲜泡沫还有一部分会转为残余泡沫。</p>
+          <p>在我的实现中，泡沫网格的分辨率比 SWE 高一倍，让泡沫有更多细节。缓冲区实际存的是总浓度 <span class="inline_math">F=N+R</span>（Full）和残余浓度 <span class="inline_math">R</span>，用 <span class="inline_math">F-R</span> 就能还原 <span class="inline_math">N</span>。</p>
+          <h3 id="heading3_4">1. 随水移动 &amp; 汇聚变浓</h3>
+          <p>随水移动的部分十分简单：用当前格子的流速乘以子步时长，得到位移，再沿位移反向查找泡沫的来源。这个过程叫“半拉格朗日回溯”。源位置不一定落在格子中心，所以我们用邻近的四个格子做双线性插值。以新鲜泡沫为例，将采样得到的浓度记为 <span class="inline_math">N_{previous}</span>。</p>
+          <p>汇聚变浓的部分也很好理解：水流汇聚时，泡沫挤在一起；水流散开时，泡沫就变稀。我们用“速度散度”来描述这个效果：
+<span class="equation">d_{i,j} = \frac{u_{x+} - u_{x-}}{\Delta x} + \frac{u_{z+} - u_{z-}}{\Delta z}</span>
+这里 <span class="inline_math">u_{x+}</span> 和 <span class="inline_math">u_{x-}</span> 是同一个格子右、左两个网格面上的 X 向流速，都以 X 正方向为正。两个面相距 <span class="inline_math">\Delta x</span>；Z 方向同理。
+<span class="equation">N^* = N_{previous} \cdot e^{-d_{i,j} \Delta t}</span>
+浓度输送的部分就这么简单。<span class="inline_math">N^*</span> 是输送后的新鲜泡沫浓度，残余泡沫的 <span class="inline_math">R^*</span> 也用同样的方法计算。</p>
+          <h3 id="heading3_5">2. 泡沫生成</h3>
+          <p>我们用水流挤压来估计哪里可能生成泡沫。例如有两个格子：</p>
+          <div class="code_block">
+            <div class="code_part">
+              <pre><code>case1     case2
+A B       A B
+1 -2      5 2
+- positive direction -&gt;</code></pre>
+            </div>
+          </div>
+          <p>B 格子的水流与 A 格子相反，会尝试发生挤压，这种情况下，我们认为其可能出现泡沫。第二种情况，A 的速度快于 B 的速度很多，也可能发生挤压。用公式表示挤压：
+<span class="equation">\tau_{compress} = \frac{max(0, u_i - u_{i+1})}{d}</span>
+<span class="inline_math">u_i</span> 是当前沿流向的速度，<span class="inline_math">u_{i+1}</span> 是前方沿流向的速度，<span class="inline_math">d</span> 是采样距离。这是一种经验近似。
+下面只看沿流向挤压产生泡沫的简化模型。先把压缩率映射成权重：
+<span class="equation">t=clamp(\frac{\tau_{compress} - T}{W} ,0,1)</span>
+T 和 W 是两个外部控制参数，分别对应阈值和过渡宽度。压缩率不超过 <span class="inline_math">T</span> 时权重为 0，在 <span class="inline_math">T</span> 到 <span class="inline_math">T+W</span> 之间平滑增加，达到 <span class="inline_math">T+W</span> 后保持为 1，仍可生成泡沫。过渡区间用 smoothstep 平滑：
+<span class="equation">s=t^2(3 - 2t)</span>
+这一项的生成率为：
+<span class="equation">S = A_{param}\cdot s \cdot smoothstep(0.02, 0.1, |\vec u|)</span>
+<span class="inline_math">A_{param}</span> 是系数倍率，是给用户控制的外部参数。而最后一项是抑制低速水流，速度不超过 0.02 米/秒时不发射，达到 0.1 米/秒后不再减弱。只计生成时，一个子步的新增浓度就是 <span class="inline_math">S\Delta t</span>。</p>
+          <h3 id="heading3_6">3. 逐渐消失</h3>
+          <p>我们希望让用户控制泡沫的半衰期 <span class="inline_math">H_N</span>，半衰期与衰减率的公式为 <span class="inline_math">a = \frac{\ln 2}{H_N}</span>，那么只考虑衰减时，公式为：
+<span class="equation">N_{new} = N^* e^{-a \Delta t}</span>
+再算上生成，新鲜泡沫浓度的净变化率就是 <span class="inline_math">S-aN</span>。</p>
+          <h3 id="heading3_7">4. 新鲜泡沫转为残余泡沫</h3>
+          <p>我们认为，衰减的新鲜泡沫中有比例 <span class="inline_math">f</span> 会转为残余泡沫，另一部分则直接消失。单看转化这一项，残余泡沫浓度的变化率为：
+<span class="equation">\left.\frac{dR}{dt}\right|_{\text{转化}}=faN</span>
+残余泡沫自身也有半衰期 <span class="inline_math">H_R</span>，对应的衰减率为 <span class="inline_math">b</span>。算上衰减，两种泡沫浓度的净变化率分别为：
+<span class="equation">\frac{dN}{dt}=S-aN,\qquad \frac{dR}{dt}=faN-bR</span>
+需要注意的是，这里 R 公式中的 N 不是常数，而是关于 t 的函数 <span class="inline_math">N(t)</span>，在积分时需要考虑这一点。</p>
+          <h3 id="heading3_8">汇总</h3>
+          <p>更新顺序是，先输送，再处理生成、转化和衰减。用输送后的浓度 <span class="inline_math">N^*,R^*</span> 作为初值，在这个子步内把 <span class="inline_math">S,a,b,f</span> 当作常量，从 0 积分到 <span class="inline_math">\Delta t</span>，得到：
+<span class="equation">N_{new}=N^*e^{-a\Delta t}+\frac{S}{a}(1-e^{-a\Delta t})</span>
+残余泡沫类似，积分得到：
+<span class="equation">\begin{aligned}R_{\text{new}} &amp;=R^*e^{-b\Delta t} +faN^*K +fS\left[\frac{1-e^{-b\Delta t}}{b}-K\right]\\K&amp;=\frac{e^{-b\Delta t}-e^{-a\Delta t}}{a-b} \end{aligned}</span>
+其中 <span class="inline_math">b=\frac{\ln 2}{H_R}</span>。如果两种泡沫的半衰期相同，<span class="inline_math">a=b</span>，这时不能直接用上面的分式，要取极限 <span class="inline_math">K=\Delta t\,e^{-b\Delta t}</span>。项目里也单独处理了两个衰减率相等或很接近的情况。</p>
+          <h1 id="heading1_3" index-text="IV">三、泡沫着色</h1>
+          <p>刚刚了解了泡沫浓度如何更新，该着色了。浓度没有上限，我们先把新鲜泡沫的浓度映射到 <span class="inline_math">[0,1)</span>，得到覆盖率参数：
+<span class="equation">c_N = 1 - e^{-N/k}</span>
+其中 <span class="inline_math">k</span> 是用户控制的正数。同样的浓度下，<span class="inline_math">k</span> 越大，覆盖率越低，泡沫看起来越淡。</p>
+          <p>对于新鲜泡沫，先看二值的情况。为了让边缘不规则，我们把噪声值和 <span class="inline_math">c_N</span> 比较：噪声值低于 <span class="inline_math">c_N</span> 就显示白色泡沫（不透明度 <span class="inline_math">\alpha=1</span>），否则不显示（<span class="inline_math">\alpha=0</span>）。这样 <span class="inline_math">c_N</span> 越大，白色覆盖的面积就越大。实际着色时用 <code>smoothstep</code> 把边缘稍微抹平。</p>
+          <p>残余泡沫则在噪声场中截取一条等值带，画出网格状的泡沫细丝。残余浓度 <span class="inline_math">R</span> 越高，等值带就越宽。</p>
+<iframe class="article-component" title="文章交互组件" sandbox="allow-scripts" referrerpolicy="no-referrer" style="display:block;width:100%;height:150px;border:0;background:transparent;color-scheme:normal" srcdoc="&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt;&lt;style&gt;html{height:auto}html,body{background:transparent}body{margin:0;display:flow-root}&lt;/style&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;/component/component.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;/component/image-compare.css&quot;&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;script src=&quot;/component/image-compare.js&quot; defer&gt;&lt;/script&gt;&lt;script src=&quot;/component/range.js&quot; defer&gt;&lt;/script&gt;&lt;script src=&quot;/assets/js/article-component-frame.js&quot; defer&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt;&lt;figure class=&quot;kc-compare&quot;&gt;
+  &lt;img data-side=&quot;a&quot; src=&quot;/images/content/blogs/graphics/water/swe_shallow_water_and_foam/images/rest-only.jpg&quot; alt=&quot;仅残余泡沫&quot;&gt;
+  &lt;img data-side=&quot;b&quot; src=&quot;/images/content/blogs/graphics/water/swe_shallow_water_and_foam/images/with-flow-wraped.jpg&quot; alt=&quot;残余泡沫+新鲜泡沫&quot;&gt;
+  &lt;figcaption&gt;左：仅残余泡沫；右：残余泡沫+新鲜泡沫&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;/body&gt;&lt;/html&gt;"></iframe>
+          <h3 id="heading3_9">泡沫扭曲</h3>
+          <p>目前泡沫没有跟随水流的拖曳和扭曲效果，需要实现一下。我们使用一个纹理位移场 <span class="inline_math">\mathbf D</span> 来记录随水流的纹理位移。
+<span class="equation">\mathbf D_{new}(\mathbf x) = \mathbf D_{old}(\mathbf x-\mathbf u\Delta t) +\mathbf u\Delta t</span>
+初始 <span class="inline_math">\mathbf D = \mathbf 0</span>，<span class="inline_math">\mathbf x</span> 为位置坐标。这里记录的是正向位移，所以画 <span class="inline_math">\mathbf x</span> 处的泡沫时，要回到 <span class="inline_math">\mathbf x-\mathbf D(\mathbf x)</span> 处采样纹理。不过如果该场一直流动，那么其纹理会不断偏移下去，我们需要一些重置机制防止偏移值不断变大，出现过于扭曲的效果。</p>
+          <p>重置机制如下：</p>
+          <p>我们设重置周期为 <span class="inline_math">T</span>，我们使用两层 <span class="inline_math">\mathbf D_A, \mathbf D_B</span> 来存储流动。每层都在自己的相位回绕时把位移归零。如果 A 层在这个子步内回绕，到子步结束时就要补上回绕后那一小段时间的位移：<span class="inline_math">\mathbf D_A=\mathbf u\,(\phi_{new}T)</span>。B 层和 A 层错开半个周期，所以 B 层回绕的子步同理补上 <span class="inline_math">\mathbf D_B=\mathbf u\left[\operatorname{fract}(\phi_{\text{new}}+0.5)T\right]</span>。
+<span class="equation">\phi_{new}=\operatorname{fract}(\phi+\frac{\Delta t}{T})</span>
+其中 fract 是取小数。接着我们将这个相位作为输入，使用平滑三角波函数作为权重，就可以做出交替的 A 和 B 层混合。如图所示：</p>
+<iframe class="article-component" title="文章交互组件" sandbox="allow-scripts" referrerpolicy="no-referrer" style="display:block;width:100%;height:150px;border:0;background:transparent;color-scheme:normal" srcdoc="&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt;&lt;style&gt;html{height:auto}html,body{background:transparent}body{margin:0;display:flow-root}&lt;/style&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;/component/component.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;/component/image-compare.css&quot;&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;style&gt;
+  .foam-blend { display: block; width: 100%; height: auto; color-scheme: dark; }
+  .foam-blend text { fill: #b7b3b0; font: 15px -apple-system, sans-serif; }
+  .foam-blend .heading { fill: #eae7e7; font-size: 19px; }
+  .foam-blend .curve-label { font-size: 19px; }
+  .foam-blend .layer-a { color: #6eafff; }
+  .foam-blend .layer-b { color: #ffb65d; }
+  .foam-blend .layer-a text, .foam-blend .layer-b text { fill: currentColor; }
+  @media (max-width: 480px) {
+    .foam-blend text { font-size: 24px; }
+    .foam-blend .heading, .foam-blend .curve-label { font-size: 28px; }
+  }
+&lt;/style&gt;
+&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;script src=&quot;/component/image-compare.js&quot; defer&gt;&lt;/script&gt;&lt;script src=&quot;/component/range.js&quot; defer&gt;&lt;/script&gt;&lt;script src=&quot;/assets/js/article-component-frame.js&quot; defer&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt;&lt;svg class=&quot;foam-blend&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot; viewBox=&quot;0 0 740 368&quot; role=&quot;img&quot; aria-labelledby=&quot;blend-title blend-desc&quot;&gt;
+  &lt;title id=&quot;blend-title&quot;&gt;泡沫流动的双层混合权重&lt;/title&gt;
+  &lt;desc id=&quot;blend-desc&quot;&gt;A、B 两层权重之和为一；A 在周期起点重置，B 在半周期重置，重置时对应层的权重为零。&lt;/desc&gt;
+  &lt;path d=&quot;M60 50H708 M60 158H708 M222 50V266 M384 50V266 M546 50V266 M708 50V266&quot; fill=&quot;none&quot; stroke=&quot;#b7b3b0&quot; stroke-opacity=&quot;.18&quot; /&gt;
+  &lt;path d=&quot;M60 50V266H708&quot; fill=&quot;none&quot; stroke=&quot;#b7b3b0&quot; stroke-opacity=&quot;.6&quot; /&gt;
+  &lt;g text-anchor=&quot;end&quot;&gt;
+    &lt;text x=&quot;44&quot; y=&quot;55&quot;&gt;1&lt;/text&gt;
+    &lt;text x=&quot;44&quot; y=&quot;163&quot;&gt;0.5&lt;/text&gt;
+    &lt;text x=&quot;44&quot; y=&quot;271&quot;&gt;0&lt;/text&gt;
+  &lt;/g&gt;
+  &lt;g text-anchor=&quot;middle&quot;&gt;
+    &lt;text x=&quot;60&quot; y=&quot;291&quot;&gt;0&lt;/text&gt;
+    &lt;text x=&quot;222&quot; y=&quot;291&quot;&gt;0.25&lt;/text&gt;
+    &lt;text x=&quot;384&quot; y=&quot;291&quot;&gt;0.5&lt;/text&gt;
+    &lt;text x=&quot;546&quot; y=&quot;291&quot;&gt;0.75&lt;/text&gt;
+    &lt;text x=&quot;708&quot; y=&quot;291&quot;&gt;1&lt;/text&gt;
+    &lt;text x=&quot;384&quot; y=&quot;354&quot;&gt;Phase (time / period)&lt;/text&gt;
+  &lt;/g&gt;
+  &lt;!-- 每半周期用一段三次 Bézier 精确表示 smoothstep，无需脚本采样。 --&gt;
+  &lt;g class=&quot;layer-a&quot;&gt;
+    &lt;path d=&quot;M60 266C168 266 276 50 384 50S600 266 708 266&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.5&quot; /&gt;
+    &lt;text class=&quot;curve-label&quot; x=&quot;462&quot; y=&quot;73&quot;&gt;A&lt;/text&gt;
+    &lt;circle cx=&quot;60&quot; cy=&quot;266&quot; r=&quot;3.5&quot; fill=&quot;currentColor&quot; /&gt;
+    &lt;circle cx=&quot;708&quot; cy=&quot;266&quot; r=&quot;3.5&quot; fill=&quot;currentColor&quot; /&gt;
+    &lt;text x=&quot;60&quot; y=&quot;321&quot;&gt;A reset&lt;/text&gt;
+    &lt;text x=&quot;708&quot; y=&quot;321&quot; text-anchor=&quot;end&quot;&gt;A reset&lt;/text&gt;
+  &lt;/g&gt;
+  &lt;g class=&quot;layer-b&quot;&gt;
+    &lt;path d=&quot;M60 50C168 50 276 266 384 266S600 50 708 50&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;2.5&quot; /&gt;
+    &lt;text class=&quot;curve-label&quot; x=&quot;156&quot; y=&quot;73&quot;&gt;B&lt;/text&gt;
+    &lt;circle cx=&quot;384&quot; cy=&quot;266&quot; r=&quot;3.5&quot; fill=&quot;currentColor&quot; /&gt;
+    &lt;text x=&quot;384&quot; y=&quot;321&quot; text-anchor=&quot;middle&quot;&gt;B reset&lt;/text&gt;
+  &lt;/g&gt;
+&lt;/svg&gt;
+&lt;/body&gt;&lt;/html&gt;"></iframe>
+          <blockquote>
+            <p>平滑三角波公式：
+ <span class="equation">s=1-|2\phi_{\text{new}}-1|,\qquad w_A=s^2(3-2s),\qquad w_B=1-w_A</span>
+ 三角波可以保证两者加权为 1。</p>
+          </blockquote>
+          <p>这样在 A 重置时 A 增益为 0，B 重置时 B 增益为 0，不会出现跳变。</p>
+          <p><img src="/images/content/blogs/graphics/water/swe_shallow_water_and_foam/images/flow_distorted_foam.jpg" alt="">
+图 d：应用扭曲效果的两种泡沫叠加。</p>
+<iframe class="article-component" title="文章交互组件" sandbox="allow-scripts" referrerpolicy="no-referrer" style="display:block;width:100%;height:150px;border:0;background:transparent;color-scheme:normal" srcdoc="&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt;&lt;style&gt;html{height:auto}html,body{background:transparent}body{margin:0;display:flow-root}&lt;/style&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;/component/component.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;/component/image-compare.css&quot;&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;script src=&quot;/component/image-compare.js&quot; defer&gt;&lt;/script&gt;&lt;script src=&quot;/component/range.js&quot; defer&gt;&lt;/script&gt;&lt;script src=&quot;/assets/js/article-component-frame.js&quot; defer&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt;&lt;figure class=&quot;kc-compare&quot;&gt;
+  &lt;img data-side=&quot;a&quot; src=&quot;/images/content/blogs/graphics/water/swe_shallow_water_and_foam/images/without-flow-wrap.jpg&quot; alt=&quot;无扭曲&quot;&gt;
+  &lt;img data-side=&quot;b&quot; src=&quot;/images/content/blogs/graphics/water/swe_shallow_water_and_foam/images/with-flow-wraped.jpg&quot; alt=&quot;有扭曲&quot;&gt;
+  &lt;figcaption&gt;左：无扭曲；右：有扭曲&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;/body&gt;&lt;/html&gt;"></iframe>
+          <h3 id="heading3_10">泡沫纹理</h3>
+          <p>除了使用生成式噪波来做新鲜泡沫，也可以使用纹理模式渲染新鲜泡沫。将纹理的灰度作为显示阈值，使用新鲜泡沫浓度比较阈值来控制该像素是否显示泡沫。下面是两种纹理的显示效果对比。</p>
+<iframe class="article-component" title="文章交互组件" sandbox="allow-scripts" referrerpolicy="no-referrer" style="display:block;width:100%;height:150px;border:0;background:transparent;color-scheme:normal" srcdoc="&lt;!doctype html&gt;&lt;html&gt;&lt;head&gt;&lt;style&gt;html{height:auto}html,body{background:transparent}body{margin:0;display:flow-root}&lt;/style&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;/component/component.css&quot;&gt;&lt;link rel=&quot;stylesheet&quot; href=&quot;/component/image-compare.css&quot;&gt;&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;&lt;script src=&quot;/component/image-compare.js&quot; defer&gt;&lt;/script&gt;&lt;script src=&quot;/component/range.js&quot; defer&gt;&lt;/script&gt;&lt;script src=&quot;/assets/js/article-component-frame.js&quot; defer&gt;&lt;/script&gt;&lt;/head&gt;&lt;body&gt;&lt;figure class=&quot;kc-compare&quot;&gt;
+  &lt;img data-side=&quot;a&quot; src=&quot;/images/content/blogs/graphics/water/swe_shallow_water_and_foam/images/fresh-crest-2.jpg&quot; alt=&quot;crest 纹理&quot;&gt;
+  &lt;img data-side=&quot;b&quot; src=&quot;/images/content/blogs/graphics/water/swe_shallow_water_and_foam/images/fresh-shorewave.jpg&quot; alt=&quot;shortwave 纹理&quot;&gt;
+  &lt;figcaption&gt;左：crest 纹理；右：shortwave 纹理&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;/body&gt;&lt;/html&gt;"></iframe>
+          <h1 id="heading1_4" index-text="V">结语</h1>
+          <p>至此，我们终于有一个可用的浅水方程速度还不错的物理水模拟。不过现在还没有浮力、瀑布、长海岸等等。这是未来需要处理的工作。</p>
+          <p>下面是 RTX 3070，C=1.1 的两个场景的 GPU 耗时表现：</p>
+          <div class="table">
+            <table>
+              <tr class="table_header">
+                <td class="table_header"> 场景     </td>
+                <td class="table_header"> SWE 模拟/ms </td>
+                <td class="table_header"> SWE 尺寸    </td>
+                <td class="table_header"> 子步数 </td>
+              </tr>
+              <tr>
+                <td> 礁石 2 阶 </td>
+                <td> 0.44      </td>
+                <td> 256 * 256 </td>
+                <td> 4   </td>
+              </tr>
+              <tr>
+                <td> 礁石 1 阶 </td>
+                <td> 0.28      </td>
+                <td> 256 * 256 </td>
+                <td> 4   </td>
+              </tr>
+              <tr>
+                <td> 海岸 2 阶 </td>
+                <td> 0.19      </td>
+                <td> 256 * 256 </td>
+                <td> 2   </td>
+              </tr>
+              <tr>
+                <td> 海岸 1 阶 </td>
+                <td> 0.10      </td>
+                <td> 256 * 256 </td>
+                <td> 2   </td>
+              </tr>
+            </table>
+          </div>
+          <p>一些其它图片：</p>
+          <p><img src="/images/content/blogs/graphics/water/swe_shallow_water_and_foam/images/ocean-1795156839104306900.jpg" alt="海岸场景">
+海岸场景</p>
+        </div>
+      </div>
+      <div class="sidebar_wrapper_right sidebar_wrapper">
+        <div class="navi"><a href="/zh-CN/home.html" class="navi_link button" aria-label="主页"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none" version="1.1" width="21" height="20.999996185302734" viewBox="0 0 21 20.999996185302734"><defs><clipPath id="master_svg0_9_0235"><rect x="0" y="0" width="21" height="20.999996185302734" rx="0"/></clipPath></defs><g clip-path="url(#master_svg0_9_0235)"><g><path d="M9.9628,1.059317C10.27877,0.8135611,10.7212,0.8135611,11.03716,1.059317C11.03716,1.059317,18.9122,7.18432,18.9122,7.18432C19.1253,7.35009,19.25,7.60498,19.25,7.875C19.25,7.875,19.25,17.5,19.25,17.5C19.25,18.1962,18.9734,18.8639,18.4811,19.3561C17.9889,19.8484,17.321199999999997,20.125,16.625,20.125C16.625,20.125,4.375,20.125,4.375,20.125C3.67881,20.125,3.01113,19.8484,2.518845,19.3561C2.026561,18.8639,1.75,18.1962,1.75,17.5C1.75,17.5,1.75,7.875,1.75,7.875C1.75,7.60498,1.874664,7.35009,2.087802,7.18432C2.087802,7.18432,9.9628,1.059317,9.9628,1.059317C9.9628,1.059317,9.9628,1.059317,9.9628,1.059317ZM8.75,18.375C8.75,18.375,12.25,18.375,12.25,18.375C12.25,18.375,12.25,11.375,12.25,11.375C12.25,11.375,8.75,11.375,8.75,11.375C8.75,11.375,8.75,18.375,8.75,18.375C8.75,18.375,8.75,18.375,8.75,18.375ZM14,18.375C14,18.375,14,10.5,14,10.5C14,10.01674,13.6083,9.625,13.125,9.625C13.125,9.625,7.875,9.625,7.875,9.625C7.39176,9.625,7,10.01674,7,10.5C7,10.5,7,18.375,7,18.375C7,18.375,4.375,18.375,4.375,18.375C4.14293,18.375,3.92038,18.2828,3.75628,18.1187C3.59219,17.9547,3.5,17.732,3.5,17.5C3.5,17.5,3.5,8.30295,3.5,8.30295C3.5,8.30295,10.5,2.8585000000000003,10.5,2.8585000000000003C10.5,2.8585000000000003,17.5,8.30295,17.5,8.30295C17.5,8.30295,17.5,17.5,17.5,17.5C17.5,17.732,17.4078,17.9547,17.2437,18.1187C17.0796,18.2828,16.857,18.375,16.625,18.375C16.625,18.375,14,18.375,14,18.375C14,18.375,14,18.375,14,18.375Z" fill-rule="evenodd" fill="#373737" fill-opacity="1"/></g></g></svg></a><a href="/zh-CN/blogs.html" class="navi_link button" aria-label="博客"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M520-600v-240h320v240H520ZM120-440v-400h320v400H120Zm400 320v-400h320v400H520Zm-400 0v-240h320v240H120Zm80-400h160v-240H200v240Zm400 320h160v-240H600v240Zm0-480h160v-80H600v80ZM200-200h160v-80H200v80Zm160-320Zm240-160Zm0 240ZM360-280Z"/></svg></a><a href="/zh-CN/portfolio.html" class="navi_link button" aria-label="项目"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M619-108q-11 11-25.5 17T563-85q-16 0-31-6t-26-17l-56-56q-11-11-16.5-24.5T427-216q-1-14 3.5-28t13.5-26l6-8-326-466 156-156 509 509q11 11 17 25.5t6 30.5q0 16-6 31t-17 26L619-108ZM507-335l113-112-340-340-52 52 279 400Zm56 170 169-169-56-57-170 170 57 56Zm-56-170 113-112-113 112Z"/></svg></a><a href="/zh-CN/about.html" class="navi_link button" aria-label="关于"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#434343"><path d="M194-80v-395h80v315h280v-193l105-105q29-29 45-65t16-77q0-40-16.5-76T659-741l-25-26-127 127H347l-43 43-57-56 67-67h160l160-160 82 82q40 40 62 90.5T800-600q0 57-22 107.5T716-402l-82 82v240H194Zm197-187L183-475q-11-11-17-26t-6-31q0-16 6-30.5t17-25.5l84-85 124 123q28 28 43.5 64.5T450-409q0 40-15 76.5T391-267Z"/></svg></a>
+          <div class="sidebar-tools" role="group" aria-label="社交链接与语言" data-placement="left"><button type="button" class="sidebar-tool language-trigger" aria-controls="site-language-menu-navi" aria-expanded="false" aria-label="选择语言" title="选择语言"><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="m5 8 6 6M4 14l6-6 2-3M2 5h12M7 2h1m14 20-5-10-5 10M14 18h6"/></svg></button>
+            <div class="language-menu" id="site-language-menu-navi" aria-label="选择语言">
+              <p class="language-caption"><span lang="zh-CN">选择语言</span></p>
+<a href="/en-US/pages/blogs/swe_shallow_water_and_foam.html" class="language-choice" data-locale="en-US"><span lang="en-US">English</span><span class="language-code">en-US</span><span class="language-check" aria-hidden="true"></span></a><a href="/zh-CN/pages/blogs/swe_shallow_water_and_foam.html" class="language-choice" data-locale="zh-CN" aria-current="true"><span lang="zh-CN">简体中文</span><span class="language-code">zh-CN</span><span class="language-check" aria-hidden="true">✓</span></a></div>
+          </div>
+        </div>
+      </div>
+      <nav class="article-toc" aria-label="文章目录" lang="zh-CN">
+        <ul class="article-toc__column" data-depth="0">
+          <li><a href="#heading1_0" class="article-toc__link" id="toc-link-heading1_0" aria-label="前言"><span class="article-toc__tick" aria-hidden="true"></span><span class="article-toc__label">前言</span></a></li>
+          <li><a href="#heading1_1" class="article-toc__link" id="toc-link-heading1_1" aria-label="一、水体 - 浅水方程（SWE）" aria-controls="toc-children-heading1_1" aria-expanded="false"><span class="article-toc__tick" aria-hidden="true"></span><span class="article-toc__label">一、水体 - 浅水方程（SWE）</span></a></li>
+          <li><a href="#heading1_2" class="article-toc__link" id="toc-link-heading1_2" aria-label="二、浅水泡沫" aria-controls="toc-children-heading1_2" aria-expanded="false"><span class="article-toc__tick" aria-hidden="true"></span><span class="article-toc__label">二、浅水泡沫</span></a></li>
+          <li><a href="#heading1_3" class="article-toc__link" id="toc-link-heading1_3" aria-label="三、泡沫着色" aria-controls="toc-children-heading1_3" aria-expanded="false"><span class="article-toc__tick" aria-hidden="true"></span><span class="article-toc__label">三、泡沫着色</span></a></li>
+          <li><a href="#heading1_4" class="article-toc__link" id="toc-link-heading1_4" aria-label="结语"><span class="article-toc__tick" aria-hidden="true"></span><span class="article-toc__label">结语</span></a></li>
+        </ul>
+        <ul class="article-toc__column" data-depth="1" id="toc-children-heading1_1" data-parent="heading1_1" aria-labelledby="toc-link-heading1_1" hidden="hidden">
+          <li><a href="#heading3_0" class="article-toc__link" id="toc-link-heading3_0" aria-label="1. 浅水方程一阶求解器"><span class="article-toc__tick" aria-hidden="true"></span><span class="article-toc__label">1. 浅水方程一阶求解器</span></a></li>
+          <li><a href="#heading3_1" class="article-toc__link" id="toc-link-heading3_1" aria-label="2. 用法线模拟短波"><span class="article-toc__tick" aria-hidden="true"></span><span class="article-toc__label">2. 用法线模拟短波</span></a></li>
+          <li><a href="#heading3_2" class="article-toc__link" id="toc-link-heading3_2" aria-label="3. SWE 与碰撞体求解"><span class="article-toc__tick" aria-hidden="true"></span><span class="article-toc__label">3. SWE 与碰撞体求解</span></a></li>
+          <li><a href="#heading3_3" class="article-toc__link" id="toc-link-heading3_3" aria-label="4. 二阶求解器"><span class="article-toc__tick" aria-hidden="true"></span><span class="article-toc__label">4. 二阶求解器</span></a></li>
+        </ul>
+        <ul class="article-toc__column" data-depth="1" id="toc-children-heading1_2" data-parent="heading1_2" aria-labelledby="toc-link-heading1_2" hidden="hidden">
+          <li><a href="#heading3_4" class="article-toc__link" id="toc-link-heading3_4" aria-label="1. 随水移动 &amp; 汇聚变浓"><span class="article-toc__tick" aria-hidden="true"></span><span class="article-toc__label">1. 随水移动 &amp; 汇聚变浓</span></a></li>
+          <li><a href="#heading3_5" class="article-toc__link" id="toc-link-heading3_5" aria-label="2. 泡沫生成"><span class="article-toc__tick" aria-hidden="true"></span><span class="article-toc__label">2. 泡沫生成</span></a></li>
+          <li><a href="#heading3_6" class="article-toc__link" id="toc-link-heading3_6" aria-label="3. 逐渐消失"><span class="article-toc__tick" aria-hidden="true"></span><span class="article-toc__label">3. 逐渐消失</span></a></li>
+          <li><a href="#heading3_7" class="article-toc__link" id="toc-link-heading3_7" aria-label="4. 新鲜泡沫转为残余泡沫"><span class="article-toc__tick" aria-hidden="true"></span><span class="article-toc__label">4. 新鲜泡沫转为残余泡沫</span></a></li>
+          <li><a href="#heading3_8" class="article-toc__link" id="toc-link-heading3_8" aria-label="汇总"><span class="article-toc__tick" aria-hidden="true"></span><span class="article-toc__label">汇总</span></a></li>
+        </ul>
+        <ul class="article-toc__column" data-depth="1" id="toc-children-heading1_3" data-parent="heading1_3" aria-labelledby="toc-link-heading1_3" hidden="hidden">
+          <li><a href="#heading3_9" class="article-toc__link" id="toc-link-heading3_9" aria-label="泡沫扭曲"><span class="article-toc__tick" aria-hidden="true"></span><span class="article-toc__label">泡沫扭曲</span></a></li>
+          <li><a href="#heading3_10" class="article-toc__link" id="toc-link-heading3_10" aria-label="泡沫纹理"><span class="article-toc__tick" aria-hidden="true"></span><span class="article-toc__label">泡沫纹理</span></a></li>
+        </ul>
+      </nav>
+    </div>
+    <script src="/assets/js/article-toc.js" defer="defer"></script>
+    <script src="/assets/js/article-components.js" defer="defer"></script>
+    <script type="application/json" id="site-language-config">{"root":false,"default":"en-US","locales":[{"tag":"en-US","language":"en","matchDefault":true,"url":"/en-US/pages/blogs/swe_shallow_water_and_foam.html"},{"tag":"zh-CN","language":"zh","script":"Hans","matchDefault":true,"url":"/zh-CN/pages/blogs/swe_shallow_water_and_foam.html"}]}</script>
+    <script src="/assets/js/site-language.js" defer="defer"></script>
+  </body>
+</html>
